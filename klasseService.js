@@ -141,21 +141,6 @@ const klasseService = {
                 id: 'zauberdieb',
                 name: 'Zauberdieb',
                 beschreibung: 'Du kannst Zauber "stehlen", die du beobachtest. "Stehlen" heißt in diesem Fall eher "kopieren" - du stiehlst das Wissen. Du musst einen Zauber ausgiebig beobachten und genau verstanden haben und eine Probe auf WI ablegen, um den Zauber erfolgreich einsetzen zu können. Gestohlene Zauber erhalten weder eine Beschreibung noch MP-Kosten, diese musst du durch ausprobieren selbst herausfinden. Es gibt kein Limit dafür, wie viele Zauber du dir so aneignen kannst. Du kannst so keine Zauber lernen, deren Level höher ist als dein MA-Wert!'
-            },
-            {
-                id: 'beschwörer',
-                name: 'Beschwörer',
-                beschreibung: 'Alles, was du mit einem Beschwörungszauber beschwörst, erhält +50% max KP (aufgerundet).'
-            },
-            {
-                id: 'beschwörer',
-                name: 'Beschwörer',
-                beschreibung: 'Alles, was du mit einem Beschwörungszauber beschwörst, erhält +50% max KP (aufgerundet).'
-            },
-            {
-                id: 'beschwörer',
-                name: 'Beschwörer',
-                beschreibung: 'Alles, was du mit einem Beschwörungszauber beschwörst, erhält +50% max KP (aufgerundet).'
             }
         ];
     }

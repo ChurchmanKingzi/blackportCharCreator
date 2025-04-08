@@ -420,7 +420,7 @@ const itemService = {
         {
             id: "gedankenbrille",
             name: "Gedankenbrille",
-            beschreibung: "Eine Brille mit auffälligen spiralen auf den Gläsern. Wenn du durch diese Gläser einem Ziel in die Augen schaust, kannst du seine Gedanken lesen, solange der Blickkontakt besteht.",
+            beschreibung: "Eine Brille mit auffälligen Spiralen auf den Gläsern. Wenn du durch diese Gläser einem Ziel in die Augen schaust, kannst du seine Gedanken lesen, solange der Blickkontakt besteht.",
             anzahl: 1
         },
         {
