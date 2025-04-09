@@ -1,5 +1,3 @@
-// spellbookManager.js - Funktionalität für das Zauberbuch
-
 document.addEventListener('DOMContentLoaded', function() {
     // Referenzen auf DOM-Elemente
     const spellSlotsContainer = document.getElementById('spell-slots-container');
@@ -44,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
     /**
      * Aktualisiert die Anzahl der Zauberslots basierend auf MA und Vorteilen
      */
-
     function updateSpellSlots() {
         // MA-Wert auslesen
         const maValue = parseInt(maInput.value) || 1;
@@ -105,6 +102,55 @@ document.addEventListener('DOMContentLoaded', function() {
         if (typeof updateSpellCosts === 'function') {
             updateSpellCosts();
         }
+
+        // Zauberlevel-Einschränkungen aktualisieren
+        updateSpellLevelRestrictions(maValue);
+    }
+    
+    /**
+     * Aktualisiert die Level-Einschränkungen für Zauber basierend auf dem MA-Wert
+     * @param {number} maValue - Der aktuelle MA-Wert
+     */
+    function updateSpellLevelRestrictions(maValue) {
+        // Prüfen, ob der Nachteil "Einarmig" gewählt ist
+        const hasOneArmDisadvantage = disadvantageSelect.value === 'einarmig';
+        
+        // Alle Zauber-Selects durchgehen
+        const spellSelects = document.querySelectorAll('.spell-select');
+        spellSelects.forEach(select => {
+            // Alle Optionen in diesem Select durchgehen
+            Array.from(select.options).forEach(option => {
+                // Nur relevante Optionen bearbeiten (mit Level-Attribut)
+                if (option.dataset && option.dataset.level) {
+                    const spellLevel = parseInt(option.dataset.level);
+                    
+                    // Bei "Einarmig" darf der Zauber-Level auch nicht gleich dem MA sein
+                    if ((hasOneArmDisadvantage && spellLevel >= maValue) || 
+                        (!hasOneArmDisadvantage && spellLevel > maValue)) {
+                        // Zauber ist zu hoch-levelig
+                        option.disabled = true;
+                        option.classList.add('spell-too-high-level');
+                    } else {
+                        // Zauber ist verfügbar
+                        option.disabled = false;
+                        option.classList.remove('spell-too-high-level');
+                    }
+                }
+            });
+            
+            // Prüfen, ob die aktuelle Auswahl noch gültig ist
+            if (select.value) {
+                const selectedOption = select.options[select.selectedIndex];
+                if (selectedOption && selectedOption.disabled) {
+                    // Aktuell ausgewählter Zauber ist zu hoch-levelig - zurücksetzen
+                    select.value = '';
+                    
+                    // Change-Event manuell auslösen
+                    const event = new Event('change', { bubbles: true });
+                    select.dispatchEvent(event);
+                }
+            }
+        });
     }
     
     /**
@@ -150,6 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
         spellSelect.appendChild(placeholderOption);
         
         // Zauber-Optionen hinzufügen, gruppiert nach Magieschulen
+        // WICHTIG: Nur Zauber aus dem spellService verwenden
         const allSpells = spellService.getAllZauber();
         
         // Sortiere Zauber nach Magieschulen in der gewünschten Reihenfolge
@@ -182,7 +229,14 @@ document.addEventListener('DOMContentLoaded', function() {
             spellSelect.appendChild(separator);
             
             // Füge alle Zauber der aktuellen Schule hinzu
-            const schulZauber = allSpells.filter(zauber => zauber.magieschule === schule);
+            // SICHERSTELLEN, dass wir nur aus dem offiziellen spellService-Zauber nehmen
+            const schulZauber = allSpells.filter(zauber => {
+                // Prüfen, ob der Zauber wirklich aus dem spellService stammt
+                // und nicht ein Klassen-Zauber ist
+                return zauber.magieschule === schule && 
+                    // Sicherstellen, dass der Zauber in der ursprünglichen spellService.zauber Liste ist
+                    spellService.getZauberById(zauber.id) === zauber;
+            });
             
             // Sortiere Zauber innerhalb der Schule nach Level und dann nach Namen
             schulZauber.sort((a, b) => {
@@ -358,4 +412,10 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(window.checkClassSpells, 50);
         }
     }
+
+    // Die Funktionen explizit global verfügbar machen
+    window.updateSpellSlots = updateSpellSlots;
+    window.updateSpellCosts = updateSpellCosts;
+    window.onMAValueChanged = onMAValueChanged;
+    window.updateSpellLevelRestrictions = updateSpellLevelRestrictions;
 });

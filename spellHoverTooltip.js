@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Info über Sperrung hinzufügen, falls der Zauber deaktiviert ist
                         let disabledInfo = "";
                         if (this.classList.contains('disabled')) {
-                            disabledInfo = `<p style="margin: 5px 0; color: #f44336;"><strong>Hinweis:</strong> Dieser Zauber ist für deinen Charakter derzeit nicht verfügbar.</p>`;
+                            disabledInfo = `<p style="margin: 5px 0; color: #f44336;"><strong>Hinweis:</strong> Dieser Zauber ist für deinen Charakter derzeit nicht verfügbar. <strong>Erhöhe deinen MA-Wert!</strong></p>`;
                         }
                         
                         // Tooltip-Inhalt setzen
@@ -445,6 +445,10 @@ document.addEventListener('DOMContentLoaded', function() {
         document.addEventListener('click', function() {
             dropdownList.style.display = 'none';
         });
+
+        if (typeof makeCustomDropdownSearchable === 'function') {
+            makeCustomDropdownSearchable(dropdownList, selectElement);
+        }
     }
     
     /**
@@ -530,6 +534,212 @@ document.addEventListener('DOMContentLoaded', function() {
         const container = document.getElementById('spell-slots-container');
         if (container) {
             observer.observe(container, { childList: true, subtree: true });
+        }
+    }
+
+    
+
+    /**
+     * Macht ein benutzerdefiniertes Dropdown-Menü suchbar und fügt Enter-Tasten-Unterstützung hinzu
+     * @param {HTMLElement} dropdownList - Das Container-Element für die Dropdown-Optionen
+     * @param {HTMLSelectElement} originalSelect - Das Original-Select-Element
+     */
+    function makeCustomDropdownSearchable(dropdownList, originalSelect) {
+        // Suchpuffer und Timer für die Suche
+        let searchBuffer = '';
+        let searchTimer = null;
+        let highlightedOption = null;
+        
+        // Event-Listener für Tastaturereignisse
+        document.addEventListener('keydown', function(e) {
+            // Nur aktiv, wenn das Dropdown sichtbar ist
+            if (dropdownList.style.display !== 'block') {
+                return;
+            }
+            
+            // Behandlung der Enter-Taste
+            if (e.key === 'Enter' || e.keyCode === 13) {
+                console.log('Enter-Taste in Zauber-Dropdown erkannt');
+                
+                // Wenn eine Option hervorgehoben ist
+                if (highlightedOption && !highlightedOption.classList.contains('disabled')) {
+                    console.log('Hervorgehobene Option wird ausgewählt:', highlightedOption.textContent);
+                    
+                    // Simuliere einen Klick auf die Option
+                    try {
+                        // MouseEvent erstellen und dispatchen für robustere Interaktion
+                        const clickEvent = new MouseEvent('click', {
+                            view: window,
+                            bubbles: true,
+                            cancelable: true
+                        });
+                        highlightedOption.dispatchEvent(clickEvent);
+                        
+                        // Verhindere das Standard-Enter-Verhalten
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return true;
+                    } catch (error) {
+                        console.error('Fehler beim Klick-Simulieren:', error);
+                        // Fallback: Native click()-Methode
+                        highlightedOption.click();
+                        e.preventDefault();
+                        return true;
+                    }
+                } else {
+                    console.log('Keine hervorgehobene Option oder Option deaktiviert');
+                }
+            }
+            
+            // Ignorieren, wenn es sich um andere Steuerungstasten handelt
+            if (e.key.length > 1) {
+                // Bei Escape-Taste auch den Suchpuffer leeren
+                if (e.key === 'Escape') {
+                    searchBuffer = '';
+                    highlightedOption = null;
+                }
+                return;
+            }
+            
+            // Zeichen zum Suchpuffer hinzufügen
+            searchBuffer += e.key.toLowerCase();
+            console.log('Suchbuffer:', searchBuffer);
+            
+            // Timer zurücksetzen, um den Suchpuffer nach Inaktivität zu leeren
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(() => {
+                searchBuffer = '';
+                highlightedOption = null;
+            }, 1500); // 1,5 Sekunden Timeout
+            
+            // Alle suchbaren Optionen sammeln (keine Überschriften/Trennlinien)
+            const allOptions = Array.from(dropdownList.children).filter(child => {
+                return child.classList.contains('custom-dropdown-option') && 
+                    !child.classList.contains('custom-dropdown-separator');
+            });
+            
+            console.log("Durchsuchbare Optionen:", allOptions.length);
+            
+            // Jeden Zauber überprüfen
+            let found = false;
+            for (let i = 0; i < allOptions.length; i++) {
+                const option = allOptions[i];
+                const text = option.textContent.trim().toLowerCase();
+                
+                // Wenn der Text mit dem Suchpuffer beginnt, diese Option hervorheben
+                if (text.startsWith(searchBuffer)) {                    
+                    // Option speichern und hervorheben
+                    highlightedOption = option;
+                    highlightAndScrollToOption(option, allOptions, dropdownList);
+                    
+                    console.log('Gefundene Option:', option.textContent);
+                    found = true;
+                    break;
+                }
+            }
+            
+            if (!found) {
+                console.log("Kein Treffer für:", searchBuffer);
+                highlightedOption = null;
+            }
+        });
+        
+        // Beim Öffnen des Dropdowns Suchpuffer zurücksetzen
+        const dropdownButton = dropdownList.previousElementSibling;
+        if (dropdownButton) {
+            dropdownButton.addEventListener('click', function() {
+                searchBuffer = '';
+                highlightedOption = null;
+            });
+        }
+        
+        // Event-Listener für Enter-Taste auf dem Dropdown selbst
+        dropdownList.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.keyCode === 13) {
+                console.log('Enter direkt im Dropdown erkannt');
+                
+                if (highlightedOption && !highlightedOption.classList.contains('disabled')) {
+                    console.log('Dropdown-lokale Enter-Behandlung - Option wird geklickt');
+                    highlightedOption.click();
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            }
+        });
+        
+        // Funktion zum Hervorheben und Scrollen
+        function highlightAndScrollToOption(option, allOptions, container) {
+            // Alle Optionen zurücksetzen
+            allOptions.forEach(opt => {
+                // Originale Hintergrundfarbe wiederherstellen
+                if (opt.dataset.originalBgColor) {
+                    opt.style.backgroundColor = opt.dataset.originalBgColor;
+                } else if (opt.style.backgroundColor) {
+                    // Speichern der original Hintergrundfarbe, falls sie noch nicht gespeichert wurde
+                    opt.dataset.originalBgColor = opt.style.backgroundColor;
+                } else {
+                    // Leeren, falls keine Hintergrundfarbe gesetzt ist
+                    opt.style.backgroundColor = '';
+                }
+            });
+            
+            // Ausgewählte Option hervorheben mit deutlicher Farbe
+            option.style.backgroundColor = 'rgba(76, 175, 80, 0.5)'; // Kräftigeres Grün für bessere Sichtbarkeit
+            
+            // Zum Element scrollen
+            option.scrollIntoView({ block: 'nearest', behavior: 'auto' });
+        }
+    }
+
+    /**
+     * Hebt eine benutzerdefinierte Option hervor und stellt sicher, dass sie sichtbar ist
+     * @param {HTMLElement} option - Die hervorzuhebende Option
+     * @param {Array} allOptions - Alle Optionen im Dropdown
+     * @param {HTMLElement} container - Der Container mit dem Dropdown
+     */
+    function highlightCustomOption(option, allOptions, container) {
+        // Zurücksetzen aller anderen Optionen
+        allOptions.forEach(opt => {
+            opt.style.backgroundColor = '';
+            if (opt.classList.contains('selected')) {
+                // Ursprüngliche Farbe für ausgewählte Optionen wiederherstellen
+                opt.style.backgroundColor = '#e0e0e0';
+            } else if (opt.dataset && opt.dataset.magieschule) {
+                // Ursprüngliche Farben für Magieschul-Optionen wiederherstellen
+                const magieschule = opt.dataset.magieschule;
+                let bgColor = '';
+                
+                switch(magieschule) {
+                    case 'zerstoerung':
+                        bgColor = 'rgba(255, 0, 0, 0.05)';
+                        break;
+                    case 'unterstuetzung':
+                        bgColor = 'rgba(255, 215, 0, 0.05)';
+                        break;
+                    case 'verfall':
+                        bgColor = 'rgba(128, 0, 128, 0.05)';
+                        break;
+                    case 'magiekunst':
+                        bgColor = 'rgba(0, 0, 255, 0.05)';
+                        break;
+                    case 'beschwoerung':
+                        bgColor = 'rgba(0, 128, 0, 0.05)';
+                        break;
+                }
+                
+                opt.style.backgroundColor = bgColor;
+            }
+        });
+        
+        // Hervorheben der gefundenen Option
+        option.style.backgroundColor = 'rgba(76, 175, 80, 0.2)'; // Leichtes Grün
+        
+        // Sicherstellen, dass die Option sichtbar ist
+        const optionRect = option.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        
+        if (optionRect.top < containerRect.top || optionRect.bottom > containerRect.bottom) {
+            option.scrollIntoView({ block: 'nearest' });
         }
     }
 });

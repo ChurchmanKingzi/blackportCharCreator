@@ -1,5 +1,3 @@
-// inventoryManager.js - Funktionalität für das Inventarsystem
-
 document.addEventListener('DOMContentLoaded', function() {
     // Referenzen auf DOM-Elemente
     const inventoryContainer = document.getElementById('inventory-container');
@@ -228,16 +226,39 @@ document.addEventListener('DOMContentLoaded', function() {
         selectElement.addEventListener('focus', function() {
             // Bei Fokus das Dropdown vergrößern
             this.size = Math.min(8, this.options.length);
+            
+            // WICHTIG: Position und Größe des Elements merken, bevor wir es absolut positionieren
+            const rect = this.getBoundingClientRect();
+            const parentRect = this.parentElement.getBoundingClientRect();
+            
+            // Absolute Positionierung hinzufügen
+            this.style.position = 'absolute';
+            this.style.zIndex = '1000';
+            this.style.backgroundColor = 'white';
+            
+            // Position exakt beibehalten
+            this.style.width = rect.width + 'px';
+            this.style.left = '0'; // Standard-Position relativ zum Elternelement
+            this.style.top = '0';  // Standard-Position relativ zum Elternelement
+            
+            // Wenn nötig einen Schatten hinzufügen für bessere Sichtbarkeit
+            this.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
         });
         
         selectElement.addEventListener('blur', function() {
             // Bei Verlust des Fokus das Dropdown normal machen
             this.size = 1;
+            // Position zurücksetzen
+            this.style.position = '';
+            this.style.zIndex = '';
         });
         
         selectElement.addEventListener('change', function() {
             // Bei Änderung das Dropdown normal machen
             this.size = 1;
+            // Position zurücksetzen
+            this.style.position = '';
+            this.style.zIndex = '';
         });
         
         // Event-Listener für Mouseover auf Optionen

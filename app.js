@@ -551,6 +551,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 showTooltip(this.id, selectedItem.name, selectedItem.beschreibung);
             }
         });
+
+        if (typeof makeCustomDropdownSearchable === 'function') {
+            makeCustomDropdownSearchable(dropdownList, selectElement);
+        }
     }
     
     // Funktion zum Anzeigen einer permanenten Beschreibung bei Auswahl
@@ -737,32 +741,143 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Kampfwerte aktualisieren
                 updateCombatStats();
                 
-                // Zauberslots aktualisieren - direkt die Funktion aufrufen
-                if (typeof window.updateSpellSlots === 'function') {
-                    window.updateSpellSlots();
-                }
+                // Hier beginnt die spezielle Behandlung für die MA-Änderung und Zauber
                 
-                // Zauberslots aktualisieren, falls das MA-Attribut geändert wurde
-                // Diese Zeilen können jetzt entfallen oder als Fallback bleiben
-                if (typeof window.updateSpellSlots !== 'function') {
-                    // Alternativ: Event auslösen
-                    const event = new CustomEvent('ma-value-changed', { 
-                        detail: { 
-                            value: 1,
-                            action: 'update'
-                        } 
+                // Die direkte MA-Änderung simulieren (statt den gewöhnlichen Event-Handler)
+                const maInput = document.querySelector('.attribute-column:nth-child(4) h3:nth-of-type(2) .main-attribute-value');
+                if (maInput) {
+                    // 1. Versuche den direkten Zugriff auf die globale updateSpellSlots-Funktion
+                    if (typeof window.updateSpellSlots === 'function') {
+                        console.log('Rufe updateSpellSlots direkt auf');
+                        window.updateSpellSlots();
+                    } 
+                    // 2. Alternativ versuche den Zugriff auf onMAValueChanged
+                    else if (typeof window.onMAValueChanged === 'function') {
+                        console.log('Rufe onMAValueChanged auf');
+                        window.onMAValueChanged();
+                    }
+                    // 3. Triggere einen Eingabe-Event auf dem MA-Feld
+                    else {
+                        console.log('Triggere Eingabe-Event auf MA-Feld');
+                        // Inputevent auslösen
+                        const inputEvent = new Event('input', { bubbles: true });
+                        maInput.dispatchEvent(inputEvent);
+                        
+                        // Change-Event auslösen
+                        const changeEvent = new Event('change', { bubbles: true });
+                        maInput.dispatchEvent(changeEvent);
+                        
+                        // Blur-Event auslösen
+                        const blurEvent = new Event('blur', { bubbles: true });
+                        maInput.dispatchEvent(blurEvent);
+                    }
+                    
+                    // 4. Manuelles MA-geändert-Event auslösen für andere Komponenten
+                    const maEvent = new CustomEvent('ma-value-changed', { 
+                        detail: { value: 1, action: 'reset' } 
                     });
-                    document.dispatchEvent(event);
+                    document.dispatchEvent(maEvent);
                 }
                 
-                // Zusätzlich: Grimoire-Check und Klassenzauber aktualisieren
+                // 5. Grimoire-Handler aktualisieren
                 if (typeof window.checkGrimoireItems === 'function') {
+                    console.log('Prüfe Grimoire-Items');
                     window.checkGrimoireItems();
                 }
                 
+                // 6. Klassenzauber aktualisieren
                 if (typeof window.checkClassSpells === 'function') {
+                    console.log('Prüfe Klassenzauber');
                     window.checkClassSpells();
                 }
+                
+                // 7. Explizite Aktualisierung der Zauberlevel-Einschränkungen, falls verfügbar
+                if (typeof window.updateSpellLevelRestrictions === 'function') {
+                    console.log('Aktualisiere Zauberlevel-Einschränkungen');
+                    window.updateSpellLevelRestrictions(1);
+                }
+                
+                // 8. Maximaler Fallback: Verzögerte Aktualisierung aller Komponenten
+                setTimeout(function() {
+                    console.log('Verzögerte Aktualisierung ausführen');
+                    
+                    // Verzögerter erneuter Versuch, die Funktionen aufzurufen
+                    if (typeof window.updateSpellSlots === 'function') {
+                        window.updateSpellSlots();
+                    }
+                    
+                    if (typeof window.checkGrimoireItems === 'function') {
+                        window.checkGrimoireItems();
+                    }
+                    
+                    if (typeof window.checkClassSpells === 'function') {
+                        window.checkClassSpells();
+                    }
+                    
+                    // Letzter Versuch: Ein weiteres MA-geändert-Event
+                    const finalMaEvent = new CustomEvent('ma-value-changed', { 
+                        detail: { value: 1, action: 'final-reset' } 
+                    });
+                    document.dispatchEvent(finalMaEvent);
+                }, 300);
+            }
+        });
+    }
+    
+    /**
+     * Aktualisiert die Level-Einschränkungen für Zauber basierend auf dem MA-Wert
+     * @param {number} maValue - Der neue MA-Wert
+     */
+    function updateSpellLevelRestrictions(maValue) {
+        // Prüfen, ob der Nachteil "Einarmig" gewählt ist
+        const disadvantageSelect = document.getElementById('disadvantage');
+        const hasOneArmDisadvantage = disadvantageSelect && disadvantageSelect.value === 'einarmig';
+        
+        const spellSelects = document.querySelectorAll('.spell-select');
+        spellSelects.forEach(select => {
+            // Alle Optionen in diesem Select durchgehen
+            Array.from(select.options).forEach(option => {
+                // Nur relevante Optionen bearbeiten (mit Level-Attribut)
+                if (option.dataset && option.dataset.level) {
+                    const spellLevel = parseInt(option.dataset.level);
+                    
+                    // Bei "Einarmig" darf der Zauber-Level auch nicht gleich dem MA sein
+                    if ((hasOneArmDisadvantage && spellLevel >= maValue) || 
+                        (!hasOneArmDisadvantage && spellLevel > maValue)) {
+                        // Zauber ist zu hoch-levelig
+                        option.disabled = true;
+                        option.classList.add('spell-too-high-level');
+                    } else {
+                        // Zauber ist verfügbar
+                        option.disabled = false;
+                        option.classList.remove('spell-too-high-level');
+                    }
+                }
+            });
+            
+            // Prüfen, ob die aktuelle Auswahl noch gültig ist
+            if (select.value) {
+                const selectedOption = select.options[select.selectedIndex];
+                if (selectedOption && selectedOption.disabled) {
+                    // Aktuell ausgewählter Zauber ist zu hoch-levelig - zurücksetzen
+                    select.value = '';
+                    
+                    // Change-Event manuell auslösen
+                    const event = new Event('change', { bubbles: true });
+                    select.dispatchEvent(event);
+                }
+            }
+        });
+        const customDropdowns = document.querySelectorAll('.custom-dropdown-option[data-level]');
+        customDropdowns.forEach(option => {
+            const spellLevel = parseInt(option.dataset.level);
+            
+            // Gleiche Logik wie oben
+            if ((hasOneArmDisadvantage && spellLevel >= maValue) || 
+                (!hasOneArmDisadvantage && spellLevel > maValue)) {
+                option.classList.add('disabled');
+            } else {
+                option.classList.remove('disabled');
             }
         });
     }
@@ -896,6 +1011,124 @@ document.addEventListener('DOMContentLoaded', function() {
         
         return results;
     }
+
+    /**
+     * Macht ein benutzerdefiniertes Dropdown-Menü suchbar
+     * @param {HTMLElement} dropdownList - Das Container-Element für die Dropdown-Optionen
+     * @param {HTMLSelectElement} originalSelect - Das Original-Select-Element
+     */
+    function makeCustomDropdownSearchable(dropdownList, originalSelect) {
+        // Suchpuffer und Timer für die Suche
+        let searchBuffer = '';
+        let searchTimer = null;
+        
+        // Event-Listener für Tastaturereignisse, wenn das Dropdown geöffnet ist
+        document.addEventListener('keydown', function(e) {
+            // Nur aktiv, wenn das Dropdown sichtbar ist
+            if (dropdownList.style.display !== 'block') {
+                return;
+            }
+            
+            // Ignorieren, wenn es sich um Steuerungstasten handelt (Tab, Pfeiltasten etc.)
+            if (e.key.length > 1) {
+                // Bei Escape-Taste auch den Suchpuffer leeren
+                if (e.key === 'Escape') {
+                    searchBuffer = '';
+                }
+                return;
+            }
+            
+            // Zeichen zum Suchpuffer hinzufügen
+            searchBuffer += e.key.toLowerCase();
+            
+            // Timer zurücksetzen, um den Suchpuffer nach Inaktivität zu leeren
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(() => {
+                searchBuffer = '';
+            }, 1000); // 1 Sekunde Timeout
+            
+            // Suche nach passender Option
+            const options = Array.from(dropdownList.querySelectorAll('.custom-dropdown-option, .custom-select-option'));
+            
+            for (let i = 0; i < options.length; i++) {
+                const option = options[i];
+                
+                // Überspringen von deaktivierten Optionen
+                if (option.classList.contains('disabled')) continue;
+                
+                const text = option.textContent.toLowerCase();
+                
+                // Wenn der Text mit dem Suchpuffer beginnt, diese Option hervorheben
+                if (text.startsWith(searchBuffer)) {
+                    // Markieren und sichtbar machen
+                    highlightCustomOption(option, options, dropdownList);
+                    
+                    // Keine weiteren Optionen prüfen
+                    break;
+                }
+            }
+        });
+        
+        // Suchpuffer bei Öffnung des Dropdowns leeren
+        dropdownList.addEventListener('DOMNodeInserted', function() {
+            searchBuffer = '';
+        });
+    }
+
+    /**
+     * Hebt eine benutzerdefinierte Option hervor und stellt sicher, dass sie sichtbar ist
+     * @param {HTMLElement} option - Die hervorzuhebende Option
+     * @param {Array} allOptions - Alle Optionen im Dropdown
+     * @param {HTMLElement} container - Der Container mit dem Dropdown
+     */
+    function highlightCustomOption(option, allOptions, container) {
+        // Zurücksetzen aller anderen Optionen
+        allOptions.forEach(opt => {
+            opt.style.backgroundColor = '';
+            if (opt.classList.contains('selected')) {
+                // Ursprüngliche Farbe für ausgewählte Optionen wiederherstellen
+                opt.style.backgroundColor = '#e0e0e0';
+            } else if (opt.dataset && opt.dataset.magieschule) {
+                // Ursprüngliche Farben für Magieschul-Optionen wiederherstellen
+                const magieschule = opt.dataset.magieschule;
+                let bgColor = '';
+                
+                switch(magieschule) {
+                    case 'zerstoerung':
+                        bgColor = 'rgba(255, 0, 0, 0.05)';
+                        break;
+                    case 'unterstuetzung':
+                        bgColor = 'rgba(255, 215, 0, 0.05)';
+                        break;
+                    case 'verfall':
+                        bgColor = 'rgba(128, 0, 128, 0.05)';
+                        break;
+                    case 'magiekunst':
+                        bgColor = 'rgba(0, 0, 255, 0.05)';
+                        break;
+                    case 'beschwoerung':
+                        bgColor = 'rgba(0, 128, 0, 0.05)';
+                        break;
+                }
+                
+                opt.style.backgroundColor = bgColor;
+            }
+        });
+        
+        // Hervorheben der gefundenen Option
+        option.style.backgroundColor = 'rgba(76, 175, 80, 0.2)'; // Leichtes Grün
+        
+        // Sicherstellen, dass die Option sichtbar ist
+        const optionRect = option.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        
+        if (optionRect.top < containerRect.top || optionRect.bottom > containerRect.bottom) {
+            option.scrollIntoView({ block: 'nearest' });
+        }
+    }
+
+    // In app.js nach setupSelectWithTooltips hinzufügen:
+    // makeCustomDropdownSearchable(dropdownList, selectElement);
     
     // Nach dem Laden prüfen, ob doppelte Klasse korrekt aktiviert ist
     setTimeout(() => {

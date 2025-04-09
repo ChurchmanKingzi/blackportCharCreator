@@ -90,7 +90,7 @@ const vorteilService = {
             {
                 id: 'regenerativ',
                 name: 'Regenerativ',
-                beschreibung: 'Du hast einen Heilungsfaktor, der an Eidechsen erinnert und nicht mehr als menschlich bezeichnet werden kann. Nach einer Nacht Schlaf wirst du von 1W4 Wunden geheilt, was jede Art von Verletzung abdecken kann. Sogar fehlende Gliedmaßen wachsen bei dir einfach nach!'
+                beschreibung: 'Du hast einen Heilungsfaktor, der an Eidechsen erinnert und nicht mehr als menschlich bezeichnet werden kann. Nach einer Nacht Schlaf wirst du von 1W4 Wunden geheilt, was jede Art von Verletzung abdecken kann. Sogar fehlende Gliedmaßen wachsen bei dir einfach nach! Ist nicht mit den Nachteilen Einarmig/Einbeinig kombinierbar.'
             },
             {
                 id: 'reich',

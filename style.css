@@ -73,7 +73,7 @@ select {
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     margin-bottom: 1px;
-    width: 50%;
+    width: 72%;
 }
 
 .form-grid-upper {
@@ -1178,11 +1178,6 @@ select {
     display: none !important;
   }
   
-  /* 3. Formularelement-Breite anpassen (20% breiter) */
-  .form-grid {
-    width: 60% !important; /* Statt 50% */
-  }
-  
   /* 4. X-Buttons im Inventar ausblenden */
   .remove-item-button {
     display: none !important;
@@ -1204,4 +1199,73 @@ select {
   .form-grid-lower {
     column-gap: 15px !important; /* Mehr Abstand zwischen den Spalten */
     row-gap: 15px !important; /* Mehr Abstand zwischen den Zeilen */
+  }
+
+  /* Neue Regeln für Item-Dropdowns im Inventar */
+
+/* Behälter für die Select-Elemente */
+.item-select-container {
+  position: relative; /* Wichtig, damit der absolute positionierte Select korrekt dargestellt wird */
+}
+
+/* Dropdown-Style für Item-Select Elemente im fokussierten Zustand */
+.item-select:focus {
+  position: absolute;
+  z-index: 1000;
+  background-color: white;
+  width: auto; /* Breite anpassen je nach Bedarf */
+  min-width: 100%; /* Mindestens so breit wie der Original-Dropdown */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid #aaa;
+}
+
+/* Stelle sicher, dass die Optionen ebenfalls gut aussehen */
+.item-select option {
+  padding: 8px;
+  background-color: white;
+}
+
+/* Zusätzliches Styling für das Item-Select */
+.item-select {
+  transition: none; /* Keine Transitions für Position */
+}
+
+/* Neue Regeln für Item-Dropdowns im Inventar */
+
+/* Behälter für die Select-Elemente */
+.item-select-container {
+    position: relative; /* Wichtig, damit der absolute positionierte Select korrekt dargestellt wird */
+  }
+  
+  /* Verbesserte Styles für die Select-Elemente, um korrekte Positionierung zu gewährleisten */
+  .item-select {
+    width: 100%; /* Standard-Breite */
+    padding: 8px; /* Konsistentes Padding */
+    appearance: auto; /* Standard-Darstellung des Browsers verwenden */
+    -webkit-appearance: auto;
+    -moz-appearance: auto;
+  }
+  
+  /* Dropdown-Style für Item-Select Elemente im fokussierten Zustand */
+  .item-select:focus {
+    position: absolute;
+    z-index: 1000;
+    background-color: white;
+    width: 100%; /* Gleiche Breite wie das ursprüngliche Element */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #4CAF50; /* Grüne Umrandung für bessere Sichtbarkeit */
+    outline: none; /* Kein zusätzlicher Browser-Fokus-Outline */
+    left: 0; /* An der linken Seite des Containers */
+    top: 0;  /* An der oberen Seite des Containers */
+  }
+  
+  /* Stelle sicher, dass die Optionen ebenfalls gut aussehen */
+  .item-select option {
+    padding: 8px;
+    background-color: white;
+  }
+  
+  /* Zusätzliches Styling für das Item-Select */
+  .item-select {
+    transition: none; /* Keine Transitions für Position */
   }
