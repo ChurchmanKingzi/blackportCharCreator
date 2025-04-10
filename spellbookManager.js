@@ -5,9 +5,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const magicSchoolSelect = document.getElementById('magic-school');
     const advantageSelect = document.getElementById('advantage');
     const disadvantageSelect = document.getElementById('disadvantage');
+    const classSelect = document.getElementById('class'); // Klassenauswahl hinzugefügt
+    const secondClassSelect = document.getElementById('second-class'); // Zweite Klassenauswahl hinzugefügt
     
     // Überwachung der MA-Änderung und Vorteil/Nachteil-Auswahl
     const maInput = document.querySelector('.attribute-column:nth-child(4) h3:nth-of-type(2) .main-attribute-value');
+    // CH-Input für die Scharlatan-Klasse
+    const chInput = document.querySelector('.attribute-column:nth-child(3) .main-attribute-value');
     
     // Überwachen der MA-Änderung - korrigiert Event-Listener
     if (maInput) {
@@ -21,6 +25,14 @@ document.addEventListener('DOMContentLoaded', function() {
         maInput.addEventListener('change', onMAValueChanged);
         maInput.addEventListener('blur', onMAValueChanged);
     }
+
+    // Überwachen der CH-Änderung für Scharlatan-Klasse
+    if (chInput) {
+        // Event-Listener für CH-Änderungen hinzufügen
+        chInput.addEventListener('input', onAttributeValueChanged);
+        chInput.addEventListener('change', onAttributeValueChanged);
+        chInput.addEventListener('blur', onAttributeValueChanged);
+    }
     
     // Überwachen der Vorteil/Nachteil-Änderung
     if (advantageSelect) {
@@ -29,6 +41,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (disadvantageSelect) {
         disadvantageSelect.addEventListener('change', updateSpellSlots);
+    }
+
+    // Überwachen der Klassenänderung
+    if (classSelect) {
+        classSelect.addEventListener('change', updateSpellSlots);
+    }
+
+    // Überwachen der zweiten Klassenänderung
+    if (secondClassSelect) {
+        secondClassSelect.addEventListener('change', updateSpellSlots);
     }
     
     // Überwachen der Magieschule-Änderung
@@ -45,6 +67,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateSpellSlots() {
         // MA-Wert auslesen
         const maValue = parseInt(maInput.value) || 1;
+        // CH-Wert für Scharlatan auslesen
+        const chValue = parseInt(chInput.value) || 1;
         
         // Prüfen, ob der Vorteil "Gelehrig" gewählt ist
         const advantageSelect = document.getElementById('advantage');
@@ -103,15 +127,24 @@ document.addEventListener('DOMContentLoaded', function() {
             updateSpellCosts();
         }
 
-        // Zauberlevel-Einschränkungen aktualisieren
-        updateSpellLevelRestrictions(maValue);
+        // Ermitteln, ob der Charakter die Klasse "Scharlatan" hat
+        // Wir müssen beide Klassenselects überprüfen
+        const isScharlatan = classSelect.value === 'scharlaten' || secondClassSelect.value === 'scharlaten';
+
+        // Zauberlevel-Einschränkungen aktualisieren - für Scharlatan mit CH statt MA
+        if (isScharlatan) {
+            updateSpellLevelRestrictions(chValue); // Für Scharlatan basierend auf CH
+        } else {
+            updateSpellLevelRestrictions(maValue); // Für normale Charaktere basierend auf MA
+        }
     }
     
     /**
      * Aktualisiert die Level-Einschränkungen für Zauber basierend auf dem MA-Wert
-     * @param {number} maValue - Der aktuelle MA-Wert
+     * (oder CH-Wert bei Scharlatan)
+     * @param {number} maxLevel - Der maximale Zauber-Level (MA oder CH bei Scharlatan)
      */
-    function updateSpellLevelRestrictions(maValue) {
+    function updateSpellLevelRestrictions(maxLevel) {
         // Prüfen, ob der Nachteil "Einarmig" gewählt ist
         const hasOneArmDisadvantage = disadvantageSelect.value === 'einarmig';
         
@@ -124,9 +157,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (option.dataset && option.dataset.level) {
                     const spellLevel = parseInt(option.dataset.level);
                     
-                    // Bei "Einarmig" darf der Zauber-Level auch nicht gleich dem MA sein
-                    if ((hasOneArmDisadvantage && spellLevel >= maValue) || 
-                        (!hasOneArmDisadvantage && spellLevel > maValue)) {
+                    // Bei "Einarmig" darf der Zauber-Level auch nicht gleich dem maxLevel sein
+                    if ((hasOneArmDisadvantage && spellLevel >= maxLevel) || 
+                        (!hasOneArmDisadvantage && spellLevel > maxLevel)) {
                         // Zauber ist zu hoch-levelig
                         option.disabled = true;
                         option.classList.add('spell-too-high-level');
@@ -174,6 +207,14 @@ document.addEventListener('DOMContentLoaded', function() {
      * @param {string} selectedSpellId - ID des vorausgewählten Zaubers (wenn vorhanden)
      */
     function createSpellSlot(index, selectedSpellId) {
+        // Ermitteln, ob der Charakter die Klasse "Scharlatan" hat
+        const isScharlatan = classSelect.value === 'scharlaten' || secondClassSelect.value === 'scharlaten';
+        
+        // MA oder CH-Wert abrufen für Level-Beschränkung
+        const maxLevel = isScharlatan ? 
+            (parseInt(chInput.value) || 1) : // Für Scharlatan CH verwenden
+            (parseInt(maInput.value) || 1);  // Für alle anderen MA verwenden
+        
         // Container für den Slot erstellen
         const slotContainer = document.createElement('div');
         slotContainer.className = 'spell-slot';
@@ -182,10 +223,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const spellSelect = document.createElement('select');
         spellSelect.className = 'spell-select';
         spellSelect.id = `spell-select-${index}`;
-        
-        // MA-Wert abrufen für Level-Beschränkung
-        const maValue = parseInt(maInput.value) || 1;
-        
+                
         // Prüfen, ob der Nachteil "Einarmig" gewählt ist
         const hasOneArmDisadvantage = disadvantageSelect.value === 'einarmig';
         
@@ -255,7 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 option.dataset.level = spell.level;
                 
                 // Prüfen, ob Zauber-Level zu hoch ist (oder bei "Einarmig" auch, wenn er gleich ist)
-                if ((hasOneArmDisadvantage && spell.level >= maValue) || (!hasOneArmDisadvantage && spell.level > maValue)) {
+                if ((hasOneArmDisadvantage && spell.level >= maxLevel) || (!hasOneArmDisadvantage && spell.level > maxLevel)) {
                     option.disabled = true;
                     option.classList.add('spell-too-high-level');
                 }
@@ -268,25 +306,33 @@ document.addEventListener('DOMContentLoaded', function() {
         if (selectedSpellId) {
             spellSelect.value = selectedSpellId;
             
-            // Prüfen, ob der ausgewählte Zauber aufgrund des MA-Werts noch erlaubt ist
+            // Prüfen, ob der ausgewählte Zauber aufgrund des Level-Limits noch erlaubt ist
             const selectedSpell = allSpells.find(spell => spell.id === selectedSpellId);
             if (selectedSpell) {
-                // Bei "Einarmig" darf der Zauber-Level auch nicht gleich dem MA sein
-                if ((hasOneArmDisadvantage && selectedSpell.level >= maValue) || 
-                    (!hasOneArmDisadvantage && selectedSpell.level > maValue)) {
-                    // Zauber ist zu hoch-levelig für aktuellen MA-Wert
+                // Bei "Einarmig" darf der Zauber-Level auch nicht gleich dem maxLevel sein
+                if ((hasOneArmDisadvantage && selectedSpell.level >= maxLevel) || 
+                    (!hasOneArmDisadvantage && selectedSpell.level > maxLevel)) {
+                    // Zauber ist zu hoch-levelig für aktuellen Level-Wert
                     spellSelect.classList.add('invalid-selection');
                     
                     // Infobox zeigen, dass dieser Zauber nicht mehr gewirkt werden kann
                     const spellInfoBox = document.createElement('div');
                     spellInfoBox.className = 'spell-warning';
                     
-                    // Text anpassen basierend auf Nachteil
+                    // Text anpassen basierend auf Nachteil und Klasse
                     let warningText = "";
                     if (hasOneArmDisadvantage) {
-                        warningText = `<p><strong>Warnung:</strong> Dieser Zauber erfordert einen MA-Wert von mindestens ${selectedSpell.level + 1} mit dem Nachteil "Einarmig".</p>`;
+                        if (isScharlatan) {
+                            warningText = `<p><strong>Warnung:</strong> Dieser Zauber erfordert einen CH-Wert von mindestens ${selectedSpell.level + 1} mit dem Nachteil "Einarmig".</p>`;
+                        } else {
+                            warningText = `<p><strong>Warnung:</strong> Dieser Zauber erfordert einen MA-Wert von mindestens ${selectedSpell.level + 1} mit dem Nachteil "Einarmig".</p>`;
+                        }
                     } else {
-                        warningText = `<p><strong>Warnung:</strong> Dieser Zauber erfordert einen MA-Wert von mindestens ${selectedSpell.level}.</p>`;
+                        if (isScharlatan) {
+                            warningText = `<p><strong>Warnung:</strong> Dieser Zauber erfordert einen CH-Wert von mindestens ${selectedSpell.level}.</p>`;
+                        } else {
+                            warningText = `<p><strong>Warnung:</strong> Dieser Zauber erfordert einen MA-Wert von mindestens ${selectedSpell.level}.</p>`;
+                        }
                     }
                     
                     spellInfoBox.innerHTML = warningText;
@@ -410,6 +456,22 @@ document.addEventListener('DOMContentLoaded', function() {
         // Danach sicherstellen, dass Klassenzauber korrekt angezeigt werden
         if (typeof window.checkClassSpells === 'function') {
             setTimeout(window.checkClassSpells, 50);
+        }
+    }
+
+    // Hilfsfunktion: Event-Handler für Änderungen am CH-Wert (für Scharlatan)
+    function onAttributeValueChanged() {
+        // Überprüfen, ob der Spieler die Scharlatan-Klasse hat
+        const isScharlatan = classSelect.value === 'scharlaten' || secondClassSelect.value === 'scharlaten';
+        
+        // Zauberslots nur aktualisieren, wenn Scharlatan-Klasse ausgewählt ist
+        if (isScharlatan) {
+            updateSpellSlots();
+            
+            // Klassenzauber aktualisieren, falls nötig
+            if (typeof window.checkClassSpells === 'function') {
+                setTimeout(window.checkClassSpells, 50);
+            }
         }
     }
 

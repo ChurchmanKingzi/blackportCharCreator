@@ -28,6 +28,14 @@ const spellService = {
             beschreibung: "Erzeugt eine etwa kopfgroße, gut sichtbare Blase aus Lava in der Luft vor dir, die sich sehr langsam in eine von dir definierte Richtung bewegt (etwa 1 Meter alle 10 Sekunden). Die Blase fliegt bis zu einem Zielpunkt, den du bestimmen kannst, den du aber im Moment des Zaubereinsatzes sehen musst, und zerplatzt dort. Berührt sie ein Hindernis oder Ziel, platzt sie stattdessen sofort. Die Blase fügt beim Platzen jedem Ziel in bis zu einem Meter Entfernung (ZK+5)W6 Schaden zu. Ein Ziel, das die Blase kommen sieht und sich bewegen kann, kann ihr mühelos und ohne eine PA-Probe ausweichen."
         },
         {
+            id: "durchbruch",
+            name: "Durchbruch",
+            level: 3,
+            mpKosten: 14,
+            magieschule: "zerstoerung",
+            beschreibung: "Schießt einen halbtransparenten Speer aus Mana in gerade Linie bis zu 200 Meter nach vorn. Der Speer penetriert absolut alles in seinem Weg, inklusive Stahlwände, magische Schilde und Rüstungen etc., und fügt jedem Ziel, das er durchbohrt, ZK W6 Schaden zu, der nicht verringert oder negiert werden kann, außer von Effekten, die Magie an sich negieren."
+        },
+        {
             id: "saeurenebel",
             name: "Säurenebel",
             level: 3,
@@ -84,6 +92,14 @@ const spellService = {
             beschreibung: "Erzeugt einen mächtigen Tornado aus Feuer vor dir, der sich mit zerstörerischer Gewalt in einer von dir bestimmten Bahn bewegt und dabei alles in seinem Weg erfasst, einäschert und durch die Gegend schleudert. Ziele, die mit dem Tornado in Kontakt kommen, nehmen 8W6 feuerelementaren Schaden und werden je nach ihrem Gewicht bis zu 200 Meter weit geschleudert, wobei sie beim Aufprall pro 50 Meter noch mal 2W6 Schaden nehmen. Der Tornado bleibt solange bestehen, wie du dich auf ihn konzentrierst und keine andere Aktion irgendeiner Art ausführst, oder bis du bewusstlos wirst. Wenn du eine Wunde nimmst, musst du eine Widerstand-Probe mit Schwierigkeit 2 bestehen oder der Tornado löst sich auf, da du die Konzentration nicht aufrechterhalten kannst. Während jeder deiner Runden kannst du den Tornado um bis zu 30 Meter in einer beliebigen Bahn bewegen, aber er hat einen großen Wendekreis. Jede Runde, die du den Tornado nach der ersten aufrechterhältst (alle 5 Sekunden) musst du 10 MP bezahlen. Wenn du das nicht kannst, verschwindet der Tornado. Dieser Zauber gilt als Tabu, weil er extrem auffällig ist und große Aufmerksamkeit von normalen Menschen auf sich (und auf dich) ziehen kann, nutze ihn mit Bedacht!"
         },
         {
+            id: "finsterflamme",
+            name: "Finsterflamme",
+            level: 5,
+            mpKosten: 80,
+            magieschule: "zerstoerung",
+            beschreibung: "Erzeugt schwarze Flammen in einem bis zu 1x1 Meter großen Bereich, den du komplett sehen können musst. Du kannst keine Flammen direkt an einem Lebewesen erscheinen Lassen. Die Flammen sind tief schwarz, geben kein Licht ab und sind in Dunkelheit nicht zu erkennen. Sie verbreiten sich relativ langsam, sind aber komplett unmöglich zu löschen, weder mit Wasser noch Magie. Sie können sich sogar auf Wasser ausbreiten. Die Flammen brennen für bis zu 24 Stunden, ehe ihnen das Mana ausgeht und sie einfach ersterben. Bei Kontakt setzen sie die Kleidung von Zielen in Flammen, aber niemals Haut oder andere lebende Masse. Jeder Kontakt mit den Flammen fügt pro Runde 4W6 Schaden zu. Sogar magische Schilde oder Rüstungen können in Brand gesetzt werden! Die Flammen erzeugen Rauch und Hitze wie normales Feuer, nur kein Licht."
+        },
+        {
             id: "himmelslaser",
             name: "Himmelslaser",
             level: 4,
@@ -106,6 +122,14 @@ const spellService = {
             mpKosten: 30,
             magieschule: "zerstoerung",
             beschreibung: "Schießt einen Blitz auf ein Ziel, der (ZK+6)W6 Schaden verursacht. Der Blitz schlägt danach in das nächststehende Ziel ein und fügt diesem halb so viel Schaden zu (aufgerundet). Dieser Effekt wiederholt sich noch zweimal, wobei der Schaden jedes Mal halbiert wird (aufgerundet). Auf diesen Zauber kann man nicht reagieren und er trifft dasselbe Ziel nur einmal. Nur für das erste Ziel ist eine GENA-Probe nötig, die weiteren Ziele werden automatisch getroffen."
+        },
+        {
+            id: "knallfrosch",
+            name: "Knallfrosch",
+            level: 1,
+            mpKosten: 0,
+            magieschule: "zerstoerung",
+            beschreibung: "Speise eine beliebige Menge MP in einen Gegenstand, den du mit einer Hand transportieren kannst, ein. Das nächste Mal, wenn ein Lebewegen den Gegenstand berührt, nachdem du ihn losgelassen hast, wird das Mana schlagartig in einem lauten Knall und einer kleinen Explosion freigesetzt, die dem Berührenden halb so viel Schaden zufügt, wie MP eingespeist wurden (aufgerundet). Die Lautstärke skaliert mit der Anzahl MP."
         },
         {
             id: "knochenexplosion",
@@ -188,6 +212,14 @@ const spellService = {
             beschreibung: "Platziert eine unsichtbare Sprengfalle, die aber mit Magiewahrnehmung gespürt werden kann. Du weißt immer, wo jede von dir platzierte Falle ist und kannst ihre Positionen vor deinem inneren Auge sehen wie ein Radar. Die Sprengfalle detoniert automatisch, wenn ein Lebewesen (inklusive ein Tier) sie berührt und fügt (2*ZK+2)W6 Schaden in einem 5x5 Meter großen Bereich zu. Du kannst beliebig viele Sprengfallen gleichzeitig aktiv haben. Sprengfallen können mit Magiedetektion wahrgenommen werden, aber nur, wenn man aktiv nach ihnen sucht. Sprengfallen können nur mit mindestens einem halben Meter Abstand zueinander platziert werden."
         },
         {
+            id: "stiller dorn",
+            name: "Stiller Dorn",
+            level: 2,
+            mpKosten: 10,
+            magieschule: "zerstoerung",
+            beschreibung: "Verschießt ein kleines, nahezu unsichtbares Projektil aus deiner Fingerspitze. Selbst, wenn man aktiv darauf achtet, muss man eine Probe auf Sinnesschärfe bestehen, um das Projektil wahrzunehmen. Das Projektil hat etwa die Geschwindigkeit und Durchschlagskraft eines Blasrohrpfeils und kann von nahezu jedem Hindernis (z.B. von Kleidung) gestoppt und wirkungslos gemacht werden. Kommt das Projektil mit Haut in Kontakt, dringt es in diese ein und verursacht ZK W6 Schaden durch innere Blutungen. Das Ziel merkt für 1W6 Minuten nicht, dass es überhaupt Schaden genommen hat, bevor plötzlich Schmerzen einsetzen. Nimmt das Ziel durch den Schaden eine Wunde, bemerkt es diese allerdings sofort."
+        },
+        {
             id: "todesfeuer",
             name: "Todesfeuer",
             level: 4,
@@ -218,6 +250,14 @@ const spellService = {
             mpKosten: 10,
             magieschule: "zerstoerung",
             beschreibung: "Sprich eine 10 Sekunden (2 Kampfrunden) lange Formel, während du mit einer Hand einen Gegenstand berührst. Der Gegenstand darf maximal so groß sein, dass du ihn mit beiden Händen transportieren kannst. Während du die Formel sprichst, bestimmst du einen exakten Zeitpunkt. Sobald dieser Zeitpunkt erreicht ist, explodiert der Gegenstand plötzlich ohne Vorwarnung, was allen Zielen in bis zu einem Meter Entfernung (ZK+3)W6 Schaden zufügt. Die Explosion kommt so plötzlich, dass nicht auf sie reagiert werden kann."
+        },
+        {
+            id: "attributsuebertragung",
+            name: "Attributsübertragung",
+            level: 1,
+            mpKosten: 6,
+            magieschule: "unterstuetzung",
+            beschreibung: "Überträgt für eine Stunde einen einzelnen Attributspunkt von dir auf ein Ziel, das du berührst. Dein entsprechendes Attribut verringert sich um 1 und geht beim Ziel um 1 hoch. Kampfwerte sind nicht betroffen. Deine Attributspunkte können so nicht unter 1 gesenkt werden. Pro Punkt, den du übertragen willst, musst du noch mal die Kosten dieses Zaubers bezahlen und die Übertragung hält immer für eine Stunde und kann nicht vorzeitig beendet werden, außer, wenn das Ziel stirbt. Dann kehren alle Punkte zu dir zurück."
         },
         {
             id: "aufweckung",
@@ -455,7 +495,7 @@ const spellService = {
             id: "schutzengel",
             name: "Schutzengel",
             level: 5,
-            mpKosten: 50,
+            mpKosten: 60,
             magieschule: "unterstuetzung",
             beschreibung: "Gibt einem Ziel einen Schutzengel. Dieser ist als ein schwaches Leuchten sichtbar, das von dem Ziel ausgeht, das aber nur wahrnehmen kann, wer sich mit Magie auskennt. Wenn ein Ziel mit einem Schutzengel sterben würde, verschwindet das Leuchten und der Schutzengel rettet das Ziel, wodurch seine KP vollständig geheilt und alle Wunden von ihm entfernt werden. Wenn das Ziel bewusstlos war, kommt es außerdem wieder zu Bewusstsein. Einen Schutzengel zu rufen, erfordert ein einstündiges Ritual mit vielen Gebeten und Bitten. Ein Ziel kann nur einen Schutzengel zur Zeit haben, du kannst aber mehreren Zielen Schutzengel geben. Für jeden Schutzengel, den du „aktiv“ hast, sind deine maximales MP um die Kosten dieses Zaubers reduziert."
         },
@@ -468,12 +508,28 @@ const spellService = {
             beschreibung: "Segnet ein Ziel für eine Stunde. Gesegnete Ziele richten 3W6 zusätzlichen Schaden mit physischen Angriffen an. Wenn ein Ziel eine (nach Ermessen des Spielleiters) „böse“ Aktion tätigen, verfällt der Segen und das Ziel kann für 24 Stunden nicht mehr von Segen betroffen werden."
         },
         {
+            id: "sinnesexplosion",
+            name: "Sinnesexplosion",
+            level: 4,
+            mpKosten: 10,
+            magieschule: "unterstuetzung",
+            beschreibung: "Verstärkt für bis zu eine Minute (12 Runden) einen Sinn von dir oder einem Ziel, das du berührst, immens. Mit Sicht kann das Ziel etliche Kilometer weit sehen, mit Gehör Geräusche aus großer Entfernung klar wahrnehmen, mit Geruch Blut im Wasser riechen wie ein Hai usw. Proben auf Sinnesschärfe mit dem entsprechenden Organ erhalten +2 automatische Erfolge. Extreme Sinneseindrücke (z.B. eine nahe Explosion bei verstärktem Gehör) können zu Panik und Schaden an den Sinnesorganen führen. Schlechtestenfalls muss das Ziel eine Widerstand-Probe bestehen oder wird bewusstlos."
+        },
+        {
             id: "spektralarme",
             name: "Spektralarme",
             level: 3,
             mpKosten: 16,
             magieschule: "unterstuetzung",
             beschreibung: "Gibt einem Ziel, das du berührst, für bis zu eine Stunde zwei zusätzliche magische Arme. Die Arme sind halbtransparent und wachsen aus den Schultern des Ziels. Ein Ziel weiß automatisch, wie es die Arme steuern kann, und kann sie genauso geschickt benutzen wie seine normalen Arme. Ein Ziel mit Spektralarmen kann, wenn es während seiner Runde im Kampf mit bloßen Händen oder Nahkampfwaffen angreift, sofort ein zweites Mal angreifen, allerdings nur einmal pro Waffe (die Spektralarme brauchen eine eigene Waffe oder greifen nur unbewaffnet an). Du kannst die Arme jederzeit vorzeitig verschwinden lassen. Ein Ziel kann nur ein Set Spektralarme haben."
+        },
+        {
+            id: "spiegeltrick",
+            name: "Spiegeltrick",
+            level: 3,
+            mpKosten: 28,
+            magieschule: "unterstuetzung",
+            beschreibung: "Erschafft 1W4+1 perfekte Ebenbilder von dir selbst, die automatisch jede Bewegung ausführen, die du ausführst. Die Ebenbilder sind rein visuell, sie machen weder Geräusche noch können sie physisch mit Dingen oder Lebewesen interagieren. Wenn du deine Augen schließt und dich darauf konzentrierst, kann du eines deiner Ebenbilder gezielt steuern, ohne dass dein eigentlicher Körper oder die anderen Ebenbilder sich bewegen würden. Die Ebenbilder halten für bis zu eine Stunde, verschwinden aber sofort, wenn sie irgendwelchen Schaden nehmen. Wenn ein Ziel versucht, dich anzugreifen, muss es eine GL-Probe bestehen, um deinen eigentlichen Körper zu treffen; anderenfalls greift er ein Ebenbild an und zerstört so dieses. Angriffe/Zauber mit Flächenwirkung können diesen Effekt ignorieren, indem sie alle Ebenbilder und den Hauptkörper gleichzeitig treffen."
         },
         {
             id: "steinhaut",
@@ -492,7 +548,15 @@ const spellService = {
             beschreibung: "Lässt dich oder ein Ziel, das du berührst, sich sofort mit Schallgeschwindigkeit bewegen. Kann als Reaktion genutzt werden, um einem Angriff oder Zauber automatisch auszuweichen. Der Effekt hält 5 Sekunden. Du kannst deine Reaktion in der ersten Runde eines Kampfes einsetzen, um diesen Zauber zu verwenden und garantiert als erstes dran zu sein."
         },
         {
-            id: "verschwommenheut",
+            id: "verankerung",
+            name: "Verankerung",
+            level: 1,
+            mpKosten: 8,
+            magieschule: "unterstuetzung",
+            beschreibung: "Verbindet dich oder ein williges Ziel, das du berührst, über eine kurze Kette aus Mana fest mit entweder dem Boden oder einem Objekt. Die Kette hat die Stärke von Stahl und ist nahezu immun gegen andere Zauber. Sie verhindert, dass das Ziel und das Objekt, an das es gebunden wurde, sich weiter als 25 Zentimeter von einander entfernen und kann ein Ziel gegen Bewegungseffekte wie Stürme schützen."
+        },
+        {
+            id: "verschwommenheit",
             name: "Verschwommenheit",
             level: 1,
             mpKosten: 10,
@@ -620,6 +684,22 @@ const spellService = {
             beschreibung: "Flößt einem Ziel, das du mit mindestens einer Handfläche berührst, langsam ein tödliches Gift ein. Das Ziel muss eine MA-Probe bestehen, um zu merken, dass du es vergiftest, und selbst bei einem Erfolg merkt es das erst, wenn das Gift bereits in seinem Körper ist. Das Gift beginnt erst nach einer Stunde zu wirken und fügt dann pro Kampfrunde (alle 5 Sekunden) 1W6 Schaden zu. Es wirkt innerhalb von 48 Stunden tödlich, wenn es nicht behandelt wird. Das Einflößen des Gifts braucht 20 Sekunden ununterbrochenen Kontakts mit deiner Handfläche. Wenn du das Ziel mit beiden Händen berührst, reichen 5 Sekunden."
         },
         {
+            id: "gleichgewichtsstoerer",
+            name: "Gleichgewichtsstörer",
+            level: 1,
+            mpKosten: 10,
+            magieschule: "verfall",
+            beschreibung: "Manipuliert das Gleichgewichtsorgan eines Ziels, dem du in die Augen siehst, für 1W6 Runden. Das Ziel beginnt sofort zu schwanken und muss jede Runde eine Akrobatik-Probe bestehen oder fällt zu Boden. Solange das Ziel sitzt oder liegt, kann es normal agieren."
+        },
+        {
+            id: "gluecksdiebstahl",
+            name: "Glücksdiebstahl",
+            level: 1,
+            mpKosten: 16,
+            magieschule: "verfall",
+            beschreibung: "Stiehlt einen Glücks-Token eines Ziels, das du berührst. Das Ziel nimmt das als kaltes Schaudern über den Rücken wahr. Du kannst so mehr als deine maximale Anzahl Glücks-Tokens haben."
+        },
+        {
             id: "halloweenstreich",
             name: "Halloweenstreich",
             level: 1,
@@ -684,6 +764,14 @@ const spellService = {
             beschreibung: "Entfernt alle Verstärkungseffekte von einem Ziel. Du kannst diesen Zauber als Reaktion nutzen, wenn jemand in deinem Sichtfeld einen verstärkenden oder heilenden Zauber wirkt. Du und der Magier würfeln dann jeweils auf ihren ZK-Wert. Es wird solange gewürfelt, bis eine Seite mehr Erfolge hat. Wenn du gewinnst, wird der ursprüngliche Zauber negiert. In jedem Fall muss das Ziel die MP-Kosten seines Zaubers bezahlen und du die dieses Zaubers."
         },
         {
+            id: "paranoia",
+            name: "Paranoia",
+            level: 4,
+            mpKosten: 40,
+            magieschule: "verfall",
+            beschreibung: "Infiziert ein Ziel, das du berührst, mit einer übernatürlichen Panik. Wenn das Ziel ein Magier ist, muss es bereits in einem Angstzustand sein, damit dieser Zauber einen Effekt hat. Das Ziel entwickelt eine permanente Phobie, die auf die aktuelle Situation und die Quelle seiner Angst zugeschnitten ist (beispielsweise Höhenangst, wenn es gegen seinen Willen an einem hohen Ort ist). Solange ein Ziel mit seiner Phobie direkt konfrontiert ist, gelten alle seine Proben automatisch als Misserfolge. Das Ziel wird, wenn der Zauber funktioniert, versuchen, panisch schreiend vor dir zu fliehen."
+        },
+        {
             id: "pechbringer",
             name: "Pechbringer",
             level: 4,
@@ -706,6 +794,14 @@ const spellService = {
             mpKosten: 20,
             magieschule: "verfall",
             beschreibung: "Lässt ein Ziel, das du berührst, rapide altern. Pro Minute, die du das Ziel ohne Unterbrechung berührst, altert es um ein ganzes Jahr. Dieser Effekt hält permanent. Das Ziel kann durch diesen Effekt unwiederbringlich an Altersschwäche sterben. Dieser Zauber gilt als großes Tabu und darf offiziell weder gelehrt noch praktiziert werden."
+        },
+        {
+            id: "schattenzehrer",
+            name: "Schattenzehrer",
+            level: 1,
+            mpKosten: 20,
+            magieschule: "verfall",
+            beschreibung: "Infiziert den Schatten eines Lebewesens, in dem du mit mindestens einem Fuß stehst, mit einem magischen Parasiten. Solange das Ziel befallen ist, nimmt es pro Stunde 1W6 Schaden und kann seine KP durch nichts heilen. Das Ziel fühlt sich zunehmend erschöpft und unwohl, ohne zu wissen, woher die Effekte kommen. Es gibt keinerlei physische Verletzungen oder andere Anzeichen von Angriffen. Das Ziel kann außerdem physisch nicht einschlafen. Der Effekt hält solange an, bis das Ziel entweder in gleißendes Licht getaucht oder in komplette Dunkelheit gehüllt wird, sodass sein Schatten vollständig verschwindet."
         },
         {
             id: "schleimmauer",
@@ -738,6 +834,14 @@ const spellService = {
             mpKosten: 20,
             magieschule: "verfall",
             beschreibung: "Versetzt ein Ziel, das du berührst, vorübergehend in Stase. Dadurch wird es der Welt entrückt und ist für den Moment nicht mehr Teil dieser Welt. Ein Ziel in Stase kann sich nicht bewegen, bekommt nichts um sich herum mit, man kann aber auch nicht mit ihm interagieren und es nimmt keinen Schaden aus irgendwelchen Quellen. Ein Ziel in Stase ist weiterhin sichtbar, aber vollkommen bewegungslos, es sieht aus, als wäre es in der Zeit eingefroren. Dieser Effekt hält bis zu eine Stunde an, ein Ziel kann aber nach jeder Kampfrunde (alle 5 Sekunden) eine Magieresistenz-Probe würfeln, um aus dem Effekt auszubrechen. Du kannst den Effekt jederzeit beenden."
+        },
+        {
+            id: "strukturschwaechung",
+            name: "Strukturschwächung",
+            level: 3,
+            mpKosten: 30,
+            magieschule: "verfall",
+            beschreibung: "Berühre die Oberfläche einer großen Struktur (z.B. eines Gebäudes oder einer Brücke) für 10 Minuten durchgehend und sage eine komplexe Zauberformel auf. Vollendest du die Formel ungestört, wird die Struktur anschließend so weit geschwächt, dass sie bei geringer Krafteinwirkung in sich zusammenfällt. Eine massive Brücke würde plötzlich einstürzen, wenn eine Person unvorsichtig darübergeht, eine Hauswand, wenn man dagegentritt usw."
         },
         {
             id: "taubheit",
@@ -780,6 +884,14 @@ const spellService = {
             beschreibung: "Berühre einen Gegenstand und zersetze ihn vollständig, als wäre er mit starker Säure in Kontakt gekommen. Der Effekt betrifft alles, was du mit deiner Hand berührst, und hält 5 Sekunden an. Magische Artefakte sind immun, aber ansonsten kommst du durch jedes Material durch und kannst dich z.B. durch Stahlwände ätzen. Ein Lebewesen nimmt 10W6 Schaden durch die Berührung."
         },
         {
+            id: "absolute kontrolle",
+            name: "Absolute Kontrolle",
+            level: 5,
+            mpKosten: 200,
+            magieschule: "magiekunst",
+            beschreibung: "Schreibt permanent die Persönlichkeit und Erinnerungen eines Ziels um und verwandelt es so in was auch immer du willst. Der Zauber erfordert ein einstündiges Ritual, währenddessen das Ziel bei Bewusstsein sein und du es permanent mit beiden Händen am Kopf berühren musst. Wenn das Ziel ein Magier ist, muss es eine Magieresistenz-Probe mit Schwierigkeit 3 bestehen, um dem Effekt zu widerstehen. Zu Beginn des Rituals definierst du ganz genau, wie du das Ziel umfunktionieren willst. Servants und andere magische Entitäten sind immun."
+        },
+        {
             id: "alarmzone",
             name: "Alarmzone",
             level: 2,
@@ -794,6 +906,14 @@ const spellService = {
             mpKosten: 10,
             magieschule: "magiekunst",
             beschreibung: "Führe ein zehnminütiges Ritual durch, bei dem du an eine bestimmte lebende Person denkst. Wenn das Ritual erfolgreich ist, verfällst du in einen tiefen Trance-Zustand, in dem du aus der Vogelperspektive eine wichtige Szene aus der Vergangenheit der Person miterlebst. Was genau du siehst, kannst du nicht beeinflussen, es wird aber immer etwas sein, das entweder für dich, die Person oder deine Interaktion mit der Person von besonderer Relevanz ist. Diesen Zauber mehr als einmal pro Tag einzusetzen, schadet deiner geistigen Gesundheit und kann zu dauerhaften Reduzierungen deiner Werte führen!"
+        },
+        {
+            id: "aura der verschwommenheit",
+            name: "Aura der Verschwommenheit",
+            level: 4,
+            mpKosten: 16,
+            magieschule: "magiekunst",
+            beschreibung: "Gewährt dir oder einem Ziel, das du berührst, eine Aura absoluter Unauffälligkeit. Nicht-Magienutzer werden das Ziel nicht mehr wahrnehmen, solange es sie nicht direkt anspricht oder berührt. Proben auf Schleichen/Verstecken haben bei Nicht-Magienutzern automatisch kritischen Erfolg und erhalten sogar gegen Magier 2 zusätzliche Erfolge. Der Effekt hört auf, individuelle Ziele zu beeinflussen, sobald das Ziel sie berührt oder anspricht und hält sonst bis zu eine Stunde."
         },
         {
             id: "chaos-kontrolle",
@@ -900,6 +1020,22 @@ const spellService = {
             beschreibung: "Lässt für einen Augenblick einen gewaltigen Lichtblitz erscheinen, der von dir ausgeht. Jedes Ziel, das dich sieht, wird geblendet und muss bei seiner nächsten Aktion zweimal würfeln, wobei das schlechtere Ergebnis zählt. Kann als Reaktion auf einen anderen Angriff oder Zauber verwendet werden und erzwingt dann auch bei diesem ein Neuwürfeln."
         },
         {
+            id: "mana-filter",
+            name: "Mana-Filter",
+            level: 1,
+            mpKosten: 20,
+            magieschule: "magiekunst",
+            beschreibung: "Erschafft in einem etwa 10 Minuten langen Ritual eine 15x15 Meter große Zone mit deiner aktuellen Position im Zentrum. Bei der Erstellung bestimmst du eine Magie-Schule. Innerhalb der Zone sind Zauber dieser Schule stark gedämpft, wodurch ihre Kosten verdoppelt werden. Mana-Filter können sich nicht überlagern. Die Zone bleibt bestehen, bis du bewusstlos wirst, schläfst oder sie verlässt."
+        },
+        {
+            id: "mana-schleier",
+            name: "Mana-Schleier",
+            level: 1,
+            mpKosten: 10,
+            magieschule: "magiekunst",
+            beschreibung: "Hüllt ein Ziel in eine dünne Schicht deines eigenen Manas. Das Ziel regeneriert dadurch die Hälfte der Kosten dieses Zaubers als MP (aufgerundet) und strahlt für eine Stunde deine Mana-Signatur aus. So können Nicht-Magier mit Magie-Wahrnehmung als Magier erkannt werden."
+        },
+        {
             id: "mein schatz",
             name: "Mein Schatz",
             level: 1,
@@ -956,6 +1092,14 @@ const spellService = {
             beschreibung: "Verändert für bis zu 24 Stunden deine Stimme so, dass sie wie eine andere Stimme klingt, die du schon einmal gehört hast. Die Stimme ist vom Original unmöglich zu unterscheiden. Du kannst diesen Effekt jederzeit beenden."
         },
         {
+            id: "stille",
+            name: "Stille",
+            level: 1,
+            mpKosten: 6,
+            magieschule: "magiekunst",
+            beschreibung: "Belegt dich oder ein Ziel, das du berührst, mit Stille, solange du es berührt hältst. Ein stilles Ziel kann weder sprechen noch sonst irgendwelche Geräusche erzeugen, inklusive z.B. durch das Treten auf zerbrechende Äste, Klopfen an eine Wand usw."
+        },
+        {
             id: "telekinese",
             name: "Telekinese",
             level: 1,
@@ -970,6 +1114,14 @@ const spellService = {
             mpKosten: 2,
             magieschule: "magiekunst",
             beschreibung: "Inspiziere eine Leiche ganz genau, während du diesen Zauber wirkst. Du erhältst magische Einsicht darüber, wann und wie genau die Leiche zu Tode kam (im Fall eines Mordes aber nicht unbedingt, durch wen!)."
+        },
+        {
+            id: "traumbotschaft",
+            name: "Traumbotschaft",
+            level: 1,
+            mpKosten: 10,
+            magieschule: "magiekunst",
+            beschreibung: "Sendet einem schlafenden Ziel einen bestimmten Traum nach deiner exakten Gestaltung. Du kannst in dem Traum beliebige Botschaften übermitteln oder scheinbare Visionen zeigen. Das Ziel kann sich hinterher perfekt an den Traum erinnern. Es muss eine MA-Probe bestehen, um zu erkennen, dass der Traum keine Vision, sondern der Effekt eines Zaubers war. Natürlich kannst du einem Ziel auch im Vorfeld sagen, dass du in seine Träume eindringen wirst. Wenn das Ziel nicht schläft, verpufft der Zauber wirkungslos, kostet aber trotzdem MP."
         },
         {
             id: "tunnel",
@@ -1100,6 +1252,14 @@ const spellService = {
             beschreibung: "Beschwört einen Feuerelementar mit 25 KP, INIT 8 und einer GENA von 4. Der Feuerelementar kann jede Runde Feuershphäre, Flammenpfeil oder Hitzewelle einsetzen und verfügt über unbegrenzte MP. Du kannst den Feuerelementar nicht kontrollieren. Er betrachtet dich als freundlich und wird dich nicht aktiv angreifen, deine Verbündeten aber schon! Er priorisiert Ziele, die ihm Schaden zufügen, und greift ansonsten ein zufälliges Ziel an, das er sieht. Wenn keine Ziele in Reichweite sind, löst er sich auf und verschwindet."
         },
         {
+            id: "gedankenspinne",
+            name: "Gedankenspinne",
+            level: 4,
+            mpKosten: 40,
+            magieschule: "beschwoerung",
+            beschreibung: "Beschwört eine kleine, unscheinbare Spinne. Solange diese direkt die Haut eines Ziels berührt, sendet sie die oberflächlichen Gedanken des Ziels direkt in deinen Kopf. Du kannst die Übertragung ein- und ausschalten; die Gedanken eines anderen für länger als ein paar Minuten zu hören, wird sehr schnell irritierend und führt zu Kopfschmerzen. Die Spinne ist zwar klein und ihre Berührung ist normalerweise nicht wahrnehmbar, aber sie ist nicht unsichtbar und kann mit einer Sinnesschärfe-Probe mit Schwierigkeit 3 oder, wenn jemand (inklusive das Ziel selbst) das Ziel direkt nach Auffälligkeiten absucht, mit einer Sinnesschärfe-Probe mit Schwierigkeit 1 entdeckt werden. Die Spinne hält bis zu eine Woche, du kannst sie aber jederzeit mit einem Gedanken verschwinden lassen. Solange die Spinne existiert, sind deine max MP um die Kosten dieses Zaubers verringert."
+        },
+        {
             id: "irrlicht",
             name: "Irrlicht",
             level: 1,
@@ -1132,6 +1292,14 @@ const spellService = {
             beschreibung: "Hauche einem kleinen Objekt, das die Form eines Lebewesens hat (z.B. einem Stofftier) Leben ein. Du kannst das Objekt mit deinen Gedanken steuern und durch seine Augen sehen, wenn du deine Augen schließt. Solange du es nicht steuerst, kann es sich auch eigenständig bewegen und sehr rudimentäre Befehle ausführen. Das Objekt hat 10 KP und geht kaputt, wenn diese auf 0 fallen. Du kannst diesen Effekt jederzeit beenden. Deine maximalen MP sind für jedes Objekt, das du aktuell am Leben hältst, um die Kosten dieses Zaubers verringert."
         },
         {
+            id: "mana-kristall",
+            name: "Mana-Kristall",
+            level: 3,
+            mpKosten: 50,
+            magieschule: "beschwoerung",
+            beschreibung: "Erschafft einen etwa 1.5 Meter hohen, 80 Zentimater breiten, durchsichtigen Kristall in der Luft unmittelbar vor dir. Der Kristall schwebt und absorbiert automatisch das Mana von Zaubern, die ihn treffen würden, wodurch diese aufgelöst werden. Zauber, die nahe an ihm vorbei fliegen oder in seiner unmittelbaren Nähe eingesetzt werden, stärkt er stattdessen mit Mana aus der Umgebung, die er bündelt und abgibt. Zauber, die Schaden anrichten können und unmittelbar an ihm vorbeifliegen, fügen 50% mehr Schaden zu (aufgerundet). Der Kristall bleibt solange bestehen, bis du bewusstlos wirst, schlafen gehst oder ihn manuell verschwinden lässt. Solange er existiert, sind deine max MP um die Kosten dieses Zaubers verringert. Der Kristall schwebt zwar, wiegt aber trotzdem etwa 150 Kilo und ist entsprechend schwer zu bewegen!"
+        },
+        {
             id: "minion beschwoeren",
             name: "Minion beschwören",
             level: 1,
@@ -1148,6 +1316,22 @@ const spellService = {
             beschreibung: "Opfert ein von dir beschworenes Wesen in einem zehnminütigen Ritual, um die LP von dir oder einem beliebigen anderen Ziel vollständig zu heilen."
         },
         {
+            id: "rachegeist",
+            name: "Rachegeist",
+            level: 5,
+            mpKosten: 0,
+            magieschule: "beschwoerung",
+            beschreibung: "Verflucht dich selbst mit einem mächtigen Rachegeist. Von dir geht durchgehend ein dunkles, fauliges Mana aus, das für jeden Magier abstoßend wirkt und selbst normale Menschen instinktiv dazu bringt, dir aus dem Weg zu gehen. Magier wissen instinktiv, dass das Miasma bedeutet, dass du von einem mächtigen Rachegeist besessen bist. Wenn du getötet wirst, wird der Rachegeist freigesetzt und denjenigen, der dich getötet hat, verfolgen, bis er oder das Ziel tot sind. Der Rachegeist verfügt über 500 KP, ist komplett immun gegen physischen Schaden, beherrscht 3 Zerstörungszauber, die der Spielleiter zufällig auswählt, und verfügt über unbegrenzte MP. Jeder Magier weiß, dass es eine sehr schlechte Idee ist, jemanden, der von einem Rachegeist besessen ist, zu töten. Der Rachegeist bleibt für immer bestehen. Du kannst den Effekt nicht manuell aufheben. Allerdings gibt es sehr mächtige heilige Magie, etwa in der Kirche, die den Fluch (über einen längeren Zeitraum) brechen kann. Den Rachegeist-Fluch zu wirken, dauert 12 Stunden, allerdings kannst du das auch schon vor Beginn des Spiels getan haben."
+        },
+        {
+            id: "realitaetsriss",
+            name: "Realitätsriss",
+            level: 5,
+            mpKosten: 20,
+            magieschule: "beschwoerung",
+            beschreibung: "Hüllt deinen Finger für eine Kampfrunde (5 Sekunden) in unglaublich starkes Mana. In diesem Zeitraum musst du mit deinem Finger einen Bereich auf einer festen, harten, zusammenhängenden, anorganischen Fläche (einer Wand, dem Boden usw.) umkreisen. Wird der Kreis rechtzeitig vervollständigt, erscheint in seinem Inneren für die nächsten 1W4+1 Stunden ein Portal. Solange nur ein Portal existiert, ist es lediglich ein Flimmern in der Lucht ohne Effekt. Sobald es mehrere Portale gibt, werden sie alle über beliebig große Distanz miteinander verbunden. Wer ein Portal betritt oder Gegenstände einführt, kann frei wählen, welches andere Portal der Ausgang sein soll. Jedes Portal hat eine individuelle Laufzeit. Pro offenem Portal sind deine max MP um die Kosten dieses Zaubers verringert."
+        },
+        {
             id: "ruestung erwecken",
             name: "Rüstung erwecken",
             level: 2,
@@ -1162,6 +1346,14 @@ const spellService = {
             mpKosten: 30,
             magieschule: "beschwoerung",
             beschreibung: "Beschwört eine hundeförmige Gestalt aus reiner, dickflüssiger Säure. Sie hat GENA 5, PA 4, INIT 6, 1 KP und fügt mit Bissen 10W6 ätzenden Säureschaden zu. Wenn der Hund Schaden nimmt, explodiert er sofort, was allen Zielen in bis zu einem Meter Entfernung 8W6 Säure-Schaden zufügt und den Zauber Säurenebel an der aktuellen Position des Hundes einsetzt. Du kannst den Hund beliebig lange bestehen lassen, aber solange er existiert, sind deine maximalen MP um seine Kosten verringert. Du kannst ihn jederzeit verschwinden lassen, wobei er nur eine Säure-Pfütze zurücklässt. Seine Pfotenabdrücke sind ebenfalls Säure!"
+        },
+        {
+            id: "schattendoppelgaenger",
+            name: "Schattendoppelgänger",
+            level: 5,
+            mpKosten: 50,
+            magieschule: "beschwoerung",
+            beschreibung: "Erweckt deinen eigenen Schatten zu Leben. Er hat exakt deine Kampfwerte, deine aktuellen MP (nach Wirken dieses Zaubers), kann deine Zauber wirken und verfügt über optische Kopien deines Equipments, das aber keine Effekte hat. Der Doppelgänger kann nicht sprechen, sich aber autonom bewegen. Er befolgt deine Befehle und hat dieselbe Intelligenz und dieselben Ziele wie du. Wenn er mit Sonnenlicht oder starkem künstlichem Licht in Berührung kommt (z.B. ein Bühnenscheinwerfer), verschwindet er einfach und der Zauber endet. Solange dein Schattendoppelgänger aktiv ist, hast du keinen Schatten und deine max MP sind um die Kosten dieses Zaubers reduziert."
         },
         {
             id: "schattengestalt",

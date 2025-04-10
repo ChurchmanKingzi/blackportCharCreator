@@ -3,6 +3,11 @@ const klasseService = {
     getAllKlassen: function() {
         return [
             {
+                id: 'aeromancer',
+                name: 'Aeromancer',
+                beschreibung: 'Immer, wenn du einen Zauber wirkst, kannst du einen starken Wind erzeugen. Im Kampf bleibt der Wand für bis zu eine Minute (12 Runden) als Serie heftiger Böen bestehen. Pro Instanz der Böen ist deine Initiative und die aller Ziele, die in dieselbe Richtung wie du gucken, um 2 erhöht und die aller Ziele, die dir gegenüberstehen, um 2 verringert (Rückenwind/Gegenwind).'
+            },
+            {
                 id: 'alchemist',
                 name: 'Alchemist',
                 beschreibung: 'Du beginnst das Spiel mit je 5 Heil- und Manatränken (stellen jeweils KP/MP vollständig wieder her) sowie 3 verschiedenen Elixieren deiner Wahl.'
@@ -28,9 +33,14 @@ const klasseService = {
                 beschreibung: 'Du startest das Spiel mit einem kleinen Waldtier als Begleiter. Dein Begleiter hat 15 KP und stirbt sofort, wenn diese auf 0 fallen. Wenn du keinen Begleiter hast, kannst du ein neues kleines Tier fangen und in einem einstündigen Ritual zu deinem Begleiter machen. Du kannst mit deinem Begleiter sprechen und ihn verstehen, andere verstehen nicht, was ihr miteinander redet.'
             },
             {
+                id: 'energie-vampir',
+                name: 'Energie-Vampir',
+                beschreibung: 'Immer, wenn in deiner Nähe Zauber gewirkt werden, regenerierst du sofort die Hälfte der für den Zauber ausgegebenen MP (abgerundet).'
+            },
+            {
                 id: 'erzmagier',
                 name: 'Erzmagier',
-                beschreibung: 'Solange du mindestens einen Zauber jeder Magie-Schule beherrscht, haben alle Zauber für dich halbierte MP-Kosten.'
+                beschreibung: 'Solange du mindestens einen Zauber jeder Magie-Schule beherrscht, haben alle Zauber für dich halbierte MP-Kosten. Dies ersetzt die Kostenreduzierung deiner primären Magieschule.'
             },
             {
                 id: 'exorzist',
@@ -38,9 +48,19 @@ const klasseService = {
                 beschreibung: 'Du kannst für 1 MP ein Ziel, das du berührst, auf negative Effekte wie Flüche, Gifte usw. untersuchen und sofort beliebig viele davon entfernen. Im Kampf kostet dich das entweder eine Aktion oder Reaktion.'
             },
             {
+                id: 'geomant',
+                name: 'Geomant',
+                beschreibung: 'Du bist ein Experte für die natürlichen Flüsse und Ströme des Manas im Boden. Du kannst in jedem Gebiet, das du zum ersten Mal betritts, eine GL-Probe würfeln. Abhängig vom Ergebnis sind die Kosten aller Zauber in diesem Gebiet für dich um bis zu 50% verringert oder erhöht, da die Mana-Ströme hier besonders gut odér schlecht für dich sind. Ein "Gebiet" ist dabei ein zusammenhänges Biom, das mehrere Quadratkilometer umfasst. Hast du ein Gebiet einmal geprüft, gilt das Ergebnis dafür permanent.'
+            },
+            {
                 id: 'hexendoktor',
                 name: 'Hexendoktor',
                 beschreibung: 'Du kannst einen einstündigen Tanz um ein Ziel herum aufführen, um dieses in perfekte körperliche Verfassung zu versetzen. Alle seine Wunden verschwinden, KP und MP werden voll aufgefüllt, es ist voller Energie, selbst wenn es lange nicht geschlafen hat. Wird der Tanz mittendrin unterbrochen, etwa durch einen Angriff, kann das katastrophale Folgen haben. Wenn ein Ziel zu Beginn des Tanzes seit weniger als 5 Minuten tot war, kann es so wiederbelebt werden. Nach Ende des Tanzes bist du völlig erschöpft, hast keine MP mehr und brauchst Schlaf, bevor du irgendetwas anderes tun kannst. Hast du ein Totes Ziel wiederbelebt, wirst du sofort bewusstlos.'
+            },
+            {
+                id: 'heretiker',
+                name: 'Heretiker',
+                beschreibung: 'Schaden, den du verursachst, kann nicht verringert oder negiert werden und ignoriert sowohl magische Schilde/Rüstungen als auch Magie-Resistenz. Betrifft nur direkten Schaden, keine sonstigen Effekte. Außerdem bist du sehr berüchtigt und von Beginn an ein Feind der Kirche.'
             },
             {
                 id: 'hexer',
@@ -113,6 +133,11 @@ const klasseService = {
                 beschreibung: 'Du kannst, bevor du schlafen gehst, die Geister um einen prophetischen Traum bitten. Dabei spezifizierst du entweder eine Person, ein Objekt oder einen Ort, die, das oder den du schon einmal berührt hast. Während du schläfst, spähen die Geister für dich dein Ziel aus und zeigen dir durchgehend aus einer erhöhten Perspektive, was die Person gerade tut, wie die Umgebung des Objekts aussieht, oder was an dem Ort gerade vorgeht. Die Geister können mit Magiewahrnehmung bemerkt werden, aber nur ein Nekromant oder anderer Schamane kann mit ihnen interagieren.'
             },
             {
+                id: 'scharlaten',
+                name: 'Scharlatan',
+                beschreibung: 'Für dich hängt es vom CH-Wert statt MA ab, welche Level an Zaubern du lernen kannst. Du bist außerdem extrem gut darin, deine magischen Fähigkeiten bei Bedarf unter den Scheffel zu stellen oder stark zu übertreiben. Wenn du nicht als Magier erkannt werden willst, ist es unmöglich, dich als solchen zu erkennen, solange du nicht gerade zauberst.'
+            },
+            {
                 id: 'schnell-magier',
                 name: 'Schnell-Magier',
                 beschreibung: 'Du kannst im Kampf auf deine Reaktion verzichten, um während deiner Runde einen Zauber als zusätzliche Aktion auszuführen. Ein so ausgeführter Zauber hat seine Manakosten verdoppelt.'
@@ -121,6 +146,11 @@ const klasseService = {
                 id: 'schreiber',
                 name: 'Schreiber',
                 beschreibung: 'Du kannst Zauber recherchieren und in magischen Schriftrollen bannen. Einen festgehaltenen Zauber einzusetzen, funktioniert genauso, wie den Zauber normal zu nutzen, außer, dass du die Schriftrolle laut vorlesen musst. Wird ein Zauber von einer Schriftrolle eingesetzt, verbrennt die Schriftrolle augenblicklich zu Asche und du musst eine neue schreiben, was 1W4 Stunden dauert und ausgiebige Nachschlagewerke voraussetzt. Du kannst mit Schriftrollen keine Zauber wirken, deren Level höher als dein MA-Wert ist. Du beginnst das Spiel mit Schriftrollen für drei verschiedene Zauber deine Wahl. Schriftrollen können auch an andere weitergegeben werden, solange diese sie lesen können, können sie die Magie freisetzen.'
+            },
+            {
+                id: 'seelensammler',
+                name: 'Seelensammler',
+                beschreibung: 'Du besitzt ein besonderes, verfluchtes Buch, in dem du die Seelen der Toten sammeln kannst. Außerdem kannst du die Seelen der Toten sehen. Wenn jemand stirbt, steigt seine Seele in Richtung Himmel auf. Indem du dein Buch auf eine leere Seite öffnest und direkt auf die Seele richtest, kannst du sie wie mit einem Staubsauger einsaugen. Wenn du die Seele eines Magiers absorbierst, lernst du 1W4 zufällige Zauber, die dieser Magier beherrschte, und erhältst dauerhaft zusätzliche max MP in Höhe von 10% der max MP des Magiers (aufgerundet). Du musst das Buch berühren, um die Zauber wirken zu können.'
             },
             {
                 id: 'technomague',
@@ -136,6 +166,11 @@ const klasseService = {
                 id: 'Verzauberer',
                 name: 'verzauberer',
                 beschreibung: 'Du kannst Gegenstände mit Level-1- und -2-Zaubern belegen, die dadurch verzaubert werden. Dabei definierst du eine Bedingung, wie der Zauber freigesetzt werden soll (z.B. bei einem Schwert immer, wenn es ein Ziel trifft). Ein Gegenstand kann beliebig oft verzaubert werden, sowohl mit beliebig vielen verschiedenen Zaubern, als auch mit beliebig vielen "Ladungen" eines Zaubers. Immer, wenn ein Zauber des Gegenstands freigesetzt wird, wird eine Ladung konsumiert. Sind keine Ladungen eines Zaubers auf dem Gegenstand übrig, funktioniert die Verzauberung nicht mehr, bis neue Ladungen hinzugefügt werden. Ladungen halten ewig, solange sie nicht konsumiert werden.'
+            },
+            {
+                id: 'weissmagier',
+                name: 'Weißmagier',
+                beschreibung: 'Du erkennst sofort automatisch, wenn du oder ein Ziel, das du berührst, von negativen Effekten, Flüchen usw. betroffen sind. Außerdem erkennst du den Zauber oder Effekt, der dafür verantwortlich ist und weißt, wie man den Effekt beheben kann - allerdings beherrscht du nicht unbedingt Gegenmaßnahmen.'
             },
             {
                 id: 'zauberdieb',
