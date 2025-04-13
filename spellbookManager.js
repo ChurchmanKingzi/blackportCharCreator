@@ -13,6 +13,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // CH-Input für die Scharlatan-Klasse
     const chInput = document.querySelector('.attribute-column:nth-child(3) .main-attribute-value');
     
+    // Liste der klassenspezifischen Zauber-IDs, die wir aus regulären Dropdown-Menüs ausschließen
+    const classSpellIds = [
+        'illusion-erschaffen', // Illusionist
+        'auferweckung',        // Nekromant
+        'lichtfessel',         // Paladin
+        'feuerball',           // Pyromant
+        'poltergeist'          // Technomague
+    ];
+    
     // Überwachen der MA-Änderung - korrigiert Event-Listener
     if (maInput) {
         // Entfernen der alten Event-Listener, falls vorhanden
@@ -36,42 +45,79 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Überwachen der Vorteil/Nachteil-Änderung
     if (advantageSelect) {
-        advantageSelect.addEventListener('change', updateSpellSlots);
+        advantageSelect.addEventListener('change', function() {
+            // Prüfen, ob es sich um eine klassenrelevante Änderung handelt
+            const oldValue = this.dataset.oldValue || "";
+            const newValue = this.value;
+            const isClassRelated = (oldValue === 'doppelte klasse' || newValue === 'doppelte klasse');
+            
+            // Alten Wert für zukünftige Vergleiche speichern
+            this.dataset.oldValue = newValue;
+            
+            if (isClassRelated && typeof window.checkClassSpells === 'function') {
+                // Bei klassenrelevanten Änderungen (z.B. Doppelte Klasse) den checkClassSpells aufrufen
+                window.checkClassSpells();
+            } else {
+                // Bei anderen Änderungen nur die regulären Slots aktualisieren,
+                // ohne die Klassenzauber neu zu generieren
+                updateSpellSlots(false);
+            }
+        });
     }
     
     if (disadvantageSelect) {
-        disadvantageSelect.addEventListener('change', updateSpellSlots);
+        disadvantageSelect.addEventListener('change', function() {
+            // Nur reguläre Slots aktualisieren, ohne Klassenzauber neu zu generieren
+            updateSpellSlots(false);
+        });
     }
 
     // Überwachen der Klassenänderung
     if (classSelect) {
-        classSelect.addEventListener('change', updateSpellSlots);
+        classSelect.addEventListener('change', function() {
+            // Bei Klassenänderungen reguläre Slots aktualisieren
+            updateSpellSlots(false);
+            // Zusätzlich den checkClassSpells aufrufen, wenn er existiert
+            if (typeof window.checkClassSpells === 'function') {
+                window.checkClassSpells();
+            }
+        });
     }
 
     // Überwachen der zweiten Klassenänderung
     if (secondClassSelect) {
-        secondClassSelect.addEventListener('change', updateSpellSlots);
+        secondClassSelect.addEventListener('change', function() {
+            // Bei Klassenänderungen reguläre Slots aktualisieren
+            updateSpellSlots(false);
+            // Zusätzlich den checkClassSpells aufrufen, wenn er existiert
+            if (typeof window.checkClassSpells === 'function') {
+                window.checkClassSpells();
+            }
+        });
     }
     
     // Überwachen der Magieschule-Änderung
     if (magicSchoolSelect) {
-        magicSchoolSelect.addEventListener('change', updateSpellCosts);
+        magicSchoolSelect.addEventListener('change', function() {
+            // Nur die Zauberkosten aktualisieren, ohne die Slots neu zu erstellen
+            updateSpellCosts();
+        });
     }
     
     // Initialisierung der Zauberslots
-    updateSpellSlots();
+    updateSpellSlots(true);
     
     /**
      * Aktualisiert die Anzahl der Zauberslots basierend auf MA und Vorteilen
+     * @param {boolean} updateClassSpells - Soll checkClassSpells aufgerufen werden?
      */
-    function updateSpellSlots() {
+    function updateSpellSlots(updateClassSpells = false) {
         // MA-Wert auslesen
         const maValue = parseInt(maInput.value) || 1;
         // CH-Wert für Scharlatan auslesen
         const chValue = parseInt(chInput.value) || 1;
         
         // Prüfen, ob der Vorteil "Gelehrig" gewählt ist
-        const advantageSelect = document.getElementById('advantage');
         const hasGelehrigVorteil = advantageSelect && advantageSelect.value === 'gelehrig';
         
         // Berechne Anzahl der Slots: 2 + MA + (3 wenn Gelehrig)
@@ -84,7 +130,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const grimoireBonus = window.grimoireSlots || 0;
         totalSlots += grimoireBonus;
         
-        // Bestehende Zauber speichern (ohne Klassenzauber)
+        // Bestehende Klassenzauber temporär speichern
+        const classSpellSlots = Array.from(document.querySelectorAll('.class-spell-slot'));
+        
+        // Bestehende reguläre Zauber-Daten speichern
         const existingSpells = [];
         const spellSelects = document.querySelectorAll('.spell-slot:not(.class-spell-slot) .spell-select');
         
@@ -95,32 +144,30 @@ document.addEventListener('DOMContentLoaded', function() {
             existingSpells.push(spell);
         });
         
-        // Anzahl vorhandener Klassenzauber-Slots zählen, die beibehalten werden sollen
-        const classSpellSlots = document.querySelectorAll('.class-spell-slot').length;
-        
-        // Speichere die vorhandenen Klassenzauber-Slots, um sie später wiederherzustellen
-        const classSpellElements = Array.from(document.querySelectorAll('.class-spell-slot'));
-        
-        // Zauber-Container leeren
-        spellSlotsContainer.innerHTML = '';
-        
-        // Info-Text aktualisieren (zeige Gesamtzahl der Slots inkl. Klassenzauber)
-        spellSlotsInfo.textContent = `(${totalSlots + classSpellSlots} Plätze verfügbar)`;
-        
-        // WICHTIG: Falls Klassenzauber vorhanden, zuerst diese wiederherstellen
-        classSpellElements.forEach(element => {
-            spellSlotsContainer.appendChild(element.cloneNode(true));
+        // Klassenzauber-Slots vorübergehend aus dem DOM entfernen, um sie zu bewahren
+        classSpellSlots.forEach(slot => {
+            if (slot.parentNode === spellSlotsContainer) {
+                spellSlotsContainer.removeChild(slot);
+            }
         });
         
-        // Reguläre Zauberslots erzeugen
+        // Jetzt alle verbleibenden (regulären) Zauberslots entfernen
+        while (spellSlotsContainer.firstChild) {
+            spellSlotsContainer.removeChild(spellSlotsContainer.firstChild);
+        }
+        
+        // Klassen-Zauber wieder zum Container hinzufügen (am Anfang)
+        classSpellSlots.forEach(slot => {
+            spellSlotsContainer.appendChild(slot);
+        });
+        
+        // Reguläre Zauberslots neu erzeugen
         for (let i = 0; i < totalSlots; i++) {
             createSpellSlot(i, existingSpells[i] ? existingSpells[i].id : "");
         }
         
-        // Jetzt erneut die Klassen-Zauber aktualisieren, um sicherzustellen, dass sie korrekt erscheinen
-        if (typeof window.updateClassSpellSlots === 'function') {
-            setTimeout(window.updateClassSpellSlots, 50);
-        }
+        // Slot-Info aktualisieren
+        updateSpellSlotsInfo();
         
         // Zauberkosten aktualisieren wenn die Funktion existiert
         if (typeof updateSpellCosts === 'function') {
@@ -137,6 +184,29 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             updateSpellLevelRestrictions(maValue); // Für normale Charaktere basierend auf MA
         }
+        
+        // Nur wenn explizit angefordert, checkClassSpells aufrufen
+        if (updateClassSpells && typeof window.checkClassSpells === 'function') {
+            window.checkClassSpells();
+        }
+        
+        // Nach allen Änderungen prüfen, ob Klassen-Zauber dupliziert wurden
+        if (typeof window.checkForDuplicateClassSpells === 'function') {
+            setTimeout(window.checkForDuplicateClassSpells, 50);
+        }
+    }
+    
+    /**
+     * Aktualisiert die Anzeige der verfügbaren Zauberslots
+     */
+    function updateSpellSlotsInfo() {
+        if (!spellSlotsInfo) return;
+    
+        // Zähle alle Zauber-Slots (reguläre und Klassenzauber)
+        const totalSlots = document.querySelectorAll('.spell-slot').length;
+        
+        // Aktualisiere die Info-Anzeige
+        spellSlotsInfo.textContent = `(${totalSlots} Plätze verfügbar)`;
     }
     
     /**
@@ -187,21 +257,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     /**
-     * Speichert die aktuellen Zauberauswahlen
-     * @returns {Array} Array mit den aktuellen Zauber-IDs
-     */
-    function getExistingSpellSelections() {
-        const selections = [];
-        const spellSelects = document.querySelectorAll('.spell-select');
-        
-        spellSelects.forEach(select => {
-            selections.push(select.value || "");
-        });
-        
-        return selections;
-    }
-    
-    /**
      * Erstellt einen einzelnen Zauberslot
      * @param {number} index - Index des Zauberslots
      * @param {string} selectedSpellId - ID des vorausgewählten Zaubers (wenn vorhanden)
@@ -234,8 +289,8 @@ document.addEventListener('DOMContentLoaded', function() {
         spellSelect.appendChild(placeholderOption);
         
         // Zauber-Optionen hinzufügen, gruppiert nach Magieschulen
-        // WICHTIG: Nur Zauber aus dem spellService verwenden
-        const allSpells = spellService.getAllZauber();
+        // WICHTIG: Nur Zauber aus dem spellService verwenden und klassenbezogene Zauber filtern
+        const allSpells = spellService.getAllZauber().filter(spell => !classSpellIds.includes(spell.id));
         
         // Sortiere Zauber nach Magieschulen in der gewünschten Reihenfolge
         const magieSchulen = ["zerstoerung", "unterstuetzung", "verfall", "magiekunst", "beschwoerung"];
@@ -267,14 +322,8 @@ document.addEventListener('DOMContentLoaded', function() {
             spellSelect.appendChild(separator);
             
             // Füge alle Zauber der aktuellen Schule hinzu
-            // SICHERSTELLEN, dass wir nur aus dem offiziellen spellService-Zauber nehmen
-            const schulZauber = allSpells.filter(zauber => {
-                // Prüfen, ob der Zauber wirklich aus dem spellService stammt
-                // und nicht ein Klassen-Zauber ist
-                return zauber.magieschule === schule && 
-                    // Sicherstellen, dass der Zauber in der ursprünglichen spellService.zauber Liste ist
-                    spellService.getZauberById(zauber.id) === zauber;
-            });
+            // Filtere die klassenbezogenen Zauber heraus
+            const schulZauber = allSpells.filter(zauber => zauber.magieschule === schule);
             
             // Sortiere Zauber innerhalb der Schule nach Level und dann nach Namen
             schulZauber.sort((a, b) => {
@@ -450,13 +499,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Hilfsfunktion: Event-Handler für Änderungen am MA-Wert
     function onMAValueChanged() {
-        // Zauberslots aktualisieren
-        updateSpellSlots();
-        
-        // Danach sicherstellen, dass Klassenzauber korrekt angezeigt werden
-        if (typeof window.checkClassSpells === 'function') {
-            setTimeout(window.checkClassSpells, 50);
-        }
+        // Zauberslots aktualisieren, ohne Klassenzauber neu zu generieren
+        updateSpellSlots(false);
     }
 
     // Hilfsfunktion: Event-Handler für Änderungen am CH-Wert (für Scharlatan)
@@ -466,12 +510,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Zauberslots nur aktualisieren, wenn Scharlatan-Klasse ausgewählt ist
         if (isScharlatan) {
-            updateSpellSlots();
-            
-            // Klassenzauber aktualisieren, falls nötig
-            if (typeof window.checkClassSpells === 'function') {
-                setTimeout(window.checkClassSpells, 50);
-            }
+            // Aktualisieren ohne Klassenzauber neu zu generieren
+            updateSpellSlots(false);
         }
     }
 

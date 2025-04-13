@@ -70,12 +70,12 @@ const vorteilService = {
             {
                 id: 'mana-schild',
                 name: 'Mana-Schild',
-                beschreibung: 'Dein Mana verpufft nicht einfach, wenn du es verwendest, sondern umgibt dich wie ein wunderschöner, halbtransparenter Schild. Dadurch wird eingehender magischer (nicht physischer!) Schaden abgefangen. Der Mana-Schild hat keine Masse, er bewegt sich z.B. um dich herum durch einen Türrahmen, wenn du durch eine Tür gehst. Wird der Schild durch einen Zauber auf 0 reduziert, zerspringt er mit lauten Klirren, was auch Nicht-Magier wahrnehmen können.'
+                beschreibung: 'Dein Mana verpufft nicht einfach, wenn du es verwendest, sondern umgibt dich wie ein wunderschöner, halbtransparenter Schild. Der Schild hat 2x dein ausgegebenes Mana als KP. Durch ihn wird eingehender magischer (nicht physischer!) Schaden abgefangen. Der Mana-Schild hat keine Masse, er bewegt sich z.B. um dich herum durch einen Türrahmen, wenn du durch eine Tür gehst. Wird der Schild durch einen Zauber auf 0 reduziert, zerspringt er mit lauten Klirren, was auch Nicht-Magier wahrnehmen können.'
             },
             {
                 id: 'mana-schwamm',
                 name: 'Mana-Schwamm',
-                beschreibung: 'Du hast das besondere Talent, feindliche Magie zu absorbieren. Immer, wenn du eine Magieresistenz-Probe bestehst und so einem Zauber widerstehst, absorbierst du ihn und bekommst seine Mana-Kosten wahlweise als KP oder MP erstattet.'
+                beschreibung: 'Du hast das besondere Talent, feindliche Magie zu absorbieren. Immer, wenn du eine Magieresistenz-Probe bestehst und so einem Zauber widerstehst, absorbierst du den abgefangenen Schaden und bekommst ihn als MP erstattet.'
             },
             {
                 id: 'nachtsicht',

@@ -1060,6 +1060,14 @@ const spellService = {
             beschreibung: "Erschafft 2W6 kleine Kugeln aus reinem Mana, die dich oder ein Ziel in Sichtweite umkreisen. Die Kugeln geben ein Leuchten etwa so stark wie das von Fackeln von sich. Die Kugeln reagieren automatisch auf anderes Mana und fliegen zu ihm hin, um es zu absorbieren. Das heißt, sie können genutzt werden, um Zauber aufzuspüren und abzuwehren. Immer, wenn das Ziel von einem Zauber getroffen werden würde, würfelst du 1W6. So viele Kugeln stürzen sich auf den Zauber, um ihn zu neutralisieren (oder alle verbleibenden Kugeln, falls das weniger als das Ergebnis sind). Die Kugeln bleiben immer bei ihrem Ziel und bewegen sich mit ihm mit. Sie halten maximal 10 Minuten, du kannst sie aber jederzeit verschwinden lassen."
         },
         {
+            id: "plattform",
+            name: "Plattform",
+            level: 2,
+            mpKosten: 10,
+            magieschule: "magiekunst",
+            beschreibung: "Erschafft eine bis zu 2x2 Meter große, unsichtbare Plattform in der Luft. Die Plattform besteht aus verdichteter Luft. Sie kann nicht bewegt werden und kann bis zu 50xZK Kilo aushalten; bei größerer Belastung beginnt sie, zu zerbrechen. "
+        },
+        {
             id: "scheinen",
             name: "Scheinen",
             level: 1,
@@ -1100,6 +1108,14 @@ const spellService = {
             beschreibung: "Belegt dich oder ein Ziel, das du berührst, mit Stille, solange du es berührt hältst. Ein stilles Ziel kann weder sprechen noch sonst irgendwelche Geräusche erzeugen, inklusive z.B. durch das Treten auf zerbrechende Äste, Klopfen an eine Wand usw."
         },
         {
+            id: "substitution",
+            name: "Substitution",
+            level: 4,
+            mpKosten: 50,
+            magieschule: "magiekunst",
+            beschreibung: "Vertauscht augenblicklich deine Position mit der eines Gegenstands oder Ziels, den/das du sehen kannst. Unwillige Ziele können eine Magieresistenz-Probe (Schwierigkeit 1) ablegen, um diesem Effekt zu widerstehen, wodurch der Zauber fehlschlägt (aber trotzdem MP kostet). Im Kampf kann dieser Zauber als Reaktion benutzt werden, um einem Angriff/Zauber automatisch auszuweichen oder ein anderes Ziel in die Bahn des Angriffs/Zaubers zu bewegen."
+        },
+        {
             id: "telekinese",
             name: "Telekinese",
             level: 1,
@@ -1113,7 +1129,7 @@ const spellService = {
             level: 1,
             mpKosten: 2,
             magieschule: "magiekunst",
-            beschreibung: "Inspiziere eine Leiche ganz genau, während du diesen Zauber wirkst. Du erhältst magische Einsicht darüber, wann und wie genau die Leiche zu Tode kam (im Fall eines Mordes aber nicht unbedingt, durch wen!)."
+            beschreibung: "Berühre eine Leiche, während du diesen Zauber wirkst. Du siehst vor deinem inneren Auge die letzten 10xZK Sekunden des Lebens der Leiche aus deren Perspektive."
         },
         {
             id: "traumbotschaft",

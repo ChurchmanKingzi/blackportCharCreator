@@ -54,21 +54,32 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
     
+    // Flag für laufende Aktualisierung, um Rekursion zu vermeiden
+    let isUpdating = false;
+    
     // Wir erstellen auch eine Version des classSpells Objekts für spellService
     // Dies ermöglicht das Abrufen durch getZauberById
     initializeSpellService();
     
     // Event-Listener für Klassenänderungen
     if (classSelect) {
-        classSelect.addEventListener('change', checkClassSpells);
+        classSelect.addEventListener('change', function() {
+            if (!isUpdating) {
+                checkClassSpells();
+            }
+        });
     }
     
     // Bei Doppelklasse auch die zweite Klasse überwachen
     if (secondClassSelect) {
-        secondClassSelect.addEventListener('change', checkClassSpells);
+        secondClassSelect.addEventListener('change', function() {
+            if (!isUpdating) {
+                checkClassSpells();
+            }
+        });
     }
     
-    // Observer für Änderungen am Zauberbuch
+    // Abgeschwächter Observer für Änderungen am Zauberbuch
     setupSpellbookObserver();
     
     // Initial prüfen, ob eine Klasse mit speziellem Zauber bereits ausgewählt ist
@@ -105,6 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     /**
      * Richtet den MutationObserver für Änderungen im Zauberbuch ein
+     * mit verbesserter Logik zur Vermeidung von Duplikaten
      */
     function setupSpellbookObserver() {
         // Prüfen, ob der Container existiert
@@ -116,54 +128,184 @@ document.addEventListener('DOMContentLoaded', function() {
         // Observer für Änderungen im Zauberbuch
         const observer = new MutationObserver(function(mutations) {
             // Nur relevant, wenn Slots hinzugefügt oder entfernt wurden
+            // und wenn keine Aktualisierung bereits läuft
+            if (isUpdating) return;
+            
             const relevantMutation = mutations.some(mutation => 
                 mutation.type === 'childList' && 
                 (mutation.addedNodes.length > 0 || mutation.removedNodes.length > 0)
             );
             
             if (relevantMutation) {
-                // Verzögerung hinzufügen, um sicherzustellen, dass Zauber-Slots vollständig geladen sind
-                setTimeout(updateClassSpellSlots, 100);
+                // Verzögern, um sicherzustellen, dass alle DOM-Änderungen abgeschlossen sind
+                setTimeout(() => {
+                    // Prüfen, ob Klassen-Zauber dupliziert wurden
+                    checkForDuplicateClassSpells();
+                }, 50);
             }
         });
         
         // Beobachte alle Änderungen im Zauberbuch-Container
         observer.observe(spellSlotsContainer, { 
             childList: true,     // Beobachte hinzugefügte/entfernte Kinder
-            subtree: false       // Nicht alle Nachkommen beobachten
+            subtree: true       // Auch alle Nachkommen beobachten
         });
+    }
+
+    /**
+    * Prüft, ob Klassen-Zauber dupliziert wurden und entfernt Duplikate
+    * Muss am Ende der setupSpellbookObserver-Funktion in classSpellsHandler.js hinzugefügt werden
+    */
+    function checkForDuplicateClassSpells() {
+        // Alle Zauber-Slots erfassen
+        const allSpellSlots = document.querySelectorAll('.spell-slot');
+        
+        // Klassen-Zauber IDs und deren Slots erfassen
+        const classSpellIds = new Set();
+        const classSpellSlots = Array.from(document.querySelectorAll('.class-spell-slot'));
+        const duplicateSlots = [];
+        
+        // Erst alle Klassen-Zauber-IDs sammeln
+        classSpellSlots.forEach(slot => {
+            const spellSelect = slot.querySelector('.spell-select');
+            if (spellSelect && spellSelect.value) {
+                classSpellIds.add(spellSelect.value);
+            }
+        });
+        
+        // Dann reguläre Slots prüfen, ob sie Klassen-Zauber enthalten
+        allSpellSlots.forEach(slot => {
+            // Nur reguläre Slots überprüfen (keine Klassen-Slots)
+            if (!slot.classList.contains('class-spell-slot')) {
+                const spellSelect = slot.querySelector('.spell-select');
+                if (spellSelect && spellSelect.value && classSpellIds.has(spellSelect.value)) {
+                    // Dieser reguläre Slot enthält einen Klassen-Zauber - als Duplikat markieren
+                    duplicateSlots.push(slot);
+                }
+            }
+        });
+        
+        // Duplikate entfernen oder zurücksetzen
+        if (duplicateSlots.length > 0) {
+            console.log('Duplikate gefunden und werden entfernt:', duplicateSlots.length);
+            
+            duplicateSlots.forEach(slot => {
+                const spellSelect = slot.querySelector('.spell-select');
+                if (spellSelect) {
+                    // Auswahl zurücksetzen statt den Slot zu entfernen
+                    spellSelect.value = '';
+                    
+                    // Change-Event auslösen, um die Anzeige zu aktualisieren
+                    const event = new Event('change', { bubbles: true });
+                    spellSelect.dispatchEvent(event);
+                }
+            });
+            
+            // Zauber-Slots Info aktualisieren
+            updateSpellSlotsInfo();
+        }
     }
     
     /**
      * Prüft, ob Klassen mit speziellen Zaubern ausgewählt sind
      */
     function checkClassSpells() {
-        // Aktuelle Klassen abrufen
-        const classes = getSelectedClasses();
+        // Verhindert rekursive Aufrufe während einer Aktualisierung
+        if (isUpdating) return;
+        isUpdating = true;
         
-        // Vorherige Klassen-Zauber-Slots im DOM identifizieren und entfernen
-        const existingClassSlots = spellSlotsContainer.querySelectorAll('.class-spell-slot');
-        existingClassSlots.forEach(slot => slot.remove());
-        
-        // Klassen-Zauber-Slots-Array zurücksetzen
-        window.classSpellSlots = [];
-        
-        // Für jede ausgewählte Klasse, wenn sie einen Spezialzauber hat, hinzufügen
-        classes.forEach(className => {
-            if (classSpells[className]) {
-                // Zum Array hinzufügen
-                window.classSpellSlots.push({
-                    className: className,
-                    spellId: classSpells[className].id
-                });
-                
-                // Benachrichtigung zeigen, wenn die Klasse neu hinzugefügt wurde
-                showClassSpellNotification(className, true);
+        try {
+            // Aktuelle Klassen abrufen
+            const classes = getSelectedClasses();
+            
+            // Die neuen Klassenzauber bestimmen, die wir haben sollten
+            const desiredClassSpells = [];
+            
+            // Für jede ausgewählte Klasse, wenn sie einen Spezialzauber hat, hinzufügen
+            classes.forEach(className => {
+                if (classSpells[className]) {
+                    const spellId = classSpells[className].id;
+                    
+                    // Zum Array hinzufügen, wenn dieser Zauber noch nicht vorhanden ist
+                    if (!desiredClassSpells.some(item => item.spellId === spellId)) {
+                        desiredClassSpells.push({
+                            className: className,
+                            spellId: spellId
+                        });
+                    }
+                }
+            });
+            
+            // Vergleiche mit den aktuellen Slots, um festzustellen, was hinzugefügt/entfernt werden muss
+            const currentSpellSlots = Array.from(spellSlotsContainer.querySelectorAll('.class-spell-slot'));
+            const currentSpellIds = currentSpellSlots.map(slot => {
+                const select = slot.querySelector('.spell-select');
+                return select ? select.value : null;
+            }).filter(id => id);
+            
+            // Bestimme Zauber, die entfernt werden müssen (weil die Klasse nicht mehr ausgewählt ist)
+            const toRemove = currentSpellSlots.filter(slot => {
+                const select = slot.querySelector('.spell-select');
+                const spellId = select ? select.value : null;
+                return spellId && !desiredClassSpells.some(item => item.spellId === spellId);
+            });
+            
+            // Bestimme Zauber, die hinzugefügt werden müssen (weil die Klasse neu ausgewählt wurde)
+            const toAdd = desiredClassSpells.filter(item => 
+                !currentSpellIds.includes(item.spellId)
+            );
+            
+            // Entferne nicht mehr benötigte Slots
+            toRemove.forEach(slot => {
+                const select = slot.querySelector('.spell-select');
+                const spellId = select ? select.value : null;
+                if (spellId) {
+                    // Finde die Klasse zu diesem Zauber
+                    for (const className in classSpells) {
+                        if (classSpells[className].id === spellId) {
+                            // Benachrichtigung zeigen, dass der Zauber entfernt wurde
+                            showClassSpellNotification(className, false);
+                            break;
+                        }
+                    }
+                }
+                slot.remove();
+            });
+            
+            // Füge neue Slots hinzu
+            toAdd.forEach(item => {
+                createClassSpellSlot(item.className, item.spellId);
+                // Benachrichtigung zeigen, dass der Zauber hinzugefügt wurde
+                showClassSpellNotification(item.className, true);
+            });
+            
+            // Aktualisiere das globale classSpellSlots Array
+            window.classSpellSlots = desiredClassSpells;
+            
+            // Nach Änderungen die Zauber-Slots Info aktualisieren
+            updateSpellSlotsInfo();
+            
+        } finally {
+            // Immer das Flag zurücksetzen, wenn wir fertig sind
+            isUpdating = false;
+        }
+    }
+    
+    /**
+     * Prüft, ob ein bestimmter Klassenzauber bereits existiert
+     * @param {string} spellId - Die ID des zu prüfenden Zaubers
+     * @returns {boolean} true, wenn der Zauber bereits existiert
+     */
+    function classSpellExists(spellId) {
+        // Überprüfe, ob der Zauber bereits in einem Slot existiert
+        const existingSlots = document.querySelectorAll('.class-spell-slot');
+        for (let slot of existingSlots) {
+            const spellSelect = slot.querySelector('.spell-select');
+            if (spellSelect && spellSelect.value === spellId) {
+                return true;
             }
-        });
-        
-        // Zauber-Slots aktualisieren (nur einmal am Ende)
-        updateClassSpellSlots();
+        }
+        return false;
     }
     
     /**
@@ -189,69 +331,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     /**
-     * Fügt einen Klassen-Zauber-Slot hinzu
-     * @param {string} className - Die Klassen-ID
-     */
-    function addClassSpellSlot(className) {
-        // Prüfen, ob diese Klasse einen speziellen Zauber hat
-        if (!classSpells[className]) return;
-        
-        // Neuen Slot erstellen
-        const slot = {
-            className: className,
-            spellId: classSpells[className].id
-        };
-        
-        // Slot zur Liste hinzufügen
-        window.classSpellSlots.push(slot);
-        
-        // Benachrichtigung zeigen
-        showClassSpellNotification(className, true);
-    }
-    
-    /**
-     * Entfernt einen Klassen-Zauber-Slot
-     * @param {string} className - Die Klassen-ID
-     */
-    function removeClassSpellSlot(className) {
-        // Slot aus der Liste entfernen
-        window.classSpellSlots = window.classSpellSlots.filter(slot => slot.className !== className);
-        
-        // Benachrichtigung zeigen
-        showClassSpellNotification(className, false);
-    }
-    
-    /**
      * Aktualisiert die Klassen-Zauber-Slots im Zauberbuch
+     * Diese Funktion wird vereinfacht, da checkClassSpells die Hauptlogik übernimmt
      */
     function updateClassSpellSlots() {
         // Prüfen, ob Container existiert
         if (!spellSlotsContainer) return;
         
-        // Alle bestehenden Klassen-Zauber-Slots entfernen
-        const existingClassSlots = spellSlotsContainer.querySelectorAll('.class-spell-slot');
-        existingClassSlots.forEach(slot => slot.remove());
-        
-        // Wenn keine Klassen-Zauber vorhanden sind, nichts weiter tun
-        if (window.classSpellSlots.length === 0) return;
-        
-        // Für jeden Klassen-Zauber einen Slot hinzufügen
-        window.classSpellSlots.forEach(slot => {
-            createClassSpellSlot(slot.className, slot.spellId);
-        });
-        
-        // Nach dem Hinzufügen der Klassen-Zauber sicherstellen, dass 
-        // die Zauber-Slots Info korrekt ist
+        // Aktualisiere die Zauber-Slots Info
         updateSpellSlotsInfo();
     }
     
-
     /**
      * Aktualisiert die Anzeige der verfügbaren Zauberslots
      */
     function updateSpellSlotsInfo() {
-        const spellSlotsInfo = document.getElementById('spell-slots-info');
-        if (!spellSlotsInfo) return;
+        const spellSlotsInfoElement = document.getElementById('spell-slots-info');
+        if (!spellSlotsInfoElement) return;
     
         // Zähle die regulären Zauber-Slots
         const regularSlots = document.querySelectorAll('.spell-slot:not(.class-spell-slot)').length;
@@ -260,7 +356,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const classSlots = document.querySelectorAll('.class-spell-slot').length;
         
         // Aktualisiere die Info-Anzeige
-        spellSlotsInfo.textContent = `(${regularSlots + classSlots} Plätze verfügbar)`;
+        spellSlotsInfoElement.textContent = `(${regularSlots + classSlots} Plätze verfügbar)`;
     }
     
     /**
@@ -269,6 +365,11 @@ document.addEventListener('DOMContentLoaded', function() {
      * @param {string} spellId - Die Zauber-ID
      */
     function createClassSpellSlot(className, spellId) {
+        // Prüfen, ob der Zauber bereits existiert
+        if (classSpellExists(spellId)) {
+            return; // Nicht duplizieren
+        }
+        
         // Prüfen, ob der Zauber existiert
         const spell = classSpells[className];
         if (!spell) return;
@@ -279,6 +380,8 @@ document.addEventListener('DOMContentLoaded', function() {
         slotContainer.style.position = 'relative';
         slotContainer.style.borderLeft = '3px solid #4a90e2';
         slotContainer.style.backgroundColor = 'rgba(74, 144, 226, 0.05)';
+        slotContainer.dataset.className = className; // Klassen-ID speichern
+        slotContainer.dataset.spellId = spellId; // Zauber-ID speichern für einfachere Identifikation
         
         // Zusätzliches Dropdown und Info-Box erstellen
         const slotContent = `
@@ -389,10 +492,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Event-Listener für Aktualisierungen durch MA-Wert-Änderungen
     document.addEventListener('ma-value-changed', function(event) {
-        setTimeout(updateClassSpellSlots, 200);
+        // Nur die Zauber-Slots Info aktualisieren, um Duplikate zu vermeiden
+        setTimeout(updateSpellSlotsInfo, 200);
     });
     
     // Öffentliche Methoden für andere Module
     window.updateClassSpellSlots = updateClassSpellSlots;
     window.checkClassSpells = checkClassSpells;
+    window.classSpellExists = classSpellExists;
 });

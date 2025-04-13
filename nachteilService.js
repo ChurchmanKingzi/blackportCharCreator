@@ -70,7 +70,7 @@ const nachteilService = {
             {
                 id: 'schüchtern',
                 name: 'Schüchtern',
-                beschreibung: 'Du kannst du gar nicht mit anderen Menschen umgehen. Von CH abhängige Proben haben für dich immer 2 automatische Patzer. Solange du mehr als eine fremde Person in deiner Nähe hast, haben alle Proben, die du versuchst, einen automatischen Patzer pro zusätzlicher Person in der Nähe (max 3).'
+                beschreibung: 'Du kannst so gar nicht mit anderen Menschen umgehen. Von CH abhängige Proben haben für dich immer 2 automatische Patzer. Solange du mehr als eine fremde Person in deiner Nähe hast, haben alle Proben, die du versuchst, einen automatischen Patzer pro zusätzlicher Person in der Nähe (max 3).'
             },
             {
                 id: 'stur',

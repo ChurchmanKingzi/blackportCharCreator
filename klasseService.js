@@ -20,7 +20,7 @@ const klasseService = {
             {
                 id: 'blutmagier',
                 name: 'Blutmagier',
-                beschreibung: 'Dein Blut hat magische Eigenschaften. Wähle zwei der folgenden: Es trocknet sofort und schließt oberflächliche Verletzungen - du nimmst niemals Wunden durch Schnitte oder Stiche. Es ist stark ätzend - jeder außer dir, der es berührt, nimmt jede Runde 1W6 Schaden, bis es entfernt wird. Du kannst es manipulieren und formen, sobald es deinen Körper verlassen hat - du kannst Objekte aus deinem Blut erschaffen, die dann hart wie Eisen werden. Es ist extrem potent, sodass du weniger davon im Körper brauchst als andere - es schadet dir fast nicht, auszubluten, sodass du keine Wunden dadurch nimmst, geringen Schaden zu nehmen, während du bewusstlos bist. Es enthält Antikörper gegen jede Krankheit der Welt, ob natürlich oder künstlich - du bist komplett immun gegen Krankheiten und magische Gifte, egal, wie stark diese sind. Es ist von Natur aus brennend heiß - deine Körpertemperatur liegt bei an die 50 Grad, du friest nie und bist immun gegen Effekte, die dich einfrieren oder dir Kälte-basierten Schaden zufüügen würden.'
+                beschreibung: 'Dein Blut hat magische Eigenschaften. Wähle zwei der folgenden: | Es trocknet sofort und schließt oberflächliche Verletzungen - du nimmst niemals Wunden durch Schnitte oder Stiche. | Es ist stark ätzend - jeder außer dir, der es berührt, nimmt jede Runde 1W6 Schaden, bis es entfernt wird. | Du kannst es manipulieren und formen, sobald es deinen Körper verlassen hat - du kannst Objekte aus deinem Blut erschaffen, die dann hart wie Eisen werden. | Es ist extrem potent, sodass du weniger davon im Körper brauchst als andere - es schadet dir fast nicht, auszubluten, sodass du keine Wunden dadurch nimmst, geringen Schaden zu nehmen, während du bewusstlos bist. | Es enthält Antikörper gegen jede Krankheit der Welt, ob natürlich oder künstlich - du bist komplett immun gegen Krankheiten und magische Gifte, egal, wie stark diese sind. | Es ist von Natur aus brennend heiß - deine Körpertemperatur liegt bei an die 50 Grad, du friest nie und bist immun gegen Effekte, die dich einfrieren oder dir Kälte-basierten Schaden zufügen würden.'
             },
             {
                 id: 'chaos-magier',
@@ -56,11 +56,6 @@ const klasseService = {
                 id: 'hexendoktor',
                 name: 'Hexendoktor',
                 beschreibung: 'Du kannst einen einstündigen Tanz um ein Ziel herum aufführen, um dieses in perfekte körperliche Verfassung zu versetzen. Alle seine Wunden verschwinden, KP und MP werden voll aufgefüllt, es ist voller Energie, selbst wenn es lange nicht geschlafen hat. Wird der Tanz mittendrin unterbrochen, etwa durch einen Angriff, kann das katastrophale Folgen haben. Wenn ein Ziel zu Beginn des Tanzes seit weniger als 5 Minuten tot war, kann es so wiederbelebt werden. Nach Ende des Tanzes bist du völlig erschöpft, hast keine MP mehr und brauchst Schlaf, bevor du irgendetwas anderes tun kannst. Hast du ein Totes Ziel wiederbelebt, wirst du sofort bewusstlos.'
-            },
-            {
-                id: 'heretiker',
-                name: 'Heretiker',
-                beschreibung: 'Schaden, den du verursachst, kann nicht verringert oder negiert werden und ignoriert sowohl magische Schilde/Rüstungen als auch Magie-Resistenz. Betrifft nur direkten Schaden, keine sonstigen Effekte. Außerdem bist du sehr berüchtigt und von Beginn an ein Feind der Kirche.'
             },
             {
                 id: 'hexer',

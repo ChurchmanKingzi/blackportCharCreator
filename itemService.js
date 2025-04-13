@@ -306,7 +306,7 @@ const itemService = {
         {
             id: "weihwasser",
             name: "Weihwasser",
-            beschreibung: "3 kleine Fläschchen mit Weihwasser. Ein Fläschchen leerzutrinken, gibt dir für eine Stunde vollständige Immunität gegen jede Art von Fluch und hebt Flüche, mit denen du bereits belegt bist, vorübergehend auf. Kann auch mit Werfen auf untote, dämonische oder unheilige Ziele geworfen werden, um ihnen 6W6 Schaden und grässliche Schmerzen zuzufügen.",
+            beschreibung: "3 kleine Fläschchen mit Weihwasser. Ein Fläschchen leerzutrinken, gibt dir für eine Stunde vollständige Immunität gegen negative Statuseffekte sowie jede Art von Fluch und Flüche, mit denen du bereits belegt bist, vorübergehend auf. Kann auch mit Werfen auf untote, dämonische oder unheilige Ziele geworfen werden, um ihnen 10W6 Schaden und grässliche Schmerzen zuzufügen.",
             anzahl: 3
         },
         {
