@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
             {
                 id: 'pa',
                 label: 'PA',
-                formula: 'PA = ⌈(WI + CH + GL) ÷ 2⌉',
+                formula: 'PA = ⌈(WI + CH + GL) ÷ 2⌉ + Ausweichen',
                 description: 'Parade. Du würfelst so viele W6, um zu versuchen, auszuweichen.'
             },
             {
