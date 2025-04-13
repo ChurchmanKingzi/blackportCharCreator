@@ -612,6 +612,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     lastValidValue = newValue.toString();
                     // Aktualisiere die Anzeige der verfügbaren Fertigkeitspunkte
                     updateAvailableSkillPointsDisplay();
+                    
+                    // Überprüfe, ob es sich um Ausweichen oder Akrobatik handelt, und aktualisiere die Kampfwerte
+                    const attributeItem = this.closest('.attribute-item');
+                    if (attributeItem && (
+                        attributeItem.textContent.includes('Ausweichen') || 
+                        attributeItem.textContent.includes('Akrobatik')
+                    )) {
+                        updateCombatStats();
+                    }
                 }
             });
             
@@ -621,6 +630,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     this.value = '0';
                     lastValidValue = '0';
                     updateAvailableSkillPointsDisplay();
+                    
+                    // Auch hier: Überprüfe, ob es sich um Ausweichen oder Akrobatik handelt
+                    const attributeItem = this.closest('.attribute-item');
+                    if (attributeItem && (
+                        attributeItem.textContent.includes('Ausweichen') || 
+                        attributeItem.textContent.includes('Akrobatik')
+                    )) {
+                        updateCombatStats();
+                    }
                 }
             });
         });
@@ -955,13 +973,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const akrobatikElement = findElementsContainingText('.attribute-item', 'Akrobatik')[0];
         const akrobatikWert = akrobatikElement ? parseInt(akrobatikElement.querySelector('.attribute-value').value) || 0 : 0;
         
+        // Ausweichen-Wert abfragen
+        const ausweichenElement = findElementsContainingText('.attribute-item', 'Ausweichen')[0];
+        const ausweichenWert = ausweichenElement ? parseInt(ausweichenElement.querySelector('.attribute-value').value) || 0 : 0;
+        
         // Überprüfen, ob der Nachteil "Einbeinig" ausgewählt ist
         const hasOneLegDisadvantage = elements.disadvantageSelect.value === 'einbeinig';
         
         // Kampfwerte berechnen nach den neuen Formeln
         // Bei Division immer aufrunden (Math.ceil)
         const gena = Math.ceil((weisheitAttribut + weisheitAttribut + glückAttribut) / 2);
-        const pa = Math.ceil((weisheitAttribut + charismaAttribut + glückAttribut) / 2);
+        
+        // PA-Berechnung mit Ausweichen-Wert
+        const pa = Math.ceil((weisheitAttribut + charismaAttribut + glückAttribut) / 2) + ausweichenWert;
+        
         const kpMax = (körperAttribut + körperAttribut + glückAttribut) * 6;
         
         // Berechne INIT basierend auf "Einbeinig"-Nachteil
@@ -977,7 +1002,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (hasOneLegDisadvantage) {
             bw = 5; // Fester Wert von 5 für "Einbeinig"
         } else {
-            // Neue Berechnung für BW: Basis KÖ * 5 plus 5 * Akrobatikwert
+            // Berechnung für BW: KÖ * 5 + Akrobatikwert * 5
             bw = körperAttribut * 5 + akrobatikWert * 5;
         }
         
