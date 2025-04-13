@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 'illusion-erschaffen',
             name: 'Illusion erschaffen',
             level: 1,
-            magieschule: 'magiekunst',
+            magieschule: 'Zauberkunst',
             mpKosten: 10,
             beschreibung: 'Erzeugt eine bist zu 1x1x2 Meter große optische Illusion, die absolut alles darstellen kann, was du dir vorstellst. Die Illusion kann halbtransparent oder komplett opak sein und hält bis zu eine Stunde. Die Dauer kann beliebig erhöht werden, kostet aber pro zusätzlicher Stunde wieder 10 MP. Du kannst die Illusion auch so einstellen, dass nur diejenigen sie sehen können, die von Magie wissen. Die Illusion kann jederzeit frühzeitig aufgehoben oder verändert werden. Solange du deine Augen geschlossen hältst und die Illusion Augen hat, kannst du durch ihre Augen sehen und sie fernsteuern. Sie kann keine Geräusche verursachen und ist rein optisch; man kann einfach durch sie hindurchgehen.'
         },
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 'poltergeist',
             name: 'Poltergeist',
             level: 1,
-            magieschule: 'magiekunst',
+            magieschule: 'Zauberkunst',
             mpKosten: 2,
             beschreibung: 'Erweckt einen Gegenstand zum Leben. Während du den Zauber wirkst, gibst du dem Gegenstand einen simplen Befehl (maximal ein Satz). Sobald der Gegenstand zum Leben erweckt ist, folgt er deinem Befehl mit ganzer Kraft. Er hat 1 KP und wird wieder leblos, wenn er Schaden nimmt oder deinen Befehl vollständig ausgeführt hat. Du kannst maximal drei Gegenstände zur Zeit zum Leben erweckt haben, den Effekt aber jederzeit abbrechen, wenn du andere erwecken willst. Gegebene Befehle müssen ein klares Ziel/einen klaren Endpunkt haben, du kannst einem Gegenstand nicht befehlen "dir zu dienen".'
         }
@@ -419,7 +419,7 @@ document.addEventListener('DOMContentLoaded', function() {
             case "zerstoerung": return "Zerstörung";
             case "unterstuetzung": return "Unterstützung";
             case "verfall": return "Verfall";
-            case "magiekunst": return "Zauberkunst";
+            case "Zauberkunst": return "Zauberkunst";
             case "beschwoerung": return "Beschwörung";
             default: return code;
         }

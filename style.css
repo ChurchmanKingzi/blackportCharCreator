@@ -765,7 +765,7 @@ select {
     background-color: rgba(128, 0, 128, 0.1);
 }
 
-.spell-select option[data-magieschule="magiekunst"] {
+.spell-select option[data-magieschule="Zauberkunst"] {
     background-color: rgba(0, 0, 255, 0.1);
 }
 

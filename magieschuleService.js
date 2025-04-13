@@ -19,8 +19,8 @@ const magieschuleService = {
             beschreibung: "Gift, Debuffs, Statuseffekte."
         },
         {
-            id: "magiekunst",
-            name: "Magiekunst",
+            id: "Zauberkunst",
+            name: "Zauberkunst",
             beschreibung: "Utility, Tricks und Überraschungen."
         },
         {

@@ -1103,7 +1103,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     case 'verfall':
                         bgColor = 'rgba(128, 0, 128, 0.05)';
                         break;
-                    case 'magiekunst':
+                    case 'Zauberkunst':
                         bgColor = 'rgba(0, 0, 255, 0.05)';
                         break;
                     case 'beschwoerung':

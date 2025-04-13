@@ -888,7 +888,7 @@ const spellService = {
             name: "Absolute Kontrolle",
             level: 5,
             mpKosten: 200,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Schreibt permanent die Persönlichkeit und Erinnerungen eines Ziels um und verwandelt es so in was auch immer du willst. Der Zauber erfordert ein einstündiges Ritual, währenddessen das Ziel bei Bewusstsein sein und du es permanent mit beiden Händen am Kopf berühren musst. Wenn das Ziel ein Magier ist, muss es eine Magieresistenz-Probe mit Schwierigkeit 3 bestehen, um dem Effekt zu widerstehen. Zu Beginn des Rituals definierst du ganz genau, wie du das Ziel umfunktionieren willst. Servants und andere magische Entitäten sind immun."
         },
         {
@@ -896,7 +896,7 @@ const spellService = {
             name: "Alarmzone",
             level: 2,
             mpKosten: 20,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Erzeugt eine bis zu 50x50 Meter große, unsichtbare Zone mit dir im Zentrum um dich herum. Wenn du die Zone aufbaust, definierst du eine Gruppe von Zielen (z.B. „Andere Magier“ oder „Jeder außer mir selbst und dieser Gruppe von Verbündeten“). Wenn ein Ziel, das nicht zu dieser Gruppe gehört, die Zone betritt, wirst du sofort darüber informierst und weißt genau, wo das Ziel ist. Du kannst so auch unsichtbare Ziele oder Ziele, die ihre Präsenz unterdrücken, wahrnehmen. Wenn du deine Augen schließt, kannst du vor deinem inneren Auge jede Person in der Zone beobachten wie mit Überwachungskameras. Du kannst die Zone auch im Schlaf überwachen. Die Zone hält solange an, bis du sie verlässt."
         },
         {
@@ -904,7 +904,7 @@ const spellService = {
             name: "Augen der Vergangenheit",
             level: 3,
             mpKosten: 10,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Führe ein zehnminütiges Ritual durch, bei dem du an eine bestimmte lebende Person denkst. Wenn das Ritual erfolgreich ist, verfällst du in einen tiefen Trance-Zustand, in dem du aus der Vogelperspektive eine wichtige Szene aus der Vergangenheit der Person miterlebst. Was genau du siehst, kannst du nicht beeinflussen, es wird aber immer etwas sein, das entweder für dich, die Person oder deine Interaktion mit der Person von besonderer Relevanz ist. Diesen Zauber mehr als einmal pro Tag einzusetzen, schadet deiner geistigen Gesundheit und kann zu dauerhaften Reduzierungen deiner Werte führen!"
         },
         {
@@ -912,7 +912,7 @@ const spellService = {
             name: "Aura der Verschwommenheit",
             level: 4,
             mpKosten: 16,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Gewährt dir oder einem Ziel, das du berührst, eine Aura absoluter Unauffälligkeit. Nicht-Magienutzer werden das Ziel nicht mehr wahrnehmen, solange es sie nicht direkt anspricht oder berührt. Proben auf Schleichen/Verstecken haben bei Nicht-Magienutzern automatisch kritischen Erfolg und erhalten sogar gegen Magier 2 zusätzliche Erfolge. Der Effekt hört auf, individuelle Ziele zu beeinflussen, sobald das Ziel sie berührt oder anspricht und hält sonst bis zu eine Stunde."
         },
         {
@@ -920,7 +920,7 @@ const spellService = {
             name: "Chaos-Kontrolle",
             level: 4,
             mpKosten: 0,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Würfle sofort (5xZK)W6. Diese Würfel werden dein 'Würfelpool'. Statt Proben zu würfeln, suchst du dir für bis zu die nächste Stunde entsprechend viele Würfel aus dem Pool aus und nimmst diese als Ergebnis deiner Probe. Wenn dein Pool leer oder die Stunde um ist, wirst du augenblicklich bewusstlos und nimmst 3 Wunden. Du kannst diesen Zauber nur einmal pro Tag anwenden."
         },
         {
@@ -928,7 +928,7 @@ const spellService = {
             name: "Doppelgänger",
             level: 2,
             mpKosten: 14,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Erschafft ein perfektes Ebenbild von einer Person, die du berührst. Du kannst das Ebenbild mit deinen Gedanken fernsteuern und alles sehen und hören, was es sieht und hört, solange du deine Augen schließt. Das Ebenbild ist rein illusorisch, es hat keinen festen Körper, kann mit nichts interagieren und nicht sprechen."
         },
         {
@@ -936,7 +936,7 @@ const spellService = {
             name: "Elektronenwelle",
             level: 2,
             mpKosten: 10,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Deaktiviert alle elektronischen Geräte in bis zu 100 Metern Entfernung und macht sie für eine volle Stunde unbrauchbar."
         },
         {
@@ -944,7 +944,7 @@ const spellService = {
             name: "Erinnerungen verwischen",
             level: 1,
             mpKosten: 10,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Lässt Nicht-Magier vergessen, dass sie Magie gesehen haben. Ihre Erinnerungen werden so angepasst, dass was auch immer sie Übernatürliches erlebt haben sich ganz natürlich erklären lässt. Hat keinerlei Effekt auf jeden, der über die Existenz von Magie bereits Bescheid wusste, bevor das Ereignis, an das du die Erinnerungen löschen willst, passierte. Dieser Zauber gilt als der wichtigste, um ihn neuen, unerfahrenen Magiern beizubringen. Schadensbegrenzung und so."
         },
         {
@@ -952,7 +952,7 @@ const spellService = {
             name: "Fliegende Klinge",
             level: 1,
             mpKosten: 6,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Belegt einen Gegenstand (z.B. eine Klinge) mit einem Zauber und wirft ihn in die grobe Richtung eines Ziels. Du bestimmst dabei ein Ziel. Das Objekt fliegt direkt auf das Ziel zu und wird es solange verfolgen, bis es es trifft oder irgendwie zerstört wird."
         },
         {
@@ -960,7 +960,7 @@ const spellService = {
             name: "Gedankennetz",
             level: 4,
             mpKosten: 26,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Erzeugt ein Netzwerk aus den Gedanken von dir und bis zu 5 willigen Personen, die du berührst. Alle Mitglieder des Netzwerks können alle Gedanken aller anderen Netzwerke hören. Ziele können jederzeit aus dem Netzwerk austreten und du kannst sie rauswerfen. Du kannst auch neue Ziele in das Netzwerk aufnehmen, indem du ihren Kopf berührst während sie willig sind, beizutreten, und 10 MP bezahlst. Das Netzwerk hat keine maximale Reichweite und hält bis zu 24 Stunden, aber du kannst dann seine MP-Kosten nochmal bezahlen, um es weitere 24 Stunden aufrechtzuerhalten."
         },
         {
@@ -968,7 +968,7 @@ const spellService = {
             name: "Gravitas",
             level: 3,
             mpKosten: 6,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Erhöht schlagartig in einem Bereich von 10x10 Metern mit dir im Zentrum die Schwerkraft auf ein Vielfaches. Betroffene Ziele (auch du selbst!) müssen eine KÖ-Probe bestehen oder werden zu Boden gerissen. Betroffene Ziele müssen jede Runde eine KÖ-Probe bestehen, wenn sie sich bewegen wollen. Du kannst diesen Effekt beliebig lange aufrechterhalten, musst aber alle 5 Sekunden die Kosten dieses Zaubers bezahlen. Der Zauber geht immer von deiner aktuellen Position aus."
         },
         {
@@ -976,7 +976,7 @@ const spellService = {
             name: "Halluzination",
             level: 1,
             mpKosten: 12,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Du belegst ein Ziel mit einer simplen audio-visuellen Halluzination. Das Ziel bekommt vom Spielleiter eine Information deiner Wahl gesagt, als wäre es die Wahrheit. Kommt das Ziel auf die Idee, daran zu zweifeln, kann es WI würfeln, um die Halluzination zu durchschauen, sonst hält es sie für offensichtlich wahr."
         },
         {
@@ -984,7 +984,7 @@ const spellService = {
             name: "Information generieren",
             level: 4,
             mpKosten: 40,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Erzeugt eine Information, die eine einzelne, in einem Satz gestellte Frage beantwortet (z.B. 'Wo befindet sich aktuell Person XY' oder 'Was ist die wahre Identität von XY?' Die Information ist garantiert korrekt und erscheint einfach in deinem Kopf, auch wenn du keinerlei Anhaltspunkte dafür hattest."
         },
         {
@@ -992,7 +992,7 @@ const spellService = {
             name: "Informationen löschen",
             level: 2,
             mpKosten: 30,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Löscht sofort alle gespeicherten Informationen über dich. Das betrifft Geschriebenes, Tonaufnahmen und Videos, aber auch z.B. Finger- und Fußabdrücke. Alle „Beweise“ für deine Existenz verschwinden einfach und werden durch weiße Blätter Papier oder leere Videokassetten ersetzt. Du kannst einen Zeitraum definieren, zu dem Informationen gelöscht werden sollen (z.B. alles, was in den letzten 2 Jahren entstanden ist) und musst nicht alle Aufzeichnungen über dein Leben löschen. Außerdem kannst du beliebig auch Aufzeichnungen von diesem Effekt ausnehmen, z.B. Fotos von dir auf deinem Handy. Das Wirken dieses Zaubers dauert etwa eine Stunde."
         },
         {
@@ -1000,7 +1000,7 @@ const spellService = {
             name: "Lautsprecher",
             level: 1,
             mpKosten: 6,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Erlaubt es dir, für bis zu 10 Minuten beliebige Geräusche von einem Ort ausgehen zu lassen, den du sehen kannst. Das kann Musik sein, deine eigene Stimme, Explosionen usw. Jemandes Stimme nachzuahmen, erfordert eine Probe auf Stimmen nachahmen!"
         },
         {
@@ -1008,7 +1008,7 @@ const spellService = {
             name: "Leidteiler",
             level: 3,
             mpKosten: 20,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Die KP von dir und einem Ziel, das du berührst, werden gleich dem Durchschnitt eurer aktuellen KP. Ein Ziel kann so vorübergehend mehr als seine maximalen KP haben."
         },
         {
@@ -1016,7 +1016,7 @@ const spellService = {
             name: "Lichtblitz",
             level: 1,
             mpKosten: 6,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Lässt für einen Augenblick einen gewaltigen Lichtblitz erscheinen, der von dir ausgeht. Jedes Ziel, das dich sieht, wird geblendet und muss bei seiner nächsten Aktion zweimal würfeln, wobei das schlechtere Ergebnis zählt. Kann als Reaktion auf einen anderen Angriff oder Zauber verwendet werden und erzwingt dann auch bei diesem ein Neuwürfeln."
         },
         {
@@ -1024,7 +1024,7 @@ const spellService = {
             name: "Mana-Filter",
             level: 1,
             mpKosten: 20,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Erschafft in einem etwa 10 Minuten langen Ritual eine 15x15 Meter große Zone mit deiner aktuellen Position im Zentrum. Bei der Erstellung bestimmst du eine Magie-Schule. Innerhalb der Zone sind Zauber dieser Schule stark gedämpft, wodurch ihre Kosten verdoppelt werden. Mana-Filter können sich nicht überlagern. Die Zone bleibt bestehen, bis du bewusstlos wirst, schläfst oder sie verlässt."
         },
         {
@@ -1032,7 +1032,7 @@ const spellService = {
             name: "Mana-Schleier",
             level: 1,
             mpKosten: 10,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Hüllt ein Ziel in eine dünne Schicht deines eigenen Manas. Das Ziel regeneriert dadurch die Hälfte der Kosten dieses Zaubers als MP (aufgerundet) und strahlt für eine Stunde deine Mana-Signatur aus. So können Nicht-Magier mit Magie-Wahrnehmung als Magier erkannt werden."
         },
         {
@@ -1040,7 +1040,7 @@ const spellService = {
             name: "Mein Schatz",
             level: 1,
             mpKosten: 10,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Designiert einen Gegenstand, den du mit mindestens einer Hand berührst, als „Deinen Schatz“. Du kannst immer nur einen Schatz zur Zeit haben, einen neuen zu designieren überschreibt den vorigen. Du kannst zu jeder Zeit bestimmen, in welcher Richtung und grober Entfernung sich dein Schatz gerade von dir befindet. Wenn du die Augen schließt, kannst du außerdem vor deinem inneren Auge deinen Schatz und seine direkte Umgebung (~1 Meter in alle Richtungen) sehen."
         },
         {
@@ -1048,7 +1048,7 @@ const spellService = {
             name: "Objektifizierung",
             level: 1,
             mpKosten: 4,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Verwandelt ein Objekt dauerhaft in ein anderes Objekt aus den gleichen Teilen. Es kann keine Masse hinzugefügt, wohl aber Teile weggelassen werden. Beispiel: Aus einer Tür kann ein Stuhl werden, aus einem Schwert ein Schlüssel, aber aus einem Schlüssel nur ein sehr kleines Schwert. Magische oder verzauberte Objekte sind nicht betroffen."
         },
         {
@@ -1056,7 +1056,7 @@ const spellService = {
             name: "Orbit",
             level: 3,
             mpKosten: 20,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Erschafft 2W6 kleine Kugeln aus reinem Mana, die dich oder ein Ziel in Sichtweite umkreisen. Die Kugeln geben ein Leuchten etwa so stark wie das von Fackeln von sich. Die Kugeln reagieren automatisch auf anderes Mana und fliegen zu ihm hin, um es zu absorbieren. Das heißt, sie können genutzt werden, um Zauber aufzuspüren und abzuwehren. Immer, wenn das Ziel von einem Zauber getroffen werden würde, würfelst du 1W6. So viele Kugeln stürzen sich auf den Zauber, um ihn zu neutralisieren (oder alle verbleibenden Kugeln, falls das weniger als das Ergebnis sind). Die Kugeln bleiben immer bei ihrem Ziel und bewegen sich mit ihm mit. Sie halten maximal 10 Minuten, du kannst sie aber jederzeit verschwinden lassen."
         },
         {
@@ -1064,7 +1064,7 @@ const spellService = {
             name: "Plattform",
             level: 2,
             mpKosten: 10,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Erschafft eine bis zu 2x2 Meter große, unsichtbare Plattform in der Luft. Die Plattform besteht aus verdichteter Luft. Sie kann nicht bewegt werden und kann bis zu 50xZK Kilo aushalten; bei größerer Belastung beginnt sie, zu zerbrechen. "
         },
         {
@@ -1072,7 +1072,7 @@ const spellService = {
             name: "Scheinen",
             level: 1,
             mpKosten: 2,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Belegt einen Gegenstand mit einem kleinen Zauber, der ihn schwach leuchten lässt. Das Leuchten ist stark genug, um dunkle Räume halbwegs zu erleuchten. Du kannst das Leuchten jederzeit „ausschalten“, aber dann musst du den Zauber erneut wirken, um es wieder einzuschalten."
         },
         {
@@ -1080,7 +1080,7 @@ const spellService = {
             name: "Schlangenzunge",
             level: 4,
             mpKosten: 30,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Flüstere einem Ziel ins Ohr und gib ihm eine Suggestion. Das Ziel wird deiner Suggestion für eine Stunde glauben, als wäre es die offensichtlichste Wahrheit der Welt. Du kannst ein Ziel so nicht dazu bringen, sich selbst zu verletzen oder zu töten, wohl aber einen Verbündeten. Magieresistenz kann diesen Effekt stark abschwächen, sodass das Ziel „nur“ vorübergehend verwirrt ist."
         },
         {
@@ -1088,7 +1088,7 @@ const spellService = {
             name: "Schwerelosigkeit",
             level: 4,
             mpKosten: 16,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Macht ein Ziel, das du berührst, für bis zu eine Stunde schwerelos. Ein schwereloses Ziel muss immer, wenn es sich bewegen will, eine Probe auf Schwimmen bestehen, oder es beginnt, hilflos aufwärts zu treiben. Du kannst den Effekt jederzeit vorzeitig beenden. Wenn der Effekt endet, fällt das Ziel schlagartig runter. Fallschaden ist 1W6 pro 3 Meter."
         },
         {
@@ -1096,7 +1096,7 @@ const spellService = {
             name: "Stimmenimitation",
             level: 1,
             mpKosten: 10,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Verändert für bis zu 24 Stunden deine Stimme so, dass sie wie eine andere Stimme klingt, die du schon einmal gehört hast. Die Stimme ist vom Original unmöglich zu unterscheiden. Du kannst diesen Effekt jederzeit beenden."
         },
         {
@@ -1104,7 +1104,7 @@ const spellService = {
             name: "Stille",
             level: 1,
             mpKosten: 6,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Belegt dich oder ein Ziel, das du berührst, mit Stille, solange du es berührt hältst. Ein stilles Ziel kann weder sprechen noch sonst irgendwelche Geräusche erzeugen, inklusive z.B. durch das Treten auf zerbrechende Äste, Klopfen an eine Wand usw."
         },
         {
@@ -1112,7 +1112,7 @@ const spellService = {
             name: "Substitution",
             level: 4,
             mpKosten: 50,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Vertauscht augenblicklich deine Position mit der eines Gegenstands oder Ziels, den/das du sehen kannst. Unwillige Ziele können eine Magieresistenz-Probe (Schwierigkeit 1) ablegen, um diesem Effekt zu widerstehen, wodurch der Zauber fehlschlägt (aber trotzdem MP kostet). Im Kampf kann dieser Zauber als Reaktion benutzt werden, um einem Angriff/Zauber automatisch auszuweichen oder ein anderes Ziel in die Bahn des Angriffs/Zaubers zu bewegen."
         },
         {
@@ -1120,7 +1120,7 @@ const spellService = {
             name: "Telekinese",
             level: 1,
             mpKosten: 12,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Bewegt ein bis zu 180 Kilo schweres Objekt oder Lebewesen mit deinen Gedanken. Du kannst das Ziel etwa in Jogging-Geschwindigkeit bewegen. Ein Ziel kann sich jede Runde (alle 5 Sekunden) mit Magieresistenz dagegen wehren, von dir bewegt zu werden. Bricht es erfolgreich aus, endet der Effekt vorzeitig. Du kannst das Ziel bis zu 10 Minuten lang nach belieben bewegen, selbst wenn es 180 Kilo wiegt, fühlt es sich für dich an wie eine Feder. Der Effekt endet vorzeitig, wenn du das Ziel nicht mehr sehen kannst."
         },
         {
@@ -1128,7 +1128,7 @@ const spellService = {
             name: "Todessicht",
             level: 1,
             mpKosten: 2,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Berühre eine Leiche, während du diesen Zauber wirkst. Du siehst vor deinem inneren Auge die letzten 10xZK Sekunden des Lebens der Leiche aus deren Perspektive."
         },
         {
@@ -1136,7 +1136,7 @@ const spellService = {
             name: "Traumbotschaft",
             level: 1,
             mpKosten: 10,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Sendet einem schlafenden Ziel einen bestimmten Traum nach deiner exakten Gestaltung. Du kannst in dem Traum beliebige Botschaften übermitteln oder scheinbare Visionen zeigen. Das Ziel kann sich hinterher perfekt an den Traum erinnern. Es muss eine MA-Probe bestehen, um zu erkennen, dass der Traum keine Vision, sondern der Effekt eines Zaubers war. Natürlich kannst du einem Ziel auch im Vorfeld sagen, dass du in seine Träume eindringen wirst. Wenn das Ziel nicht schläft, verpufft der Zauber wirkungslos, kostet aber trotzdem MP."
         },
         {
@@ -1144,7 +1144,7 @@ const spellService = {
             name: "Tunnel",
             level: 5,
             mpKosten: 10,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Du kannst jederzeit die Kosten dieses Zaubers bezahlen, um die Stelle, an der du dich gerade befindest, als „Tunnelausgang“ zu designieren. Wenn du diesen Zauber wirkst, musst du eine einminütige Formel aufsagen. Anschließend werden du und alle Ziele und Objekte, die du berührst, sofort zum Tunnelausgang teleportiert. Du kannst so nicht mehr als zehn Kilometer Distanz zurücklegen!"
         },
         {
@@ -1152,7 +1152,7 @@ const spellService = {
             name: "Überwachung",
             level: 3,
             mpKosten: 10,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Schließe deine Augen und stelle dir das Gesicht einer Person vor. Wenn du den vollständigen Namen der Person kennst, kannst du für bis zu eine Minute vor deinem inneren Auge verfolgen, was die Person jetzt gerade tut."
         },
         {
@@ -1160,7 +1160,7 @@ const spellService = {
             name: "Unsichtbarkeit",
             level: 4,
             mpKosten: 20,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Macht dich und alle Ziele, die du berührst, unsichtbar. Kleidung und kleine Gegenstände am Körper werden dabei ebenfalls betroffen. Ein Ziel bleibt solange unsichtbar, bis jemand, der nicht von diesem Zauber betroffen ist, es berührt, es einen Angriff oder offensiven Zauber ausführt oder bis es Schaden nimmt. Du kannst Ziele, die du unsichtbar gemacht hast, jederzeit wieder sichtbar machen (auch einzeln). Der Effekt hält maximal 3 Stunden. Proben auf Schleichen/Verstecken sind in der Regel automatische Erfolge. Ausnahmen sind z.B. gegen Ziele mit übermenschlichem Gehör, Geruchssinn oder Magiewahrnehmung. Im Kampf sind GENA-Proben gegen unsichtbare Ziele extrem erschwert, selbst wenn der Angreifer weiß, wo das Ziel ungefähr ist. Zauber mit Flächeneffekt sind nicht betroffen."
         },
         {
@@ -1168,7 +1168,7 @@ const spellService = {
             name: "Verständigung",
             level: 1,
             mpKosten: 6,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Wähle ein Ziel. Du sprichst für bis zu eine Stunde die Sprache des Ziels als wäre es deine Muttersprache und kannst dich so mit dem Ziel unterhalten. Schließt auch nicht-menschliche Sprachen (z.B. Kommunikation mit einer Tierart) ein. Du kannst nur eine zusätzliche Sprache zur Zeit so sprechen."
         },
         {
@@ -1176,7 +1176,7 @@ const spellService = {
             name: "Wettervorhersage",
             level: 5,
             mpKosten: 14,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Du kannst beliebig das Wetter verändern. Die Veränderung erfolgt in realistischer Geschwindigkeit, das heißt, von einem Hochsommertag zu einem Schneesturm zu kommen ist möglich, dauert aber mindestens eine Stunde an gradueller Veränderung. Wenn das Wetter einmal verändert ist, bleibt es für mehrere Stunden bestehen. Die Veränderung ist über viele, viele Kilometer spürbar."
         },
         {
@@ -1184,7 +1184,7 @@ const spellService = {
             name: "Wirbelwind",
             level: 2,
             mpKosten: 10,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Erzeugt sofort eine heftige, omnidirektionale Windböe, die von dir ausgeht. Der Wind ist so stark, dass alle Ziele und Objekte, die bis zu 150 Kilo wiegen, von dir weggeschleudert werden. Je nach Gewicht werden sie bis zu 200 Meter weit geschleudert und nehmen mit der Distanz skalierenden Schaden; 1W6 pro 50 Meter. Du kannst diesen Zauber als Reaktion einsetzen, um Projektile wegzublasen, die dich treffen würden."
         },
         {
@@ -1192,7 +1192,7 @@ const spellService = {
             name: "Zauberecho",
             level: 3,
             mpKosten: 50,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Der nächste Zauber, den du innerhalb einer Stunde wirkst, wird sofort ein zweites Mal gewirkt, ohne dass du MP-Kosten dafür bezahlen müsstest. Im Kampf wird er als zusätzliche Aktion gewirkt."
         },
         {
@@ -1200,7 +1200,7 @@ const spellService = {
             name: "Zauberspiegel",
             level: 5,
             mpKosten: 0,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Nutze diesen Zauber nur als Reaktion, wenn du direkt von einem Zauber getroffen würdest. Würfle eine MA-Probe, mit der du das Ergebnis der GENA-Probe des Angreifers treffen oder überbieten musst. Bei einem Erfolg wird der Zauber auf das Ziel zurückgeschleudert. Die MP-Kosten dieses Zaubers entsprechen denen des Zaubers, den du reflektierst. Diese Kosten werden nicht halbiert, unabhängig von deiner primären Magie-Schule."
         },
         {
@@ -1208,7 +1208,7 @@ const spellService = {
             name: "Zeitschleife",
             level: 5,
             mpKosten: 40,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Du und bis zu 3 weitere Ziele deiner Wahl erhalten sofort eine zusätzliche Aktion. Du kannst auch wählen, dass du selbst zwei zusätzliche Aktionen bekommst, dafür aber kein anderes Ziel. Zusätzliche Aktionen können nicht genutzt werden, um diesen Zauber einzusetzen."
         },
         {
@@ -1216,7 +1216,7 @@ const spellService = {
             name: "Zone der Wahrheit",
             level: 3,
             mpKosten: 24,
-            magieschule: "magiekunst",
+            magieschule: "Zauberkunst",
             beschreibung: "Erschafft eine bist zu 20x20 Meter große Zone um dich herum, in der niemand (dich eingeschlossen) lügen kann. Versucht jemand, zu lügen, spricht er automatisch die Wahrheit. Betritt ein Ziel die Zone, spürt es ein unangenehmes Kribbeln, das mit einer MA-Probe als Anzeichen für eine Zone der Wahrheit erkannt werden kann. Ein Ziel in der Zone kann natürlich einfach nichts sagen oder Details auslassen, es kann lediglich keine expliziten Unwahrheiten erzählen."
         },
         {

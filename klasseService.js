@@ -150,7 +150,7 @@ const klasseService = {
             {
                 id: 'technomague',
                 name: 'Technomague',
-                beschreibung: 'Du erhältst den exklusiven Zauber "Poltergeist". Level 1, Magiekunst, 2 MP. Erweckt einen Gegenstand zum Leben. Während du den Zauber wirkst, gibst du dem Gegenstand einen simplen Befehl (maximal ein Satz). Sobald der Gegenstand zum Leben erweckt ist, folgt er deinem Befehl mit ganzer Kraft. Er hat 1 KP und wird wieder leblos, wenn er Schaden nimmt oder deinen Befehl vollständig ausgeführt hat. Du kannst maximal drei Gegenstände zur Zeit zum Leben erweckt haben, den Effekt aber jederzeit abbrechen, wenn du andere erwecken willst. Gegebene Befehle müssen ein klares Ziel/einen klaren Endpunkt haben, du kannst einem Gegenstand nicht befehlen "dir zu dienen".'
+                beschreibung: 'Du erhältst den exklusiven Zauber "Poltergeist". Level 1, Zauberkunst, 2 MP. Erweckt einen Gegenstand zum Leben. Während du den Zauber wirkst, gibst du dem Gegenstand einen simplen Befehl (maximal ein Satz). Sobald der Gegenstand zum Leben erweckt ist, folgt er deinem Befehl mit ganzer Kraft. Er hat 1 KP und wird wieder leblos, wenn er Schaden nimmt oder deinen Befehl vollständig ausgeführt hat. Du kannst maximal drei Gegenstände zur Zeit zum Leben erweckt haben, den Effekt aber jederzeit abbrechen, wenn du andere erwecken willst. Gegebene Befehle müssen ein klares Ziel/einen klaren Endpunkt haben, du kannst einem Gegenstand nicht befehlen "dir zu dienen".'
             },
             {
                 id: 'telepath',

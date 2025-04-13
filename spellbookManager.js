@@ -293,19 +293,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const allSpells = spellService.getAllZauber().filter(spell => !classSpellIds.includes(spell.id));
         
         // Sortiere Zauber nach Magieschulen in der gewünschten Reihenfolge
-        const magieSchulen = ["zerstoerung", "unterstuetzung", "verfall", "magiekunst", "beschwoerung"];
+        const magieSchulen = ["zerstoerung", "unterstuetzung", "verfall", "Zauberkunst", "beschwoerung"];
         const schulFarben = {
             "zerstoerung": "red",
             "unterstuetzung": "gold", 
             "verfall": "purple",
-            "magiekunst": "blue",
+            "Zauberkunst": "blue",
             "beschwoerung": "green"
         };
         const schulNamen = {
             "zerstoerung": "Zerstörung",
             "unterstuetzung": "Unterstützung", 
             "verfall": "Verfall",
-            "magiekunst": "Zauberkunst",
+            "Zauberkunst": "Zauberkunst",
             "beschwoerung": "Beschwörung"
         };
         
@@ -472,7 +472,7 @@ document.addEventListener('DOMContentLoaded', function() {
             case "zerstoerung": magieschuleText = "Zerstörung"; break;
             case "unterstuetzung": magieschuleText = "Unterstützung"; break;
             case "verfall": magieschuleText = "Verfall"; break;
-            case "magiekunst": magieschuleText = "Zauberkunst"; break;
+            case "Zauberkunst": magieschuleText = "Zauberkunst"; break;
             case "beschwoerung": magieschuleText = "Beschwörung"; break;
             default: magieschuleText = spell.magieschule;
         }
