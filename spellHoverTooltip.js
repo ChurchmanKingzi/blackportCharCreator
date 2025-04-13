@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         bgColor = 'rgba(128, 0, 128, 0.05)';
                         textColor = '#800080'; // Lila
                         break;
-                    case 'magiekunst':
+                    case 'Zauberkunst':
                         bgColor = 'rgba(0, 0, 255, 0.05)';
                         textColor = '#0000cc'; // Blau
                         break;
@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             case 'verfall':
                                 bgColor = 'rgba(128, 0, 128, 0.2)'; // Dunkleres Lila
                                 break;
-                            case 'magiekunst':
+                            case 'Zauberkunst':
                                 bgColor = 'rgba(0, 0, 255, 0.2)'; // Dunkleres Blau
                                 break;
                             case 'beschwoerung':
@@ -260,7 +260,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 magieschuleText = "Verfall"; 
                                 headerColor = "#800080"; // Lila
                                 break;
-                            case "magiekunst": 
+                            case "Zauberkunst": 
                                 magieschuleText = "Zauberkunst"; 
                                 headerColor = "#0000cc"; // Blau
                                 break;
@@ -321,7 +321,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         case 'verfall':
                             bgColor = 'rgba(128, 0, 128, 0.05)';
                             break;
-                        case 'magiekunst':
+                        case 'Zauberkunst':
                             bgColor = 'rgba(0, 0, 255, 0.05)';
                             break;
                         case 'beschwoerung':
@@ -377,7 +377,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     bgColor = 'rgba(128, 0, 128, 0.05)';
                                     textColor = '#800080'; // Lila
                                     break;
-                                case 'magiekunst':
+                                case 'Zauberkunst':
                                     bgColor = 'rgba(0, 0, 255, 0.05)';
                                     textColor = '#0000cc'; // Blau
                                     break;
@@ -719,7 +719,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     case 'verfall':
                         bgColor = 'rgba(128, 0, 128, 0.05)';
                         break;
-                    case 'magiekunst':
+                    case 'Zauberkunst':
                         bgColor = 'rgba(0, 0, 255, 0.05)';
                         break;
                     case 'beschwoerung':
