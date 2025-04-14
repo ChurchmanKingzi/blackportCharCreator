@@ -58,6 +58,11 @@ const vorteilService = {
                 beschreibung: 'Immer, wenn ein Verbündeter in deiner Nähe (~5 Meter) eine Probe nicht schafft, kannst du dieselbe Probe mit deinem Wert noch mal versuchen. Das Ziel erhält so viele zusätzliche Erfolge (ODER PATZER!), wie du gewürfelt hast.'
             },
             {
+                id: 'luegendetektor',
+                name: 'Lügendetektor',
+                beschreibung: 'Du erkennst intuitiv sofort, wenn jemand lügt. Du erkennst so nur direkte Lügen, nicht das Auslassen von Details, und du weißt zwar, welche Aussagen gelogen waren, aber nicht, wie die Wahrheit aussehen würde (wenn jemand dir z.B. einen falschen Namen nennt, weißt du zwar, dass er falsch ist, aber nicht, wie der wahre Name lautet).'
+            },
+            {
                 id: 'magiesinn',
                 name: 'Magiesinn',
                 beschreibung: 'Du hast einen unfassbar gut geschulten Sinn für Magie. Du musst nicht würfeln, um zu erkennen, ob und wo in deiner Nähe Magie im Einsatz ist oder war, und kannst bis zu einen Tag im Nachhinein sagen, ob und was für Zauber an einem Ort eingesetzt wurden. Magische Fallen erkennst du automatisch, wenn du auf einen Meter an sie herankommst.'

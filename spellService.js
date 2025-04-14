@@ -1076,6 +1076,14 @@ const spellService = {
             beschreibung: "Belegt einen Gegenstand mit einem kleinen Zauber, der ihn schwach leuchten lässt. Das Leuchten ist stark genug, um dunkle Räume halbwegs zu erleuchten. Du kannst das Leuchten jederzeit „ausschalten“, aber dann musst du den Zauber erneut wirken, um es wieder einzuschalten."
         },
         {
+            id: "scheintod",
+            name: "Scheintod",
+            level: 3,
+            mpKosten: 10,
+            magieschule: "Zauberkunst",
+            beschreibung: "Schaltet scheinbar alle vitalen Funktionen deines Körpers für bis zu eine Stunde komplett ab. Dein Puls wird nicht mehr wahrnehmbar, deine Atmung endet einfach, dein Körper fühlt sich kalt an usw. Jeder, der dich untersucht, wird dich für tot halten, allerdings kann eine Untersuchung auf Magie feststellen, dass Magie an deinem Körper ist. Diese könnte aber natürlich alles mögliche sein. Deine vitalen Funktionen werden nicht WIRKLICH unterbrochen, man kann sie nur nicht mehr wahrnehmen. Du musst weiterhin atmen. Wenn du die Kosten dieses Zaubers verdoppelst, kannst du außerdem Verletzungen und Symptome einer bestimmten Todesart (z.B. verbrannte Haut, Wasser in der Lunge, große Mengen Blut...) an deinem Körper manifestieren. Diese sind rein illusorisch."
+        },
+        {
             id: "schlangenzunge",
             name: "Schlangenzunge",
             level: 4,
@@ -1090,6 +1098,14 @@ const spellService = {
             mpKosten: 16,
             magieschule: "Zauberkunst",
             beschreibung: "Macht ein Ziel, das du berührst, für bis zu eine Stunde schwerelos. Ein schwereloses Ziel muss immer, wenn es sich bewegen will, eine Probe auf Schwimmen bestehen, oder es beginnt, hilflos aufwärts zu treiben. Du kannst den Effekt jederzeit vorzeitig beenden. Wenn der Effekt endet, fällt das Ziel schlagartig runter. Fallschaden ist 1W6 pro 3 Meter."
+        },
+        {
+            id: "spektralgedaechtnis",
+            name: "Spektralgedächtnis",
+            level: 3,
+            mpKosten: 20,
+            magieschule: "Zauberkunst",
+            beschreibung: "Spielt eine Szene aus deinem Gedächtnis oder dem einer Person, deren Kopf du berührst, in Form eines dreidimensionalen, halbtransparenten Films in der Luft vor dir ab. Der Film hat auch Ton. Es werden nur Bilder und Geräusche abgespielt, die das Ziel erlebt hat und an die es sich erinnern kann. Der Film kann, gemäß der Erinnerung des Ziels, von der Realität abweichen, aber nicht bewusst verfälscht werden. Wenn du jemandes anderen Erinnerungen abspielst, endet der Film sofort, wenn dein Kontakt zum Kopf des Ziels abbricht. Der Film kann maximal 15 Minuten lang sein und muss eine einzige zusammenhängende Szene zeigen."
         },
         {
             id: "stimmenimitation",

@@ -148,8 +148,8 @@ const klasseService = {
                 beschreibung: 'Du besitzt ein besonderes, verfluchtes Buch, in dem du die Seelen der Toten sammeln kannst. Außerdem kannst du die Seelen der Toten sehen. Wenn jemand stirbt, steigt seine Seele in Richtung Himmel auf. Indem du dein Buch auf eine leere Seite öffnest und direkt auf die Seele richtest, kannst du sie wie mit einem Staubsauger einsaugen. Wenn du die Seele eines Magiers absorbierst, lernst du 1W4 zufällige Zauber, die dieser Magier beherrschte, und erhältst dauerhaft zusätzliche max MP in Höhe von 10% der max MP des Magiers (aufgerundet). Du musst das Buch berühren, um die Zauber wirken zu können.'
             },
             {
-                id: 'technomague',
-                name: 'Technomague',
+                id: 'technomagus',
+                name: 'Technomagus',
                 beschreibung: 'Du erhältst den exklusiven Zauber "Poltergeist". Level 1, Zauberkunst, 2 MP. Erweckt einen Gegenstand zum Leben. Während du den Zauber wirkst, gibst du dem Gegenstand einen simplen Befehl (maximal ein Satz). Sobald der Gegenstand zum Leben erweckt ist, folgt er deinem Befehl mit ganzer Kraft. Er hat 1 KP und wird wieder leblos, wenn er Schaden nimmt oder deinen Befehl vollständig ausgeführt hat. Du kannst maximal drei Gegenstände zur Zeit zum Leben erweckt haben, den Effekt aber jederzeit abbrechen, wenn du andere erwecken willst. Gegebene Befehle müssen ein klares Ziel/einen klaren Endpunkt haben, du kannst einem Gegenstand nicht befehlen "dir zu dienen".'
             },
             {

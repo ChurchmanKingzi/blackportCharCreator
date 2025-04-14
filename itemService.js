@@ -310,6 +310,12 @@ const itemService = {
             anzahl: 3
         },
         {
+            id: "zuckersuesse zuckerkekse",
+            name: "Zuckersüße Zuckerkekse",
+            beschreibung: "Ein Beutelchen mit 20 extrem süßen, magisch aufgeladenen Keksen. Können vor dem Ablegen einer Probe gegessen werden, um pro gegessenem Keks +3 Würfel bei der Probe würfeln zu können. Im Kampf kostet es eine Aktion oder Reaktion, bis zu 2 Kekse zu essen.",
+            anzahl: 20
+        },
+        {
             id: "camping-zubehoer",
             name: "Camping-Zubehör",
             beschreibung: "Schlafsack, Decke, Zelt, Kochutensilien und alles, was man sonst zum Camping brauchen kann. Genug für eine Person.",
@@ -352,6 +358,18 @@ const itemService = {
             anzahl: 1
         },
         {
+            id: "stoersender",
+            name: "Störsender",
+            beschreibung: "Ein kleines, unscheinbares Gerät mit einem großen An/Aus-Button darauf. Solange das Gerät eingeschaltet ist, stört es alle elektrischen Geräte in bis zu 10 Metern Entfernung. Betroffene Geräte funktionieren nicht, lassen sich nicht einmal einschalten, nehmen aber keine langfristigen Schäden. Sobald der Sender sich entfernt oder ausgeschaltet wird, funktionieren sie wieder normal.",
+            anzahl: 1
+        },
+        {
+            id: "taser",
+            name: "Taser",
+            beschreibung: "GENA + Nahkampf. Fügt 1W4 Schaden zu. Das Ziel muss eine Widerstand-Probe bestehen oder wird gelähmt und verliert damit seine nächste Runde komplett. Hat genug Energie für 5 Angriffe, bevor er aufgeladen werden muss. Isolation, z.B. Gummihandschuhe, können den Angriff unwirksam machen.",
+            anzahl: 1
+        },
+        {
             id: "umgebungskopfhoerer",
             name: "Umgebungskopfhörer",
             beschreibung: "Fangen selbst leiseste Geräusche aus der Umgebung auf. Gewähren +3 automatische Erfolge auf Horchen-Proben. Vorsicht: Sehr laute Geräusche können, wenn durch die Kopfhörer verstärkt, leicht dein Gehör schädigen!",
@@ -361,6 +379,12 @@ const itemService = {
             id: "verkleidungsset",
             name: "Verkleidungsset",
             beschreibung: "Ein beliebiges Kostüm (z.B. Arzt, Polizist, Soldat...). Beinhaltet allerdings keinen Polizeiausweis oder andere offizielle Dokumente. Beinhaltet außerdem Theater-Makeup und eine Perücke.",
+            anzahl: 1
+        },
+        {
+            id: "wanze",
+            name: "Wanze",
+            beschreibung: "Ein kleines Abhörgerät inklusive Empfänger-Earpiece. Mit bloßem Auge nur mit einer expliziten, selbst angesagten Probe auf Sinnesschärfe oder Suchen zu erkennen. Kann Geräusche in bis zu 5 Metern Entfernung klar und deutlich auffangen und weitergeben. Wasserfest.",
             anzahl: 1
         },
         {
@@ -409,6 +433,12 @@ const itemService = {
             id: "chamaeleon-umhang",
             name: "Chamäleon-Umhang",
             beschreibung: "Ein Umhang, der in allen Regenbogenfarben schillert. Du kannst jederzeit 5 MP in den Umhang gießen, um seine Magie zu wecken. Sobald er aktiviert ist, passt der Umhang sich automatisch seiner Umgebung an. Egal, aus welchem Blickwinkel man auf den Umhang schaut, er wird immer aussehen wie die Umgebung dahinter. Solange du den aktivierten Umhang trägst, bekommst du +3 Erfolge auf Schleichen/Verstecken, allerdings endet der Effekt, sobald du dich bewegst (da der Umhang dann nicht mehr genau an deine aktuelle Umgebung angepasst ist).",
+            anzahl: 1
+        },
+        {
+            id: "coole-sonnenbrille",
+            name: "Coole Sonnenbrille",
+            beschreibung: "Eine extrem coole, verspiegelte Sonnenbrille. Solange du sie trägst, wirkst du cooler und selbstbewusster und erhältst einen automatischen Erfolg auf Betören, Einschüchtern und Überreden.",
             anzahl: 1
         },
         {
