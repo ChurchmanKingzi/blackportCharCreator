@@ -190,6 +190,12 @@ const itemService = {
             anzahl: 1
         },
         {
+            id: "elixier_der_tiergestalt",
+            name: "Elixier der Tiergestalt",
+            beschreibung: "Du verwandelst dich sofort in ein beliebiges Tier, an das du denkst. Es muss ein real existierendes, nicht ausgestorbenes Tier sein. Bei der Verwandlung kann sich deine Größe beliebig ändern. Solange du verwandelt bist, erhältst du Eigenschaften und Fähigkeiten des Tiers (z.B. unter Wasser atmen oder fliegen). Die Verwandlung endet entweder nach sechs Stunden oder sofort, wenn du bewusstlos wirst. Deine Werte als Tier sind je nach Spezies nach Ermessen des Spielleiters verändert. Du kannst als Tier nicht sprechen, aber weiterhin Zauber wirken, solange diese keine Sprache erfordern.",
+            anzahl: 1
+        },
+        {
             id: "elixier_der_unsichtbarkeit",
             name: "Elixier der Unsichtbarkeit",
             beschreibung: "Eine kleine Phiole mit einem durchsichtigen Trank. Wenn ein Ziel den gesamten Inhalt der Phiole trinkt, wird es für 30 Minuten komplett unsichtbar. Einen offensiven Zauber zu wirken oder einem Ziel Schaden zuzufügen, beendet diesen Effekt vorzeitig.",
@@ -274,6 +280,12 @@ const itemService = {
             anzahl: 3
         },
         {
+            id: "gluecksfedern",
+            name: "3 Glücksfedern",
+            beschreibung: "Kleine goldene Federn, die angeblich von einem Phönix stammen und großes Glück bringen. Wenn du eine Probe nicht schaffst, kannst du eine solche Feder konsumieren, indem du ihre magische Kraft absorbierst, um die Probe sofort und mit 3 Bonus-Würfeln noch mal zu würfeln. Verbrauchte Federn verlieren ihren goldenen Glanz und sind einfach große, weiße Vogelfedern. Sie können aber in einem komplizierten, 3 Stunden langen Ritual für 20 MP pro Feder wieder aufgefüllt werden, solange sie nicht beschädigt werden.",
+            anzahl: 3
+        },
+        {
             id: "handschellen",
             name: "Handschellen",
             beschreibung: "Einfache metallene Handschellen inklusive Schlüssel. Ein Ziel muss eine Akrobatik-Probe mit Schwierigkeit 3 oder eine Stärke-Probe mit Schwierigkeit 4 schaffen, um sich ohne den Schlüssel von Handschellen zu befreien.",
@@ -295,6 +307,12 @@ const itemService = {
             id: "rauch-phiole",
             name: "3 Rauch-Phiolen",
             beschreibung: "3 kleine Glasfläschchen. Wenn eines aufgeht, bricht daraus ein dichter Qualm hervor, der innerhalb von 5 Sekunden eine etwa 5x5x5 Meter große Rauchwolke bildet. Angriffe in oder durch die Rauchwolke werden mit halbiertem GENA-Wert (aufgerundet) gewürfelt. Im Rauch kann man Dinge und Personen nur schemenhaft erkennen, die Wolke ist ideal dazu geeignet, einen Abgang zu machen.",
+            anzahl: 3
+        },
+        {
+            id: "rufkugeln",
+            name: "3 Rufkugeln",
+            beschreibung: "3 kleine, schwarze, magische Kügelchen, ideal zum Werfen geeignet. Sie können von ihrem Besitzer mit einem Gedanken aktiviert werden, wodurch sie ein lautes, vom Benutzer in Gedanken gewähltes Geräusch abspielen (z.B. einen lauten Hilferuf oder eine Explosion). Die Geräusche können maximal so laut sein wie ein Flugzeugstart. Die Kugeln spielen ihr Geräusch bis zu eine Minute lang ab, oder bis es einmal durchgelaufen ist (z.B. bei einer Explosion). Danach sind sie einfach unscheinbare schwarze Murmeln. Man kann 20 MP in eine verbrauchte Rufkugel einspeisen, um sie zu reaktivieren. Dadurch wird man zu ihrem Besitzer.",
             anzahl: 3
         },
         {
@@ -451,6 +469,12 @@ const itemService = {
             id: "gedankenbrille",
             name: "Gedankenbrille",
             beschreibung: "Eine Brille mit auffälligen Spiralen auf den Gläsern. Wenn du durch diese Gläser einem Ziel in die Augen schaust, kannst du seine Gedanken lesen, solange der Blickkontakt besteht.",
+            anzahl: 1
+        },
+        {
+            id: "gedankenschild",
+            name: "Gedankenschild",
+            beschreibung: "Ein kleines Medaillon, das um den Hals oder ein Handgelenk getragen werden kann. Wer das Medaillon trägt, dessen Gedanken können weder gelesen noch manipuliert werden. Er ist immun gegen alle Zauber, die ihn dazu bringen würden, etwas zu tun oder zu glauben (z.B. ihn zwingen würden, die Wahrheit zu sagen). Außerdem sind Proben auf Betören und Überzeugen gegen den Träger um 3 Stufen erschwert.",
             anzahl: 1
         },
         {

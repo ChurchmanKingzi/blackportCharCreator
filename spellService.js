@@ -44,6 +44,14 @@ const spellService = {
             beschreibung: "Spuckt eine große Menge ätzenden Nebels aus deinem Mund aus in Blickrichtung, die vor dir eine bis zu 5x5x5 Meter große Wolke bildet. Gegenwind kann dazu führen, dass die Wolke direkt in dein Gesicht geweht wird! Ziele, die sich in dem Nebel befinden, nehmen jede Runde 4W6 Schaden, wenn ihre Lunge verätzt wird. Daraus resultierende Wunden können nur durch Magie geheilt werden. Dieser Zauber hält an, bis er verweht wird."
         },
         {
+            id: "einaeschern",
+            name: "Einäschern",
+            level: 3,
+            mpKosten: 60,
+            magieschule: "zerstoerung",
+            beschreibung: "Verwandelt sofort ein bis zu 50 Kilo schweres Objekt, das du mit einer Handfläche berührst, in Asche. Bei magischen Objekten musst du eine ZK-Probe mit Schwierigkeit 2 bestehen, bei ordinären Objekten funktioniert der Zauber immer. Hat keinerlei Effekt auf organisches Material!"
+        },
+        {
             id: "eisblitz",
             name: "Eisblitz",
             level: 3,
@@ -172,6 +180,14 @@ const spellService = {
             beschreibung: "Schießt ein simples kleines Magie-Projektil aus deiner Fingerspitze auf ein Ziel in Sichtweite ab. Das Projektil hat die Attribute von Wind, kann also durch jedes beliebige Objekt aufgehalten werden, und sieht aus wie ein buntes Flimmern in der Luft. Es fügt dem ersten Ziel, das es trifft, 3W6 Schaden zu."
         },
         {
+            id: "mana-explosion",
+            name: "Mana-Explosion",
+            level: 5,
+            mpKosten: 80,
+            magieschule: "zerstoerung",
+            beschreibung: "Lässt das Mana eines Ziels in Sichtweite explodieren. Das Ziel verliert 50% seiner aktuellen MP (aufgerundet) und nimmt dieselbe Menge an Schaden. Außerdem erzeugt der Zauber eine 2x2 Meter große Explosion mit dem Ziel im Zentrum. Andere Ziele in der Explosion nehmen denselben Schaden (verlieren aber keine MP). Hat nur einen Effekt auf Magier."
+        },
+        {
             id: "meteoritenschauer",
             name: "Meteoritenschauer",
             level: 4,
@@ -276,6 +292,14 @@ const spellService = {
             beschreibung: "Von dir geht für 1W6+1 Kampfrunden ein schwaches Leuchten aus, das alle verbündeten Ziele mit Hoffnung füllt. Die KP betroffener Ziele können nicht unter 1 fallen, solange sie nicht mehr als 10 Meter von dir entfernt sind (deine aber schon, wodurch der Effekt endet!)."
         },
         {
+            id: "ausdauer",
+            name: "Ausdauer",
+            level: 2,
+            mpKosten: 16,
+            magieschule: "unterstuetzung",
+            beschreibung: "Dieser Zauber hat nur einen Effekt, wenn er als Reaktion auf einen Angriff oder Zauber gewirkt wird, der dich trifft. Deine KP können durch den Angriff/Zauber nicht unter 1 fallen. Erfordert ab dem zweiten Einsatz binnen einer Stunde eine ZK-Probe, deren Schwierigkeit mit jedem weiteren Einsatz in einer Stunde um 1 hochgeht."
+        },
+        {
             id: "dornenpanzer",
             name: "Dornenpanzer",
             level: 2,
@@ -298,6 +322,14 @@ const spellService = {
             mpKosten: 16,
             magieschule: "unterstuetzung",
             beschreibung: "Gibt einem Ziel, das du berührst, für bis zu eine Stunde große, weiße Engelsflügel. Die Flügel lassen das Ziel frei fliegen. Es kann maximal so schnell fliegen, wie es rennen kann, und dabei bis zu 50% seines Körpergewichts zusätzlich tragen. Du kannst die Flügel jederzeit verschwinden lassen. Sie sind wunderschön, aber extrem auffällig."
+        },
+        {
+            id: "fernsteuerung",
+            name: "Fernsteuerung",
+            level: 1,
+            mpKosten: 12,
+            magieschule: "unterstuetzung",
+            beschreibung: "Erlaubt es dir, für bis zu 10 Minuten ein abgetrenntes Körperteil, das du sehen kannst, zu kontrollieren, als wäre es Teil deines Körpers. Das Körperteil muss nicht zu deinem Körper gehören. Teile deines Körpers kannst du so auch kontrollieren, ohne sie zu sehen. Du kannst auch Körperteile kontrollieren, die schon lange Zeit tot und skelettiert sind und auch mehrere auf einmal, musst dann aber pro Körperteil die Kosten dieses Zaubers bezahlen. Indem du die zehnfachen Kosten dieses Zaubers bezahlst, kannst du ein passendes Körperteil an ein Ziel, dem ein solches fehlt, 'anzaubern' (z.B. eine beliebige Hand an jemanden, dem eine Hand fehlt). Das Ziel kann seinen neuen Körperteil dann sofort benutzen, als hätte er schon immer zu seinem Körper gehört. Dies funktioniert nur mit 'frischen' Körperteilen, die maximal eine Stunde von ihrem Besitzer getrennt sind."
         },
         {
             id: "grosse heilung",
@@ -396,6 +428,14 @@ const spellService = {
             beschreibung: "Ein Ziel, das du berührst, würfelt die nächsten drei Proben, die es innerhalb einer Stunde würfelt, mit zwei Würfeln, wobei das bessere Ergebnis zählt."
         },
         {
+            id: "krisenschild",
+            name: "Krisenschild",
+            level: 3,
+            mpKosten: 40,
+            magieschule: "unterstuetzung",
+            beschreibung: "Belegt ein Ziel mit einem Schild-Zauber, der sich automatisch aktiviert, wenn seine KP auf 0 fallen würden. Der Schild aktiviert sich dann und absorbiert allen Schaden, der das Ziel unter 1 KP bringen würde und heilt seine KP anschließend um 2xZK W6. Ein Ziel kann nur mit einem Krisenschild belegt sein. Der Schild verschwindet automatisch nach 24 Stunden, wenn er nicht aktiviert wurde."
+        },
+        {
             id: "mana-brunnen",
             name: "Mana-Brunnen",
             level: 5,
@@ -428,12 +468,28 @@ const spellService = {
             beschreibung: "Erschafft einen Schild aus reiner Energie um das Ziel. Der Schild absorbiert bis zu (ZK*5) Schadenspunkte, bevor er zerbricht. Hält maximal für 10 Minuten oder bis er zerstört wird."
         },
         {
+            id: "mana-reservoir",
+            name: "Mana-Reservoir",
+            level: 3,
+            mpKosten: 100,
+            magieschule: "unterstuetzung",
+            beschreibung: "Bündelt dein Mana in einer kleinen Menge Wasser (etwa 100 Milliliter) und erschafft daraus einen neuen Manatrank. Du erhältst einen Manatrank. Du kannst diesen Zauber nur maximal dreimal am Tag wirken."
+        },
+        {
             id: "meditation",
             name: "Meditation",
             level: 1,
             mpKosten: 10,
             magieschule: "unterstuetzung",
             beschreibung: "Du verfällst für 10 Minuten in eine tiefe, komaartige Meditation, aus der du unmöglich geweckt werden kannst (selbst wenn du schweren physischen Schaden nimmst). Wenn du nach 10 Minuten wieder aufwachst, sind deine KP vollständig geheilt."
+        },
+        {
+            id: "phantomklinge",
+            name: "Phantomklinge",
+            level: 1,
+            mpKosten: 30,
+            magieschule: "unterstuetzung",
+            beschreibung: "Verzaubert dauerhaft die Klinge einer Waffe (Schwert, Messer, Axt...). Die verzauberte Waffe erhält die Eigenschaft, meherere Zentimeter tief durch nicht-organische Materie schneiden zu können, ohne diese zu berühren (also durch die Materie zu phasen). Die Waffe ignoriert alle Formen von Rüstung inklusive magischen Schilden. Dieser Effekt hält an, bis die Verzauberung irgendwie magisch gebrochen wird."
         },
         {
             id: "phasenschritt",
@@ -450,6 +506,14 @@ const spellService = {
             mpKosten: 80,
             magieschule: "unterstuetzung",
             beschreibung: "Nutze diesen Zauber als Reaktion, wenn du oder ein Ziel, das du sehen kannst, bewusstlos werden oder sterben würde. Das Ziel geht sofort in heilige Flammen auf, die es komplett konsumieren. Sobald der Körper des Ziels zu Asche verbrannt ist, formt sich die Asche neu und ein perfekter neuer Körper erscheint für das Ziel. Das Ziel kommt wieder zu sich, hat keine Wunden mehr und volle KP, dafür aber keine MP. Diese muss der neue Körper erst in einer Nacht Schlaf generieren. Der neue Körper fühlt sich unfassbar gut an, man fühlt sich buchstäblich wie neu geboren. Wird dieser Zauber auf ein Ziel angewendet, das an einer tödlichen Krankheit leidet, hat der neue Körper leider dieselbe Krankheit. Ein Ziel, das kurz davor ist, an Altersschwäche zu sterben, erhält 1 volles zusätzliches Lebensjahr, da der neue Körper sich verjüngt. Der Neuformungsprozess des Körpers dauert etwa 30 Sekunden."
+        },
+        {
+            id: "reflexverstaerker",
+            name: "Reflexverstärker",
+            level: 2,
+            mpKosten: 30,
+            magieschule: "unterstuetzung",
+            beschreibung: "Du oder ein Ziel, das du berührst, erhält für eine Minute (12 Kampfrunden) übermenschliche Reflexe. In diesem Zustand kann das Ziel jede Runde eine zusätzliche Reaktion ausführen. Es kann auch mehrere Reaktionen nutzen, um einem einzigen Angriff oder Zauber auszuweichen, muss aber vor der ersten Probe ansagen, wie viele Reaktionen es nutzen will."
         },
         {
             id: "regeneration",
@@ -593,7 +657,7 @@ const spellService = {
             level: 4,
             mpKosten: 20,
             magieschule: "verfall",
-            beschreibung: "Lässt ein Ziel, das du berührst, rapide altern. Pro Minute, die du das Ziel ohne Unterbrechung berührst, altert es um ein ganzes Jahr. Dieser Effekt hält permanent. Das Ziel kann durch diesen Effekt unwiederbringlich an Altersschwäche sterben. Dieser Zauber gilt als großes Tabu und darf offiziell weder gelehrt noch praktiziert werden."
+            beschreibung: "Lässt ein Ziel, das du berührst, rapide altern. Pro Minute, die du das Ziel ohne Unterbrechung berührst, altert es um ein ganzes Jahr. Dieser Effekt hält permanent. Das Ziel kann durch diesen Effekt unwiederbringlich an Altersschwäche sterben. Dieser Zauber gilt als großes Tabu und darf offiziell weder gelehrt noch praktiziert werden. Ein schlafendes Ziel wacht nach der ersten Minute/dem ersten verlorenen Jahr automatisch auf."
         },
         {
             id: "anti-magische zone",
@@ -756,6 +820,14 @@ const spellService = {
             beschreibung: "Markiert ein Ziel, das du mit deinem Zeigefinger berührst. Es reicht, das Ziel durch seine Kleidung zu berühren (z.B. am Rücken).  An der Stelle, wo du es berührst, entsteht ein rotes Symbol, wie ein Tattoo, das mit einer MA-Probe leicht als Markierung identifiziert werden kann. Die Markierung kann nicht entfernt werden, außer von dir selbst, verschwindet aber automatisch nach 3 Tagen. Solange die Markierung bestehen bleibt, kannst du zu jeder Zeit wahrnehmen, in welcher Richtung und Entfernung zu dir sich das Ziel aktuell befindet, als hättest du einen internen Kompass, der sich nach ihm ausrichtet. Der Kompass führt dich immer zu dem Körperteil mit der Markierung, das heißt, wenn diese z.B. auf einem Arm ist und das Ziel seinen Arm verliert, würdest du nur noch die Position des Arms feststellen können, nicht die des Körpers."
         },
         {
+            id: "nebelwand",
+            name: "Nebelwand",
+            level: 2,
+            mpKosten: 20,
+            magieschule: "verfall",
+            beschreibung: "Erzeugt sofort eine bis zu 5x5x1 Meter große, extrem dichte Nebelwand, durch die hindurch man nur vage Silhouetten erkennen kann. Angriffe und Zauber, die durch die Nebelwand hindurch geschickt werden, haben ihre GENA-Probe um 2 Stufen erschwert. Ein starker Windstoß kann den Neben vertreiben und du kannst ihn jederzeit mit einem Gedanken verschwinden lassen."
+        },
+        {
             id: "negation",
             name: "Negation",
             level: 3,
@@ -818,6 +890,14 @@ const spellService = {
             mpKosten: 12,
             magieschule: "verfall",
             beschreibung: "Schießt einen halbtransparenten dunkelgrünen Strahl aus einer Handfläche ab. Der Strahl bewegt sich in einer geraden Linie und durchdringt jedes Ziel und Objekt in seinem Weg. Jedes Ziel, das von dem Strahl getroffen wird, erleidet einen kurzzeitigen Schwächeanfall und erleidet für 30 Sekunden (6 Kampfrunden) 2W6 zusätzlichen Schaden aus allen Quellen."
+        },
+        {
+            id: "seelenflamme",
+            name: "Seelenflamme",
+            level: 4,
+            mpKosten: 50,
+            magieschule: "verfall",
+            beschreibung: "Erschafft eine kleine, lilane Flamme, die sich von der Lebenskraft aller Lebewesen in ihrer Umgebung ernährt. Jedes Ziel in Reichweite (5 Meter in alle Richtungen) verliert jede Runde (alle 5 Sekunden) ZK KP, ohne zu wissen, warum. Dies setzt sich als zunehmende Müdigkeit ab. Sieht ein Ziel die Flamme, weiß es intuitiv, dass diese Schuld daran ist. Die Flamme kann gelöscht werden wie jedes normale Feuer und verbreitet sich nicht; sie kann nichts entzünden. Wird das Feuer gelöscht, endet der Zauber, anderenfalls geht er für immer weiter. Er betrifft auch Pflanzen und Tiere in der Nähe der Flamme. Je mehr Lebenskraft die Flamme absorbiert, desto größer wird sie, was sie offensichtlicher, aber ihren Wirkradius größer macht."
         },
         {
             id: "spontanknaller",
@@ -1498,6 +1578,14 @@ const spellService = {
             mpKosten: 16,
             magieschule: "beschwoerung",
             beschreibung: "Beschwört einen Wasserelementar mit 30 KP, INIT 6 und einer GENA von 3. Der Wasserelementar kann jede Runde Eisblitz, Wassertorpedo oder Frostrune einsetzen und verfügt über unbegrenzte MP. Du kannst den Wasserelementar nicht kontrollieren. Er betrachtet dich als freundlich und wird dich nicht aktiv angreifen, deine Verbündeten aber schon! Er priorisiert Ziele, die ihm Schaden zufügen, und greift ansonsten ein zufälliges Ziel an, das er sieht. Er wird, wenn er erscheint, sofort 1W6 Frostrunen an zufälligen Positionen um sich herum erschaffen. Wenn keine Ziele in Reichweite sind, löst er sich auf und verschwindet."
+        },
+        {
+            id: "wegweiser",
+            name: "Wegweiser",
+            level: 2,
+            mpKosten: 20,
+            magieschule: "beschwoerung",
+            beschreibung: "Beschwört eine kleine Fee, die immer in deiner Nähe bleibt und dich sehr gern hat. Sie erinnert an ein großes, goldenes Glühwürmchen und kann in simplen Phrasen mit dir kommunizieren. Die Fee entdeckt automatisch alle Fallen in deiner direkten Umgebung (z.B. magische Runen, aber auch Fallgruben und dergleichen) und warnt dich vor ihnen. Sie hat 1 KP und verschwindet sofort, wenn sie Schaden nimmt. Du kannst die Fee auch auf eine andere Person übertragen, wodurch sie durchgehend um diese herumschwirrt und stattdessen sie warnt. Die Fee ist extrem nervig und hört nicht auf, Geräusche zu machen. Für jede Fee, die du beschworen hast, sind deine maximalen MP um die Kosten dieses Zaubers verringert. Du kannst eine von dir beschworene Fee jederzeit verschwinden lassen."
         },
         {
             id: "windelementar",
