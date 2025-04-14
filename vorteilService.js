@@ -98,6 +98,16 @@ const vorteilService = {
                 beschreibung: 'Du erhältst drei zusätzliche Gegenstände in deinem Inventar.'
             },
             {
+                id: 'seelenleser',
+                name: 'Seelenleser',
+                beschreibung: 'Wenn du einem Menschen direkt in die Augen schaust, kannst du seine grundlegenden Emotionen, Absichten und größten Ängste erkennen. Bei längerem Blickkontakt (mindestens 30 Sekunden) erhältst du einen tiefen Einblick in die Persönlichkeit und Kernmotivationen der Person. Diese Fähigkeit funktioniert nicht bei übernatürlichen Wesen oder Menschen, die bewusst ihre Gedanken abschirmen (entweder durch Magie oder einfach, indem sie sich anstrengen, an etwas Unverfängliches zu denken). Während du in jemandes Seele schaust, sind deine Augen auffällig golden.'
+            },
+            {
+                id: 'ultimative reflexe',
+                name: 'Ultimative Reflexe',
+                beschreibung: 'Dein Körper bewegt sich teilweise von allein, wenn er in Gefahrsituationen gerät. Immer, wenn du erfolgreich einem Angriff oder Zauber ausweichst, erhältst du sofort eine zusätzliche Aktion.'
+            },
+            {
                 id: 'unsterblich',
                 name: 'Unsterblich',
                 beschreibung: 'Du hast das Geheimnis wahrer Unsterblichkeit erlangt! Du kannst nicht sterben. Würdest du sterben, fällst du stattdessen in ein Koma, aus dem du nach 12 Stunden in perfekter körperlicher Verfassung wieder erwachst. In diesem Zustand ist es physisch unmöglich, die weiteren Schaden zuzufügen. Der Heilungsprozess ist allerdings unbeschreiblich schmerzhaft und hinterlässt jedesmal tiefe psychische Wunden, sodass du trotz dieser Absicherung fast alles tun würdest, um nicht zu sterben. Dieser Vorteil verhindert NICHT, dass du bewusstlos wirst, wenn deine KP auf 0 fallen.'

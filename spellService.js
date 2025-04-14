@@ -135,9 +135,9 @@ const spellService = {
             id: "knochenexplosion",
             name: "Knochenexplosion",
             level: 5,
-            mpKosten: 50,
+            mpKosten: 100,
             magieschule: "zerstoerung",
-            beschreibung: "Lässt einen Körperteil (einen Arm oder ein Bein) eines Ziels in maximal 10 Metern Entfernung, das du sehen kannst, detonieren. Reduziert die KP des Ziels sofort auf 1, fügt ihm 3 Wunden zu und gibt ihm entweder den Nachteil Einarmig oder Einbeinig."
+            beschreibung: "Lässt einen Körperteil (einen Arm oder ein Bein) eines Ziels, das du berührst, detonieren. Reduziert die KP des Ziels sofort auf 1, fügt ihm 3 Wunden zu und gibt ihm entweder den Nachteil Einarmig oder Einbeinig."
         },
         {
             id: "laser",

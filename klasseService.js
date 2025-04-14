@@ -5,7 +5,7 @@ const klasseService = {
             {
                 id: 'aeromancer',
                 name: 'Aeromancer',
-                beschreibung: 'Immer, wenn du einen Zauber wirkst, kannst du einen starken Wind erzeugen. Im Kampf bleibt der Wand für bis zu eine Minute (12 Runden) als Serie heftiger Böen bestehen. Pro Instanz der Böen ist deine Initiative und die aller Ziele, die in dieselbe Richtung wie du gucken, um 2 erhöht und die aller Ziele, die dir gegenüberstehen, um 2 verringert (Rückenwind/Gegenwind).'
+                beschreibung: 'Immer, wenn du einen Zauber wirkst, kannst du einen starken Wind erzeugen. Im Kampf bleibt der Wind für bis zu eine Minute (12 Runden) als Serie heftiger Böen bestehen. Pro Instanz der Böen ist deine Initiative und die aller Ziele, die in dieselbe Richtung wie du gucken, um 5 erhöht und die aller Ziele, die dir gegenüberstehen, um 5 verringert (Rückenwind/Gegenwind). Wenn ein Ziel mindestens dreimal so viel Initiative hat wie alle Gegner, bekommt es zwei Runden im Kampf.'
             },
             {
                 id: 'alchemist',
@@ -171,6 +171,11 @@ const klasseService = {
                 id: 'zauberdieb',
                 name: 'Zauberdieb',
                 beschreibung: 'Du kannst Zauber "stehlen", die du beobachtest. "Stehlen" heißt in diesem Fall eher "kopieren" - du stiehlst das Wissen. Du musst einen Zauber ausgiebig beobachten und genau verstanden haben und eine Probe auf WI ablegen, um den Zauber erfolgreich einsetzen zu können. Gestohlene Zauber erhalten weder eine Beschreibung noch MP-Kosten, diese musst du durch ausprobieren selbst herausfinden. Es gibt kein Limit dafür, wie viele Zauber du dir so aneignen kannst. Du kannst so keine Zauber lernen, deren Level höher ist als dein MA-Wert!'
+            },
+            {
+                id: 'zeitzauberer',
+                name: 'Zeitzauberer',
+                beschreibung: 'Du kannst einmal pro Tag die Zeit um dich herum extrem verlangsamen, beziehungsweise deine eigene Zeit relativ zum Rest der Welt beschleunigen. Wenn du das tust, kannst du dich sofort viermal so schnell bewegen wie ein normaler Mensch. Du kannst dies nutzen, um zu Kampfbeginn deine gewürfelte Initiative zu vervierfachen ODER um im Kampf in einer Runde vier Aktionen durchzuführen. Nachdem du diesen Effekt aktiviert hast, bist du für den Rest des Tages extrem erschöpft und deine Zauber kosten doppelt so viel MP.'
             }
         ];
     }

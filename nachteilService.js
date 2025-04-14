@@ -8,6 +8,11 @@ const nachteilService = {
                 beschreibung: 'Du leidest an einer starken Drogenabhängigkeit. Die genaue Art der Substanz kannst du selbst bestimmen, sie muss aber negative gesundheitliche Nebeneffekte und vor allem Entzugserscheinungen beinhalten. Wenn du nicht mindestens einmal alle 8 Stunden (Schlaf nicht mitgerechnet) deine Drogen nimmst, beginnen die Entzugserscheinungen. Deine KP können in diesem Zustand nicht geheilt werden, alle KÖ-abhängigen Proben erhalten 2 automatische Patzer, im schlimmsten Fall nimmst du sogar Wunden.'
             },
             {
+                id: 'absolut ehrlich',
+                name: 'Absolut Ehrlich',
+                beschreibung: 'Du kannst niemals lügen, egal, was passiert. Es ist dir physisch unmöglich.'
+            },
+            {
                 id: 'alpträume',
                 name: 'Alpträume',
                 beschreibung: 'Du bist jede Nacht von schrecklichen Alpträumen geplagt. Statt KP und MP vollständig, heilt eine Nacht Schlaf nur KP ODER MP.'
@@ -21,6 +26,16 @@ const nachteilService = {
                 id: 'einbeinig',
                 name: 'Einbeinig',
                 beschreibung: 'Du hast nur ein Bein. Entsprechend bist du sehr langsam. Dein BW-Wert ist immer 5 und deine INIT immer 1. In einer Verfolgungsjagd hast du keine Chance...!'
+            },
+            {
+                id: 'eisenallergie',
+                name: 'Eisenallergie',
+                beschreibung: 'Du reagierst extrem allergisch auf Eisen. Eisengegenstände verursachen Schmerzen bei Berührung (1W6 Schaden pro Runde bei Kontakt), und du kannst nicht durch Türrahmen oder andere Konstruktionen gehen, wenn diese signifikante Mengen Eisen enthalten. In modernen Gebäuden mit Stahlträgern erleidest du kontinuierlich 1W6 Schaden pro Minute.'
+            },
+            {
+                id: 'emotionaler_auslöser',
+                name: 'Emotionaler Auslöser',
+                beschreibung: 'Eine bestimmte starke Emotion (Wut, Trauer oder Freude) löst bei dir unkontrollierte Magie aus. Immer wenn du diese Emotion intensiv erlebst, wirkt sich ein zufälliger Zauber aus deinem Repertoire in der Umgebung aus. Der Spielleiter bestimmt Ziel und genaue Wirkung.'
             },
             {
                 id: 'gejagt',
@@ -58,6 +73,16 @@ const nachteilService = {
                 beschreibung: 'Du darfst Proben auf Magieresistenz nicht würfeln; sie sind immer automatisch Misserfolge.'
             },
             {
+                id: 'magischer-leuchtturm',
+                name: 'Magischer Leuchtturm',
+                beschreibung: 'Deine magische Signatur ist extrem auffällig. Jeder Magier in einem Umkreis von einem Kilometer spürt automatisch, wenn du einen Zauber wirkst, und weiß auch, zu welcher Schule er gehört. Magische Wesen werden von deiner Präsenz angezogen. Wenn du in einem Gebiet von 1x1 Kilometer mehr als drei Zauber innerhalb von 24 Stunden wirkst, hinterlässt du eine 24 Stunden anhaltende Spur, die immer zu deiner aktuellen Position führt, wodurch Magier dich spielend leicht verfolgen können.'
+            },
+            {
+                id: 'manavergiftung',
+                name: 'Manavergiftung',
+                beschreibung: 'Dein Körper reagiert toxisch auf magische Energie. Immer, wenn du einen Zauber wirkst und dadurch Mana durch deinen Körper leitest, erleidest du 1W6 Schaden. Wenn du 0 MP erreichst, erleidest du automatisch eine Wunde durch die Vergiftungssymptome. Zauber zu wirken ist für dich grundsätzlich eine sehr unangenehme, schmerzhafte und generell nicht wünschenswerte Sache!'
+            },
+            {
                 id: 'pazifist',
                 name: 'Pazifist',
                 beschreibung: 'Du hasst es, anderen Schaden zuzufügen, und würdest das (im Normalfall) niemals tun. Du kannst keine offensiven Zauber beherrschen. Wenn du jemandem Schaden zufügst, musst du eine Widerstand-Probe bestehen oder verfällst in Schockstarre. Natürlich ist es dir auch zuwider, wenn deine Verbündeten andere angreifen; Notwehr ist in dem Fall aber okay.'
@@ -66,6 +91,11 @@ const nachteilService = {
                 id: 'phobie',
                 name: 'Phobie',
                 beschreibung: 'Du hast eine von dir gewählte, häufig auftretende Angst (z.B. vor der Dunkelheit, vor Feuer, vor Höhe...). Es muss eine Angst vor etwas sein, das man überall finden kann, nicht so etwas wie "Angst vor giftigen Todes-Killerspinnen, die es nur in Australien gibt". Solange du mit deiner Angst konfrontiert bist, kannst du keine Proben versuchen; du bist in Schockstarre.'
+            },
+            {
+                id: 'ritualgebunden',
+                name: 'Ritualgebunden',
+                beschreibung: 'Du musst täglich ein komplexes magisches Ritual durchführen, das mindestens 30 Minuten dauert. Das Ritual muss einen besonderen Gegenstand (z.B. ein Amulett) beinhalten, das zwar nicht unbedingt magisch, aber einmalig sein muss. Solltest du den Gegenstand verlieren, kannst du es also nicht durchführen! Außerdem muss es gesprochene Worte, Gesten und das Konsumieren von etwas (z.B. einer Form von Nahrung) beinhalten. Wenn du das Ritual versäumst, verlierst du für den gesamten folgenden Tag die Fähigkeit, Zauber zu wirken. Wird das Ritual drei Tage hintereinander versäumt, erleidest du zusätzlich jeden Tag eine Wunde, bis du das Ritual wieder durchführst.'
             },
             {
                 id: 'schüchtern',
