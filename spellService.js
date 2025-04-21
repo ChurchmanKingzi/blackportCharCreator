@@ -862,10 +862,10 @@ const spellService = {
         {
             id: "rostfinger",
             name: "Rostfinger",
-            level: 4,
-            mpKosten: 20,
+            level: 1,
+            mpKosten: 8,
             magieschule: "verfall",
-            beschreibung: "Lässt ein Ziel, das du berührst, rapide altern. Pro Minute, die du das Ziel ohne Unterbrechung berührst, altert es um ein ganzes Jahr. Dieser Effekt hält permanent. Das Ziel kann durch diesen Effekt unwiederbringlich an Altersschwäche sterben. Dieser Zauber gilt als großes Tabu und darf offiziell weder gelehrt noch praktiziert werden."
+            beschreibung: "Lässt ein metallisches Objekt, das du mit deinem rechten Zeigefinger berührst, im Zeitraffertempo verrosten. Der Effekt breitet sich über einen Bereich bis zu 20x20 Zentimetern aus und ist stark genug, um selbst dickes Metall komplett durchrosten und brüchig werden zu lassen. So können z.B. Schlösser mit Leichtigkeit aufgebrochen oder Klingen zerstört werden."
         },
         {
             id: "schattenzehrer",
