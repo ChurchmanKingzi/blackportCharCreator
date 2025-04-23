@@ -113,6 +113,11 @@ const nachteilService = {
                 beschreibung: 'Du leidest an einer unheilbaren Krankheit und hast maximal noch ein Jahr zu leben. Aller gift- und krankheitsbasierter Schaden wird von deinen max KP abgezogen. Fallen diese auf 0, stirbst du an deiner Krankheit und kannst nicht wiederbelebt werden. Die Krankheit ist komplett unheilbar und übertrumpft sogar den Vorteil "Unsterblich".'
             },
             {
+                id: 'unselbststaendig',
+                name: 'Unselbstständig',
+                beschreibung: 'Du kommst alleine einfach nicht klar. Solange du nicht jemanden bei dir hast, der dir sagt, was du tun sollst, oder dir zumindest aktiv moralischen Support gibt, kannst du aktiv keine Proben versuchen.'
+            },
+            {
                 id: 'unterdrückte persönlichkeit',
                 name: 'Unterdrückte Persönlichkeit',
                 beschreibung: 'Tief in deinem Unterbewusstsein lebt ein zweites Du, das in jeder Hinsicht dein Gegenteil ist. Bist du vorsichtig, ist es risikofreudig. Bist du freundlich, ist es ein Arschloch. Und so weiter. Immer, wenn deine KP unter die Hälfte ihres Maximums fallen, kommt deine andere Persönlichkeit zum Vorschein und bleibt solange aktiv, bis du über 50% deiner max KP geheilt bist und dich nicht in einer Stresssituation (etwa im Kampf) befindest.'
