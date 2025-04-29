@@ -75,7 +75,7 @@ const klasseService = {
             {
                 id: 'kannagi',
                 name: 'Kannagi',
-                beschreibung: 'Du kannst die KP von Zielen mit Heilzaubern über ihr Maximum erhöhen. Die zusätzlichen KP werden als halbtransparenter, kugelförmiger Schild um das Ziel herum dargestellt, den nur Menschen mit Magiewahrnehmung sehen können und der das Licht wie ein wunderschönes Prisma bricht. Die Zusatz-KP verschwinden nach einer Stunde, aber es gibt kein Limit, wie hoch du die KP eines Ziels erhöhen kannst, wenn du nur genug Heilzauber in dieser Zeit wirkst.'
+                beschreibung: 'Wenn du die KP eines Ziels mit Zaubern über ihr Maximum heilen würdest, werden die überschüssigen KP dem Ziel als halbtransparenter, kugelförmiger Schild angerechnet, den nur Menschen mit Magiewahrnehmung sehen können und der das Licht wie ein wunderschönes Prisma bricht. Dieser Schild verschwindet nach einer Stunde, aber es gibt kein Limit, wie stark er sein kann, wenn du nur genug Heilzauber in dieser Zeit wirkst.'
             },
             {
                 id: 'kleriker',
@@ -159,7 +159,7 @@ const klasseService = {
             },
             {
                 id: 'Verzauberer',
-                name: 'verzauberer',
+                name: 'Verzauberer',
                 beschreibung: 'Du kannst Gegenstände mit Level-1- und -2-Zaubern belegen, die dadurch verzaubert werden. Dabei definierst du eine Bedingung, wie der Zauber freigesetzt werden soll (z.B. bei einem Schwert immer, wenn es ein Ziel trifft). Ein Gegenstand kann beliebig oft verzaubert werden, sowohl mit beliebig vielen verschiedenen Zaubern, als auch mit beliebig vielen "Ladungen" eines Zaubers. Immer, wenn ein Zauber des Gegenstands freigesetzt wird, wird eine Ladung konsumiert. Sind keine Ladungen eines Zaubers auf dem Gegenstand übrig, funktioniert die Verzauberung nicht mehr, bis neue Ladungen hinzugefügt werden. Ladungen halten ewig, solange sie nicht konsumiert werden.'
             },
             {
