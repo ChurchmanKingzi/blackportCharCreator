@@ -81,48 +81,78 @@ document.addEventListener('DOMContentLoaded', function() {
         // Verzögerung, um UI-Updates zu ermöglichen
         setTimeout(() => {
             try {
-                // 1. Klassenauswahl zurücksetzen (für den Fall einer neuen Randomisierung)
+                // 1. Alle vorherigen Auswahloptionen zurücksetzen
                 resetSelections();
                 
-                // 2. Zufällige Klasse auswählen
-                selectRandomClass();
-                
-                // 3. Vor- und Nachteile auswählen
-                selectRandomAdvantageAndDisadvantage();
-                
-                // 4. Zufällige Magieschule auswählen
-                selectRandomMagicSchool();
-                
-                // 5. Zweite Klasse oder Magieschule auswählen, wenn nötig
-                handleSecondarySelections();
-                
-                // 6. Attribute und Fertigkeiten zufällig verteilen
-                distributeRandomAttributes();
-                
-                // 7. Zufällige Items auswählen
-                selectRandomItems();
-                
-                // 8. Zufällige Zauber auswählen
-                selectRandomSpells();
-                
-                // 9. Zufälliges Alter bestimmen
-                setRandomAge();
-                
-                // 10. Zufälligen Namen bestimmen
-                generateRandomName();
-                
-                // 11. Kampfwerte neu berechnen
-                updateCombatStats();
-                
-                // Button zurücksetzen
-                if (button) {
-                    button.disabled = false;
-                    button.textContent = 'Randomize!';
-                    button.style.backgroundColor = '#8B0000';
-                }
-                
-                // Erfolgsmeldung anzeigen
-                showNotification('Charakter erfolgreich zufällig erstellt!', true);
+                // 2. Kurze Verzögerung, um sicherzustellen, dass UI-Updates abgeschlossen sind
+                setTimeout(() => {
+                    // 3. Hauptattribute und Fertigkeiten auf Minimum setzen
+                    resetAllAttributes();
+                    
+                    // 4. Weitere Verzögerung für UI-Updates
+                    setTimeout(() => {
+                        // 5. Zufällige Klasse auswählen
+                        selectRandomClass();
+                        
+                        // 6. Kurze Verzögerung für UI-Updates nach Klassenauswahl
+                        setTimeout(() => {
+                            // 7. Vor- und Nachteile auswählen
+                            selectRandomAdvantageAndDisadvantage();
+                            
+                            // 8. Verzögerung für UI-Updates nach Vor-/Nachteilauswahl
+                            setTimeout(() => {
+                                // 9. Zufällige Magieschule auswählen
+                                selectRandomMagicSchool();
+                                
+                                // 10. Verzögerung für UI-Updates nach Magieschulauswahl
+                                setTimeout(() => {
+                                    // 11. Zweite Klasse oder Magieschule auswählen, wenn nötig
+                                    handleSecondarySelections();
+                                    
+                                    // 12. Verzögerung für UI-Updates nach sekundären Auswahloptionen
+                                    setTimeout(() => {
+                                        // 13. Attribute und Fertigkeiten zufällig verteilen
+                                        distributeRandomAttributes();
+                                        
+                                        // 14. Verzögerung für UI-Updates nach Attributverteilung
+                                        setTimeout(() => {
+                                            // 15. Zufällige Items auswählen
+                                            selectRandomItems();
+                                            
+                                            // 16. Verzögerung für UI-Updates nach Item-Auswahl
+                                            setTimeout(() => {
+                                                // 17. Zufällige Zauber auswählen
+                                                selectRandomSpells();
+                                                
+                                                // 18. Verzögerung für UI-Updates nach Zauberauswahl
+                                                setTimeout(() => {
+                                                    // 19. Zufälliges Alter bestimmen
+                                                    setRandomAge();
+                                                    
+                                                    // 20. Zufälligen Namen bestimmen
+                                                    generateRandomName();
+                                                    
+                                                    // 21. Kampfwerte neu berechnen
+                                                    updateCombatStats();
+                                                    
+                                                    // Button zurücksetzen
+                                                    if (button) {
+                                                        button.disabled = false;
+                                                        button.textContent = 'Randomize!';
+                                                        button.style.backgroundColor = '#8B0000';
+                                                    }
+                                                    
+                                                    // Erfolgsmeldung anzeigen
+                                                    showNotification('Charakter erfolgreich zufällig erstellt!', true);
+                                                }, 100);
+                                            }, 100);
+                                        }, 100);
+                                    }, 100);
+                                }, 100);
+                            }, 100);
+                        }, 100);
+                    }, 100);
+                }, 100);
             } catch (error) {
                 console.error('Fehler bei der Zufallsgenerierung:', error);
                 
@@ -136,32 +166,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Fehlermeldung anzeigen
                 showNotification('Fehler bei der Zufallsgenerierung: ' + error.message, false);
             }
-        }, 50);
+        }, 100);
     }
 
-    /**
-     * Setzt alle Selektionen zurück
-     */
-    function resetSelections() {
-        // Selects zurücksetzen
-        const selects = [
-            document.getElementById('class'),
-            document.getElementById('second-class'),
-            document.getElementById('advantage'),
-            document.getElementById('disadvantage'),
-            document.getElementById('magic-school'),
-            document.getElementById('second-magic-school')
-        ];
-        
-        selects.forEach(select => {
-            if (select) select.value = '';
-        });
-        
-        // Event auslösen, um UI zu aktualisieren
-        if (document.getElementById('class')) {
-            triggerEvent(document.getElementById('class'), 'change');
-        }
-    }
 
     /**
      * Wählt eine zufällige Klasse aus
@@ -445,19 +452,187 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Zufällige zweite Magieschule ausgewählt:', selectedSecondMagicSchool.name);
     }
 
-    /**
-     * Verteilt Attribut- und Fertigkeitspunkte zufällig
-     */
-    function distributeRandomAttributes() {
-        // Hauptattribute (KÖ, WI, CH, GL, MA) zufällig verteilen
-        distributeMainAttributes();
-        
-        // Fertigkeiten zufällig verteilen
-        distributeSkillPoints();
+    // Hauptfunktion zur zufälligen Charaktererstellung - überarbeitete Version
+    function randomizeCharacter() {
+        // Setze Animation für den Button während der Verarbeitung
+        const button = document.getElementById('randomize-button');
+        if (button) {
+            button.disabled = true;
+            button.textContent = 'Generiere...';
+            button.style.backgroundColor = '#666';
+        }
+
+        // Verzögerung, um UI-Updates zu ermöglichen
+        setTimeout(() => {
+            try {
+                // 1. Alle vorherigen Auswahloptionen zurücksetzen
+                resetSelections();
+                
+                // 2. Kurze Verzögerung, um sicherzustellen, dass UI-Updates abgeschlossen sind
+                setTimeout(() => {
+                    // 3. Hauptattribute und Fertigkeiten auf Minimum setzen
+                    resetAllAttributes();
+                    
+                    // 4. Weitere Verzögerung für UI-Updates
+                    setTimeout(() => {
+                        // 5. Zufällige Klasse auswählen
+                        selectRandomClass();
+                        
+                        // 6. Kurze Verzögerung für UI-Updates nach Klassenauswahl
+                        setTimeout(() => {
+                            // 7. Vor- und Nachteile auswählen
+                            selectRandomAdvantageAndDisadvantage();
+                            
+                            // 8. Verzögerung für UI-Updates nach Vor-/Nachteilauswahl
+                            setTimeout(() => {
+                                // 9. Zufällige Magieschule auswählen
+                                selectRandomMagicSchool();
+                                
+                                // 10. Verzögerung für UI-Updates nach Magieschulauswahl
+                                setTimeout(() => {
+                                    // 11. Zweite Klasse oder Magieschule auswählen, wenn nötig
+                                    handleSecondarySelections();
+                                    
+                                    // 12. Verzögerung für UI-Updates nach sekundären Auswahloptionen
+                                    setTimeout(() => {
+                                        // 13. Attribute und Fertigkeiten zufällig verteilen
+                                        distributeRandomAttributes();
+                                        
+                                        // 14. Verzögerung für UI-Updates nach Attributverteilung
+                                        setTimeout(() => {
+                                            // 15. Zufällige Items auswählen
+                                            selectRandomItems();
+                                            
+                                            // 16. Verzögerung für UI-Updates nach Item-Auswahl
+                                            setTimeout(() => {
+                                                // 17. Zufällige Zauber auswählen
+                                                selectRandomSpells();
+                                                
+                                                // 18. Verzögerung für UI-Updates nach Zauberauswahl
+                                                setTimeout(() => {
+                                                    // 19. Zufälliges Alter bestimmen
+                                                    setRandomAge();
+                                                    
+                                                    // 20. Zufälligen Namen bestimmen
+                                                    generateRandomName();
+                                                    
+                                                    // 21. Kampfwerte neu berechnen
+                                                    updateCombatStats();
+                                                    
+                                                    // Button zurücksetzen
+                                                    if (button) {
+                                                        button.disabled = false;
+                                                        button.textContent = 'Randomize!';
+                                                        button.style.backgroundColor = '#8B0000';
+                                                    }
+                                                    
+                                                    // Erfolgsmeldung anzeigen
+                                                    showNotification('Charakter erfolgreich zufällig erstellt!', true);
+                                                }, 10);
+                                            }, 10);
+                                        }, 10);
+                                    }, 10);
+                                }, 10);
+                            }, 10);
+                        }, 10);
+                    }, 10);
+                }, 10);
+            } catch (error) {
+                console.error('Fehler bei der Zufallsgenerierung:', error);
+                
+                // Button zurücksetzen
+                if (button) {
+                    button.disabled = false;
+                    button.textContent = 'Randomize!';
+                    button.style.backgroundColor = '#8B0000';
+                }
+                
+                // Fehlermeldung anzeigen
+                showNotification('Fehler bei der Zufallsgenerierung: ' + error.message, false);
+            }
+        }, 100);
     }
 
     /**
-     * Verteilt die Hauptattributspunkte zufällig
+     * Setzt alle Attributwerte auf ihre Minimalwerte zurück
+     */
+    function resetAllAttributes() {
+        // 1. Alle Hauptattribute auf Minimum (1) setzen
+        const mainAttributeInputs = document.querySelectorAll('.main-attribute-value');
+        mainAttributeInputs.forEach(input => {
+            input.value = 1;
+            triggerEvent(input, 'input');
+            triggerEvent(input, 'change');
+        });
+        
+        // 2. Alle Fertigkeiten auf Minimum (0) setzen
+        const attributeInputs = document.querySelectorAll('.attribute-value');
+        attributeInputs.forEach(input => {
+            input.value = 0;
+            triggerEvent(input, 'input');
+            triggerEvent(input, 'change');
+        });
+        
+        // 3. Verfügbare Punkte aktualisieren
+        if (typeof updateAvailablePointsDisplay === 'function') {
+            updateAvailablePointsDisplay();
+        }
+        
+        if (typeof updateAvailableSkillPointsDisplay === 'function') {
+            updateAvailableSkillPointsDisplay();
+        }
+        
+        console.log('Alle Attribute und Fertigkeiten auf Minimalwerte zurückgesetzt');
+    }
+
+    /**
+     * Setzt alle Selektionen zurück und stellt sicher, dass die UI richtig aktualisiert wird
+     */
+    function resetSelections() {
+        // Selects zurücksetzen
+        const selects = [
+            document.getElementById('class'),
+            document.getElementById('second-class'),
+            document.getElementById('advantage'),
+            document.getElementById('disadvantage'),
+            document.getElementById('magic-school'),
+            document.getElementById('second-magic-school')
+        ];
+        
+        // Alle Selects zurücksetzen und Event triggern
+        selects.forEach(select => {
+            if (select) {
+                select.value = '';
+                triggerEvent(select, 'change');
+            }
+        });
+        
+        // Container für zweite Klasse und zweite Magieschule zurücksetzen
+        const secondClassContainer = document.getElementById('second-class-container');
+        const secondMagicSchoolContainer = document.getElementById('second-magic-school-container');
+        
+        if (secondClassContainer) secondClassContainer.style.display = 'none';
+        if (secondMagicSchoolContainer) secondMagicSchoolContainer.style.display = 'none';
+        
+        // Trigger für Custom-Dropdowns
+        selects.forEach(select => {
+            if (select) {
+                const event = new CustomEvent('optionsChanged');
+                select.dispatchEvent(event);
+            }
+        });
+        
+        // Tooltips entfernen
+        const tooltipContainer = document.getElementById('tooltip-container');
+        if (tooltipContainer) {
+            tooltipContainer.innerHTML = '';
+        }
+        
+        console.log('Alle Auswahloptionen zurückgesetzt');
+    }
+
+    /**
+     * Verteilt die Hauptattributspunkte zufällig, mit korrektem Event-Handling
      */
     function distributeMainAttributes() {
         // Hauptattribut-Inputs abrufen
@@ -484,51 +659,56 @@ document.addEventListener('DOMContentLoaded', function() {
         mainAttributeInputs.forEach(input => {
             input.value = MIN_MAIN_ATTRIBUTE;
             triggerEvent(input, 'input');
+            triggerEvent(input, 'change');
         });
         
-        // Verfügbare Punkte verteilen (wobei jedes Attribut bereits MIN_MAIN_ATTRIBUTE hat)
-        let remainingPoints = availablePoints;
-        
-        // Array mit Indices der Attribute erstellen
-        const attributeIndices = Array.from({ length: mainAttributeInputs.length }, (_, i) => i);
-        
-        // Random-Verteilung mit Gewichtung: wichtigere Attribute bekommen mehr Punkte
-        // Im Durchschnitt sollten die ersten beiden Attribute (KÖ, WI) sowie MA mehr bekommen
-        const weights = [3, 3, 2, 1, 3]; // Gewichtung für KÖ, WI, CH, GL, MA
-        
-        while (remainingPoints > 0) {
-            // Gewichtete Auswahl eines Attributs
-            const selectedIndex = getWeightedRandomIndex(attributeIndices, weights);
-            const selectedInput = mainAttributeInputs[selectedIndex];
+        // Kurze Verzögerung für UI-Updates
+        setTimeout(() => {
+            // Verfügbare Punkte verteilen (wobei jedes Attribut bereits MIN_MAIN_ATTRIBUTE hat)
+            let remainingPoints = availablePoints;
             
-            // Aktueller Wert des ausgewählten Attributs
-            const currentValue = parseInt(selectedInput.value);
+            // Array mit Indices der Attribute erstellen
+            const attributeIndices = Array.from({ length: mainAttributeInputs.length }, (_, i) => i);
             
-            // Nur erhöhen, wenn noch nicht am Maximum
-            if (currentValue < MAX_MAIN_ATTRIBUTE) {
-                selectedInput.value = currentValue + 1;
-                triggerEvent(selectedInput, 'input');
-                remainingPoints--;
-            }
+            // Random-Verteilung mit Gewichtung: wichtigere Attribute bekommen mehr Punkte
+            // Im Durchschnitt sollten die ersten beiden Attribute (KÖ, WI) sowie MA mehr bekommen
+            const weights = [3, 3, 2, 1, 3]; // Gewichtung für KÖ, WI, CH, GL, MA
             
-            // Wenn das Attribut jetzt am Maximum ist, aus den Kandidaten entfernen
-            if (parseInt(selectedInput.value) >= MAX_MAIN_ATTRIBUTE) {
-                const indexPosition = attributeIndices.indexOf(selectedIndex);
-                if (indexPosition > -1) {
-                    attributeIndices.splice(indexPosition, 1);
-                    weights.splice(indexPosition, 1);
+            while (remainingPoints > 0) {
+                // Gewichtete Auswahl eines Attributs
+                const selectedIndex = getWeightedRandomIndex(attributeIndices, weights);
+                const selectedInput = mainAttributeInputs[selectedIndex];
+                
+                // Aktueller Wert des ausgewählten Attributs
+                const currentValue = parseInt(selectedInput.value);
+                
+                // Nur erhöhen, wenn noch nicht am Maximum
+                if (currentValue < MAX_MAIN_ATTRIBUTE) {
+                    selectedInput.value = currentValue + 1;
+                    triggerEvent(selectedInput, 'input');
+                    triggerEvent(selectedInput, 'change');
+                    remainingPoints--;
                 }
+                
+                // Wenn das Attribut jetzt am Maximum ist, aus den Kandidaten entfernen
+                if (parseInt(selectedInput.value) >= MAX_MAIN_ATTRIBUTE) {
+                    const indexPosition = attributeIndices.indexOf(selectedIndex);
+                    if (indexPosition > -1) {
+                        attributeIndices.splice(indexPosition, 1);
+                        weights.splice(indexPosition, 1);
+                    }
+                }
+                
+                // Sicherheitsausstieg, falls keine Attribute mehr erhöht werden können
+                if (attributeIndices.length === 0) break;
             }
             
-            // Sicherheitsausstieg, falls keine Attribute mehr erhöht werden können
-            if (attributeIndices.length === 0) break;
-        }
-        
-        console.log('Hauptattribute zufällig verteilt');
+            console.log('Hauptattribute zufällig verteilt');
+        }, 100);
     }
 
     /**
-     * Verteilt die Fertigkeitspunkte zufällig
+     * Verteilt die Fertigkeitspunkte zufällig mit korrektem Event-Handling
      */
     function distributeSkillPoints() {
         // Fertigkeits-Inputs abrufen
@@ -555,84 +735,130 @@ document.addEventListener('DOMContentLoaded', function() {
         skillInputs.forEach(input => {
             input.value = MIN_SKILL_VALUE;
             triggerEvent(input, 'input');
+            triggerEvent(input, 'change');
         });
         
-        // Verfügbare Punkte verteilen
-        let remainingPoints = availableSkillPoints;
-        
-        // Wichtige Fertigkeiten identifizieren (für Gewichtung)
-        const importantSkills = [
-            'Akrobatik', 'Ausweichen', 'Kampfsport', 'Nahkampf', 'Schießen', // Kampf
-            'Erste Hilfe', 'Sinnesschärfe', 'Stärke', 'Widerstand', // Überleben
-            'Magiewahrnehmung', 'Magieresistenz' // Magie
-        ];
-        
-        // Alle Fertigkeits-Inputs durchsuchen und wichtige identifizieren
-        const skillWeights = Array(skillInputs.length).fill(1); // Standard-Gewichtung
-        
-        skillInputs.forEach((input, index) => {
-            // Überprüfe den Text im übergeordneten Element
-            const parentText = input.closest('.attribute-item')?.textContent.trim() || '';
+        // Kurze Verzögerung für UI-Updates
+        setTimeout(() => {
+            // Verfügbare Punkte verteilen
+            let remainingPoints = availableSkillPoints;
             
-            // Höhere Gewichtung für wichtige Fertigkeiten
-            for (const skill of importantSkills) {
-                if (parentText.includes(skill)) {
-                    skillWeights[index] = 3; // Dreifache Gewichtung für wichtige Fertigkeiten
-                    break;
-                }
-            }
-        });
-        
-        // Array mit Indices der Fertigkeiten erstellen
-        const skillIndices = Array.from({ length: skillInputs.length }, (_, i) => i);
-        
-        // Zufällige Fertigkeiten auswählen und Punkte verteilen
-        while (remainingPoints > 0 && skillIndices.length > 0) {
-            // Gewichtete Auswahl einer Fertigkeit
-            const selectedIndex = getWeightedRandomIndex(skillIndices, skillWeights);
-            const selectedInput = skillInputs[selectedIndex];
+            // Wichtige Fertigkeiten identifizieren (für Gewichtung)
+            const importantSkills = [
+                'Akrobatik', 'Ausweichen', 'Kampfsport', 'Nahkampf', 'Schießen', // Kampf
+                'Erste Hilfe', 'Sinnesschärfe', 'Stärke', 'Widerstand', // Überleben
+                'Magiewahrnehmung', 'Magieresistenz' // Magie
+            ];
             
-            // Aktueller Wert der ausgewählten Fertigkeit
-            const currentValue = parseInt(selectedInput.value);
+            // Alle Fertigkeits-Inputs durchsuchen und wichtige identifizieren
+            const skillWeights = Array(skillInputs.length).fill(1); // Standard-Gewichtung
             
-            // Nur erhöhen, wenn noch nicht am Maximum
-            if (currentValue < MAX_SKILL_VALUE) {
-                // Zufällig 1-2 Punkte hinzufügen (max bis zum Limit)
-                const pointsToAdd = Math.min(
-                    getRandomInt(1, 2), 
-                    MAX_SKILL_VALUE - currentValue,
-                    remainingPoints
-                );
+            skillInputs.forEach((input, index) => {
+                // Überprüfe den Text im übergeordneten Element
+                const parentText = input.closest('.attribute-item')?.textContent.trim() || '';
                 
-                selectedInput.value = currentValue + pointsToAdd;
-                triggerEvent(selectedInput, 'input');
-                remainingPoints -= pointsToAdd;
-            }
-            
-            // Wenn die Fertigkeit jetzt am Maximum ist, aus den Kandidaten entfernen
-            if (parseInt(selectedInput.value) >= MAX_SKILL_VALUE) {
-                const indexPosition = skillIndices.indexOf(selectedIndex);
-                if (indexPosition > -1) {
-                    skillIndices.splice(indexPosition, 1);
-                    skillWeights.splice(indexPosition, 1);
+                // Höhere Gewichtung für wichtige Fertigkeiten
+                for (const skill of importantSkills) {
+                    if (parentText.includes(skill)) {
+                        skillWeights[index] = 3; // Dreifache Gewichtung für wichtige Fertigkeiten
+                        break;
+                    }
                 }
-            }
+            });
             
-            // Mit niedriger Wahrscheinlichkeit auch Fertigkeiten entfernen, die noch nicht am Maximum sind
-            // Dies sorgt für eine bessere Verteilung (nicht alle Fertigkeiten bekommen Punkte)
-            else if (Math.random() < 0.1) { // 10% Chance
-                const indexPosition = skillIndices.indexOf(selectedIndex);
-                if (indexPosition > -1) {
-                    skillIndices.splice(indexPosition, 1);
-                    skillWeights.splice(indexPosition, 1);
+            // Array mit Indices der Fertigkeiten erstellen
+            const skillIndices = Array.from({ length: skillInputs.length }, (_, i) => i);
+            
+            // Zufällige Fertigkeiten auswählen und Punkte verteilen
+            while (remainingPoints > 0 && skillIndices.length > 0) {
+                // Gewichtete Auswahl einer Fertigkeit
+                const selectedIndex = getWeightedRandomIndex(skillIndices, skillWeights);
+                const selectedInput = skillInputs[selectedIndex];
+                
+                // Aktueller Wert der ausgewählten Fertigkeit
+                const currentValue = parseInt(selectedInput.value);
+                
+                // Nur erhöhen, wenn noch nicht am Maximum
+                if (currentValue < MAX_SKILL_VALUE) {
+                    // Zufällig 1-2 Punkte hinzufügen (max bis zum Limit)
+                    const pointsToAdd = Math.min(
+                        getRandomInt(1, 2), 
+                        MAX_SKILL_VALUE - currentValue,
+                        remainingPoints
+                    );
+                    
+                    selectedInput.value = currentValue + pointsToAdd;
+                    triggerEvent(selectedInput, 'input');
+                    triggerEvent(selectedInput, 'change');
+                    remainingPoints -= pointsToAdd;
                 }
+                
+                // Wenn die Fertigkeit jetzt am Maximum ist, aus den Kandidaten entfernen
+                if (parseInt(selectedInput.value) >= MAX_SKILL_VALUE) {
+                    const indexPosition = skillIndices.indexOf(selectedIndex);
+                    if (indexPosition > -1) {
+                        skillIndices.splice(indexPosition, 1);
+                        skillWeights.splice(indexPosition, 1);
+                    }
+                }
+                
+                // Mit niedriger Wahrscheinlichkeit auch Fertigkeiten entfernen, die noch nicht am Maximum sind
+                // Dies sorgt für eine bessere Verteilung (nicht alle Fertigkeiten bekommen Punkte)
+                else if (Math.random() < 0.1) { // 10% Chance
+                    const indexPosition = skillIndices.indexOf(selectedIndex);
+                    if (indexPosition > -1) {
+                        skillIndices.splice(indexPosition, 1);
+                        skillWeights.splice(indexPosition, 1);
+                    }
+                }
+                
+                // Sicherheitsausstieg, falls keine Fertigkeiten mehr erhöht werden können
+                if (skillIndices.length === 0) break;
             }
             
-            // Sicherheitsausstieg, falls keine Fertigkeiten mehr erhöht werden können
-            if (skillIndices.length === 0) break;
-        }
+            console.log('Fertigkeitspunkte zufällig verteilt');
+        }, 150);
+    }
+
+    /**
+     * Verbesserte Event-Trigger-Funktion mit verbesserter Unterstützung für Custom-Elemente
+     */
+    function triggerEvent(element, eventType) {
+        if (!element) return;
         
-        console.log('Fertigkeitspunkte zufällig verteilt');
+        // Event erstellen und auslösen
+        const event = new Event(eventType, { bubbles: true });
+        element.dispatchEvent(event);
+        
+        // Zusätzlich für Custom-Dropdowns (falls vorhanden)
+        if (eventType === 'change' && element.tagName === 'SELECT') {
+            // Suchen nach einem möglicherweise vorhandenen Custom-Dropdown
+            const parent = element.closest('.custom-select-container');
+            if (parent) {
+                const customButton = parent.querySelector('.custom-select-button');
+                if (customButton && element.selectedIndex >= 0) {
+                    customButton.textContent = element.options[element.selectedIndex].textContent;
+                }
+                
+                // Auslösen des optionsChanged-Events für Custom-Dropdowns
+                const optionsEvent = new CustomEvent('optionsChanged');
+                element.dispatchEvent(optionsEvent);
+            }
+        }
+    }
+
+    /**
+     * Verteilt Attribut- und Fertigkeitspunkte zufällig mit verbessertem Event-Handling
+     */
+    function distributeRandomAttributes() {
+        // Hauptattribute (KÖ, WI, CH, GL, MA) zufällig verteilen
+        distributeMainAttributes();
+        
+        // Verzögerung vor Verteilung der Fertigkeiten
+        setTimeout(() => {
+            // Fertigkeiten zufällig verteilen
+            distributeSkillPoints();
+        }, 150);
     }
 
     /**
@@ -969,18 +1195,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return indices[indices.length - 1];
     }
 
-    /**
-     * Löst ein Ereignis auf einem Element aus
-     * @param {HTMLElement} element - Das Element, auf dem das Ereignis ausgelöst werden soll
-     * @param {string} eventType - Typ des Ereignisses (z.B. 'change', 'input')
-     */
-    function triggerEvent(element, eventType) {
-        if (!element) return;
-        
-        // Event erstellen und auslösen
-        const event = new Event(eventType, { bubbles: true });
-        element.dispatchEvent(event);
-    }
 
 
     /**
@@ -1150,40 +1364,54 @@ document.addEventListener('DOMContentLoaded', function() {
      * @param {string} culture - 'germanic', 'romance', 'slavic', 'nordic', 'celtic', 'mixed'
      * @returns {string} Ein zufällig generierter Vorname
      */
-    function generateFirstName(genderType, culture) {
+    function generateFirstName(genderType, culture, dominantVowelGroup) {
+        // Erhöhte Chance auf einen vordefinierten, wohlklingenden Namen (30%)
+        if (Math.random() < 0.3) {
+            return getCommonFirstName(genderType, culture);
+        }
+        
+        // Kulturspezifische Namensbestandteile verwenden (50%)
+        if (Math.random() < 0.5) {
+            return generateNameFromMorphemes(genderType, culture, dominantVowelGroup, 'first');
+        }
+        
         // Anzahl der Silben für den Vornamen (1-3, meistens 2)
         let numSyllables;
         const syllableRoll = Math.random();
         if (syllableRoll < 0.2) {
             numSyllables = 1;      // 20% Wahrscheinlichkeit für einsilbig
-        } else if (syllableRoll < 0.8) {
-            numSyllables = 2;      // 60% Wahrscheinlichkeit für zweisilbig
+        } else if (syllableRoll < 0.9) {
+            numSyllables = 2;      // 70% Wahrscheinlichkeit für zweisilbig
         } else {
-            numSyllables = 3;      // 20% Wahrscheinlichkeit für dreisilbig
+            numSyllables = 3;      // 10% Wahrscheinlichkeit für dreisilbig
         }
         
-        // Silben generieren mit kulturellem Kontext
-        const dominantVowelGroup = selectDominantVowelGroup();
+        // Kulturspezifische Anpassung der Silbenanzahl
+        numSyllables = adjustSyllableCountByCulture(numSyllables, culture, 'first');
         
+        // Silben generieren mit kulturellem Kontext und Rhythmus
         let name = '';
         let previousSyllable = '';
+        let syllableStress = true; // Erste Silbe ist betont
         
         for (let i = 0; i < numSyllables; i++) {
-            // Für die erste Silbe die spezielle Regel anwenden
-            let syllable;
-            if (i === 0) {
-                syllable = generateSyllable(true, culture, dominantVowelGroup); // erste Silbe
-            } else {
-                // Sicherstellen, dass die Silbe gut mit der vorherigen harmoniert
-                syllable = generateSyllable(false, culture, dominantVowelGroup, previousSyllable);
-            }
+            // Silbe basierend auf Rhythmus und Position generieren
+            const syllable = generateImprovedSyllable(
+                i === 0, // erste Silbe?
+                culture, 
+                dominantVowelGroup,
+                previousSyllable,
+                syllableStress,
+                i === numSyllables - 1 // letzte Silbe?
+            );
             
-            // Vermeiden von Wiederholungen der gleichen Silbe
-            if (syllable !== previousSyllable) {
+            // Vermeiden von Wiederholungen oder Ähnlichkeiten zur vorherigen Silbe
+            if (!isSimilarSyllable(syllable, previousSyllable)) {
                 name += syllable;
                 previousSyllable = syllable;
+                syllableStress = !syllableStress; // Wechsel zwischen betont und unbetont
             } else {
-                // Bei Wiederholung erneut generieren
+                // Bei zu großer Ähnlichkeit erneut generieren
                 i--;
             }
         }
@@ -1194,12 +1422,32 @@ document.addEventListener('DOMContentLoaded', function() {
         // Dreifache Buchstaben reduzieren (z.B. "aaa" -> "aa")
         name = reduceTripleLetters(name);
         
+        // Überprüfen der Vokal-Konsonant-Verteilung
+        if (!hasBalancedPhonetics(name)) {
+            // Bei unausgeglichener Verteilung erneut versuchen
+            return generateFirstName(genderType, culture, dominantVowelGroup);
+        }
+        
+        // Aussprachefreundlichkeit prüfen
+        if (!isPronounceable(name)) {
+            // Bei schlecht aussprechbarem Namen erneut versuchen
+            return generateFirstName(genderType, culture, dominantVowelGroup);
+        }
+        
         // Endung basierend auf dem Geschlecht anpassen
         name = applyGenderEnding(name, genderType, culture);
         
-        // 10% Chance für einen vordefinierten Namen
-        if (Math.random() < 0.1) {
-            return getCommonFirstName(genderType, culture);
+        // Länge kontrollieren
+        const culturalMaxLength = getMaxFirstNameLength(culture);
+        if (name.length > culturalMaxLength) {
+            name = name.substring(0, culturalMaxLength);
+        }
+        
+        // Lesbarkeits-Score prüfen
+        const readabilityScore = calculateReadabilityScore(name);
+        if (readabilityScore < 60) {
+            // Bei niedriger Lesbarkeit erneut versuchen
+            return generateFirstName(genderType, culture, dominantVowelGroup);
         }
         
         return name;
@@ -1210,33 +1458,46 @@ document.addEventListener('DOMContentLoaded', function() {
      * @param {string} culture - 'germanic', 'romance', 'slavic', 'nordic', 'celtic', 'mixed'
      * @returns {string} Ein zufällig generierter Nachname
      */
-    function generateLastName(culture) {
-        // Anzahl der Silben für den Nachnamen (2-3, meist 2)
-        const numSyllables = Math.random() < 0.7 ? 2 : 3;
+    function generateLastName(culture, dominantVowelGroup) {
+        // Erhöhte Chance auf einen vordefinierten, wohlklingenden Nachnamen (40%)
+        if (Math.random() < 0.4) {
+            return getCommonLastName(culture);
+        }
         
-        // Dominante Vokalgruppe für Harmonisierung
-        const dominantVowelGroup = selectDominantVowelGroup();
+        // Kulturspezifische Bestandteile verwenden (60%)
+        if (Math.random() < 0.6) {
+            return generateNameFromMorphemes(null, culture, dominantVowelGroup, 'last');
+        }
+        
+        // Anzahl der Silben für den Nachnamen (2-3, meist 2)
+        const numSyllables = Math.random() < 0.8 ? 2 : 3;
+        
+        // Kulturspezifische Anpassung der Silbenanzahl
+        const adjustedSyllables = adjustSyllableCountByCulture(numSyllables, culture, 'last');
         
         // Silben generieren
         let name = '';
         let previousSyllable = '';
+        let syllableStress = true; // Erste Silbe ist betont
         
-        for (let i = 0; i < numSyllables; i++) {
-            // Für die erste Silbe die spezielle Regel anwenden
-            let syllable;
-            if (i === 0) {
-                syllable = generateSyllable(true, culture, dominantVowelGroup); // erste Silbe
-            } else {
-                // Sicherstellen, dass die Silbe gut mit der vorherigen harmoniert
-                syllable = generateSyllable(false, culture, dominantVowelGroup, previousSyllable);
-            }
+        for (let i = 0; i < adjustedSyllables; i++) {
+            // Silbe basierend auf Rhythmus und Position generieren
+            const syllable = generateImprovedSyllable(
+                i === 0, // erste Silbe?
+                culture, 
+                dominantVowelGroup,
+                previousSyllable,
+                syllableStress,
+                i === adjustedSyllables - 1 // letzte Silbe?
+            );
             
-            // Vermeiden von Wiederholungen der gleichen Silbe
-            if (syllable !== previousSyllable) {
+            // Vermeiden von Wiederholungen oder Ähnlichkeiten zur vorherigen Silbe
+            if (!isSimilarSyllable(syllable, previousSyllable)) {
                 name += syllable;
                 previousSyllable = syllable;
+                syllableStress = !syllableStress; // Wechsel zwischen betont und unbetont
             } else {
-                // Bei Wiederholung erneut generieren
+                // Bei zu großer Ähnlichkeit erneut generieren
                 i--;
             }
         }
@@ -1247,17 +1508,37 @@ document.addEventListener('DOMContentLoaded', function() {
         // Dreifache Buchstaben reduzieren
         name = reduceTripleLetters(name);
         
-        // Kulturspezifische Präfixe und Suffixe hinzufügen (40% Chance)
-        if (Math.random() < 0.4) {
+        // Überprüfen der Vokal-Konsonant-Verteilung
+        if (!hasBalancedPhonetics(name)) {
+            // Bei unausgeglichener Verteilung erneut versuchen
+            return generateLastName(culture, dominantVowelGroup);
+        }
+        
+        // Aussprachefreundlichkeit prüfen
+        if (!isPronounceable(name)) {
+            // Bei schlecht aussprechbarem Namen erneut versuchen
+            return generateLastName(culture, dominantVowelGroup);
+        }
+        
+        // Kulturspezifische Präfixe und Suffixe hinzufügen (60% Chance)
+        if (Math.random() < 0.6) {
             const modifier = getCulturalModifier(culture);
             if (modifier) {
-                name = modifier.prefix + name + modifier.suffix;
+                // Wenn das Präfix nicht leer ist, zuerst die Großschreibung anpassen
+                let prefix = modifier.prefix;
+                if (prefix && prefix.length > 0) {
+                    name = name.charAt(0).toLowerCase() + name.slice(1);
+                    prefix = prefix.charAt(0).toUpperCase() + prefix.slice(1);
+                }
+                name = prefix + name + modifier.suffix;
             }
         }
         
-        // Häufige berufsbezogene oder bedeutungsvolle Nachnamen einmischen (20% Chance)
-        if (Math.random() < 0.2) {
-            return getCommonLastName(culture);
+        // Lesbarkeits-Score prüfen
+        const readabilityScore = calculateReadabilityScore(name);
+        if (readabilityScore < 60) {
+            // Bei niedriger Lesbarkeit erneut versuchen
+            return generateLastName(culture, dominantVowelGroup);
         }
         
         // Namenslänge begrenzen (maximal 15 Zeichen für Nachnamen)
@@ -1269,29 +1550,509 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /**
-     * Generiert eine zufällige Silbe nach den Regeln, mit Berücksichtigung von Kultur und Vokalharmonie
+     * Passt die Silbenanzahl basierend auf der Kultur an
+     * @param {number} syllableCount - Ursprüngliche Silbenanzahl
+     * @param {string} culture - Kultureller Stil
+     * @param {string} nameType - 'first' oder 'last'
+     * @returns {number} Angepasste Silbenanzahl
+     */
+    function adjustSyllableCountByCulture(syllableCount, culture, nameType) {
+        if (nameType === 'first') {
+            // Kulturspezifische Anpassungen für Vornamen
+            switch (culture) {
+                case 'germanic':
+                    // Germanische Vornamen sind tendenziell kürzer
+                    return Math.min(syllableCount, 2);
+                case 'romance':
+                    // Romanische Vornamen können länger sein
+                    return Math.max(2, syllableCount);
+                case 'slavic':
+                    // Slawische Vornamen meist 2-3 Silben
+                    return Math.min(3, Math.max(2, syllableCount));
+                case 'nordic':
+                    // Nordische Namen eher kurz
+                    return Math.min(syllableCount, 2);
+                case 'celtic':
+                    // Keltische Namen variabel
+                    return syllableCount;
+                default:
+                    return syllableCount;
+            }
+        } else {
+            // Kulturspezifische Anpassungen für Nachnamen
+            switch (culture) {
+                case 'germanic':
+                    // Germanische Nachnamen oft 2 Silben
+                    return 2;
+                case 'romance':
+                    // Romanische Nachnamen oft 2-3 Silben
+                    return Math.min(3, Math.max(2, syllableCount));
+                case 'slavic':
+                    // Slawische Nachnamen können länger sein
+                    return Math.min(3, syllableCount);
+                case 'nordic':
+                    // Nordische Nachnamen meist 2 Silben
+                    return 2;
+                case 'celtic':
+                    // Keltische Nachnamen oft kurz
+                    return Math.min(syllableCount, 2);
+                default:
+                    return syllableCount;
+            }
+        }
+    }
+
+    /**
+     * Berechnet einen Lesbarkeits-Score für einen Namen
+     * @param {string} name - Der zu bewertende Name
+     * @returns {number} Lesbarkeits-Score (0-100)
+     */
+    function calculateReadabilityScore(name) {
+        if (!name || name.length === 0) return 0;
+        
+        let score = 100;
+        
+        // 1. Länge (optimal: 4-10 Zeichen)
+        const length = name.length;
+        if (length < 3) score -= 30;
+        else if (length > 12) score -= (length - 12) * 5;
+        
+        // 2. Vokal-Konsonant-Verteilung
+        const vowels = name.split('').filter(char => isVowel(char)).length;
+        const vowelRatio = vowels / length;
+        
+        // Optimale Verteilung: 40-50% Vokale
+        const optimalVowelRatio = 0.45;
+        score -= Math.abs(vowelRatio - optimalVowelRatio) * 100;
+        
+        // 3. Konsonantenhäufungen
+        const consonantGroups = name.match(/[^aeiouyøæ]{2,}/gi) || [];
+        for (const group of consonantGroups) {
+            if (group.length > 2) score -= (group.length - 1) * 10;
+        }
+        
+        // 4. Vokalgruppen
+        const vowelGroups = name.match(/[aeiouyøæ]{2,}/gi) || [];
+        for (const group of vowelGroups) {
+            if (group.length > 2) score -= (group.length - 1) * 10;
+        }
+        
+        // 5. Rhythmus (Wechsel zwischen Vokalen und Konsonanten)
+        let rhythmPenalty = 0;
+        for (let i = 1; i < name.length; i++) {
+            const isCurrentVowel = isVowel(name[i]);
+            const isPreviousVowel = isVowel(name[i-1]);
+            
+            if (isCurrentVowel === isPreviousVowel) {
+                rhythmPenalty += 1;
+            }
+        }
+        score -= rhythmPenalty * 2;
+        
+        // Begrenzen des Scores auf 0-100
+        return Math.max(0, Math.min(100, score));
+    }
+
+    /**
+     * Prüft, ob ein Name gut auszusprechen ist
+     * @param {string} name - Der zu prüfende Name
+     * @returns {boolean} True, wenn der Name gut auszusprechen ist
+     */
+    function isPronounceable(name) {
+        if (!name || name.length === 0) return false;
+        
+        // 1. Prüfen auf angemessene Vokalverteilung
+        if (!hasBalancedPhonetics(name)) return false;
+        
+        // 2. Keine 3+ Konsonanten in Folge
+        if (/[^aeiouyøæ]{3,}/i.test(name)) return false;
+        
+        // 3. Keine 3+ Vokale in Folge (Ausnahme: gewisse Kombinationen)
+        const allowedVowelGroups = ['aeu', 'aei', 'iou', 'eau', 'oui', 'aie'];
+        const vowelGroups = name.match(/[aeiouyøæ]{3,}/gi) || [];
+        
+        for (const group of vowelGroups) {
+            let isAllowed = false;
+            for (const allowedGroup of allowedVowelGroups) {
+                if (group.includes(allowedGroup)) {
+                    isAllowed = true;
+                    break;
+                }
+            }
+            if (!isAllowed) return false;
+        }
+        
+        // 4. Keine schwierigen Konsonantenübergänge
+        const hardConsonantGroups = getHardConsonantGroups();
+        for (const group of hardConsonantGroups) {
+            if (name.toLowerCase().includes(group)) return false;
+        }
+        
+        return true;
+    }
+
+    /**
+     * Prüft, ob ein Text eine ausgewogene Verteilung von Vokalen und Konsonanten hat
+     * @param {string} text - Der zu prüfende Text
+     * @returns {boolean} True, wenn die Phonetik ausgewogen ist
+     */
+    function hasBalancedPhonetics(text) {
+        const vowels = text.split('').filter(char => isVowel(char)).length;
+        const total = text.length;
+        
+        if (total === 0) return false;
+        
+        // Vokalanteil zwischen 30% und 60% ist ausgewogen
+        const vowelRatio = vowels / total;
+        return vowelRatio >= 0.3 && vowelRatio <= 0.6;
+    }
+
+    /**
+     * Prüft, ob zwei Silben zu ähnlich sind
+     * @param {string} syllable1 - Erste Silbe
+     * @param {string} syllable2 - Zweite Silbe
+     * @returns {boolean} true, wenn die Silben zu ähnlich sind
+     */
+    function isSimilarSyllable(syllable1, syllable2) {
+        if (!syllable1 || !syllable2) return false;
+        
+        // Exakte Gleichheit
+        if (syllable1 === syllable2) return true;
+        
+        // Sehr ähnliche Länge und gleicher Anfang oder Ende
+        if (Math.abs(syllable1.length - syllable2.length) <= 1) {
+            // Gleicher Anfang mit mindestens 2 Zeichen
+            if (syllable1.substring(0, 2) === syllable2.substring(0, 2)) return true;
+            
+            // Gleiches Ende mit mindestens 2 Zeichen
+            if (syllable1.slice(-2) === syllable2.slice(-2)) return true;
+        }
+        
+        // Hohe Ähnlichkeit der Buchstaben (über 70%)
+        const s1 = syllable1.split('');
+        const s2 = syllable2.split('');
+        const common = s1.filter(char => s2.includes(char)).length;
+        const similarity = common / Math.max(s1.length, s2.length);
+        
+        return similarity > 0.7;
+    }
+
+    /**
+     * Generiert einen Namen aus vordefinierten kulturspezifischen Morphemen
+     * @param {string|null} genderType - Geschlechtstyp (null für Nachnamen)
+     * @param {string} culture - Kultureller Stil
+     * @param {string} dominantVowelGroup - Dominante Vokalgruppe
+     * @param {string} nameType - 'first' oder 'last'
+     * @returns {string} Generierter Name aus Morphemen
+     */
+    function generateNameFromMorphemes(genderType, culture, dominantVowelGroup, nameType) {
+        const morphemes = getMorphemesByCulture(culture, genderType, nameType);
+        
+        // 1-3 Morpheme verwenden, abhängig vom Namenstyp
+        const numMorphemes = nameType === 'first' ? 
+            (Math.random() < 0.7 ? 1 : 2) : 
+            (Math.random() < 0.6 ? 2 : Math.random() < 0.8 ? 1 : 3);
+        
+        let name = '';
+        let previousMorpheme = '';
+        
+        // Morpheme auswählen und kombinieren
+        for (let i = 0; i < numMorphemes; i++) {
+            let selectedMorpheme;
+            
+            if (i === 0) {
+                // Erstes Morphem: Präfixe bevorzugen
+                const prefixes = morphemes.filter(m => m.position === 'prefix' || m.position === 'any');
+                if (prefixes.length > 0) {
+                    selectedMorpheme = prefixes[getRandomInt(0, prefixes.length - 1)].value;
+                } else {
+                    selectedMorpheme = morphemes[getRandomInt(0, morphemes.length - 1)].value;
+                }
+            } else if (i === numMorphemes - 1) {
+                // Letztes Morphem: Suffixe bevorzugen
+                const suffixes = morphemes.filter(m => m.position === 'suffix' || m.position === 'any');
+                if (suffixes.length > 0) {
+                    selectedMorpheme = suffixes[getRandomInt(0, suffixes.length - 1)].value;
+                } else {
+                    selectedMorpheme = morphemes[getRandomInt(0, morphemes.length - 1)].value;
+                }
+            } else {
+                // Mittlere Morpheme: beliebige Position
+                selectedMorpheme = morphemes[getRandomInt(0, morphemes.length - 1)].value;
+            }
+            
+            // Vermeiden von Wiederholungen
+            if (selectedMorpheme !== previousMorpheme) {
+                // Verbindungsvokal bei Bedarf hinzufügen
+                if (name.length > 0 && 
+                    !isVowel(name.charAt(name.length - 1)) && 
+                    !isVowel(selectedMorpheme.charAt(0))) {
+                    // Füge einen Vokal ein, der zur dominanten Vokalgruppe passt
+                    const connectingVowels = getHarmonizedVowels('aeiou', dominantVowelGroup);
+                    name += connectingVowels[getRandomInt(0, connectingVowels.length - 1)];
+                }
+                
+                name += selectedMorpheme;
+                previousMorpheme = selectedMorpheme;
+            } else {
+                // Bei Wiederholung: erneut versuchen
+                i--;
+            }
+        }
+        
+        // Erste Buchstabe groß schreiben
+        name = name.charAt(0).toUpperCase() + name.slice(1);
+        
+        // Geschlechtsspezifische Endung für Vornamen hinzufügen
+        if (nameType === 'first' && genderType) {
+            name = applyGenderEnding(name, genderType, culture);
+        }
+        
+        // Namenslänge begrenzen
+        const maxLength = nameType === 'first' ? getMaxFirstNameLength(culture) : 15;
+        if (name.length > maxLength) {
+            name = name.substring(0, maxLength);
+        }
+        
+        return name;
+    }
+
+    /**
+     * Liefert kulturspezifische Namenmorpheme
+     * @param {string} culture - Kultureller Stil
+     * @param {string|null} genderType - Geschlechtstyp (oder null für Nachnamen)
+     * @param {string} nameType - 'first' oder 'last'
+     * @returns {Array} Liste von Morphemen mit Position
+     */
+    function getMorphemesByCulture(culture, genderType, nameType) {
+        // Basis-Morpheme für Vornamen
+        const baseMorphemes = [
+            {value: 'an', position: 'any'},
+            {value: 'en', position: 'any'},
+            {value: 'mar', position: 'prefix'},
+            {value: 'el', position: 'any'},
+            {value: 'ar', position: 'any'},
+            {value: 'on', position: 'suffix'},
+            {value: 'al', position: 'any'},
+            {value: 'rin', position: 'any'},
+            {value: 'tin', position: 'any'}
+        ];
+        
+        // Basis-Morpheme für Nachnamen
+        const baseLastNameMorphemes = [
+            {value: 'son', position: 'suffix'},
+            {value: 'man', position: 'suffix'},
+            {value: 'er', position: 'suffix'},
+            {value: 'berg', position: 'suffix'},
+            {value: 'ton', position: 'suffix'},
+            {value: 'field', position: 'suffix'},
+            {value: 'land', position: 'suffix'},
+            {value: 'wood', position: 'suffix'}
+        ];
+        
+        // Geschlechtsspezifische Morpheme
+        const masculineMorphemes = [
+            {value: 'rik', position: 'any'},
+            {value: 'bert', position: 'suffix'},
+            {value: 'jos', position: 'prefix'},
+            {value: 'dor', position: 'any'},
+            {value: 'jan', position: 'any'},
+            {value: 'alex', position: 'prefix'}
+        ];
+        
+        const feminineMorphemes = [
+            {value: 'ell', position: 'any'},
+            {value: 'ann', position: 'any'},
+            {value: 'mar', position: 'prefix'},
+            {value: 'lis', position: 'prefix'},
+            {value: 'ia', position: 'suffix'},
+            {value: 'eth', position: 'suffix'}
+        ];
+        
+        // Kulturspezifische Anpassungen
+        let morphemes = [];
+        
+        if (nameType === 'first') {
+            // Für Vornamen
+            morphemes = [...baseMorphemes];
+            
+            // Geschlechtsspezifische Morpheme hinzufügen
+            if (genderType === 'masculine') {
+                morphemes = [...morphemes, ...masculineMorphemes];
+            } else if (genderType === 'feminine') {
+                morphemes = [...morphemes, ...feminineMorphemes];
+            }
+            
+            // Kulturspezifische Morpheme für Vornamen
+            switch (culture) {
+                case 'germanic':
+                    morphemes.push(
+                        {value: 'hel', position: 'prefix'},
+                        {value: 'wald', position: 'suffix'},
+                        {value: 'fried', position: 'any'},
+                        {value: 'helm', position: 'suffix'},
+                        {value: 'ger', position: 'any'}
+                    );
+                    break;
+                case 'romance':
+                    morphemes.push(
+                        {value: 'gio', position: 'prefix'},
+                        {value: 'ell', position: 'any'},
+                        {value: 'franc', position: 'prefix'},
+                        {value: 'enzo', position: 'suffix'},
+                        {value: 'io', position: 'suffix'}
+                    );
+                    break;
+                case 'slavic':
+                    morphemes.push(
+                        {value: 'mir', position: 'suffix'},
+                        {value: 'slav', position: 'any'},
+                        {value: 'vla', position: 'prefix'},
+                        {value: 'ana', position: 'suffix'},
+                        {value: 'ina', position: 'suffix'}
+                    );
+                    break;
+                case 'nordic':
+                    morphemes.push(
+                        {value: 'thor', position: 'prefix'},
+                        {value: 'bjorn', position: 'any'},
+                        {value: 'gard', position: 'suffix'},
+                        {value: 'ulf', position: 'suffix'},
+                        {value: 'lind', position: 'suffix'}
+                    );
+                    break;
+                case 'celtic':
+                    morphemes.push(
+                        {value: 'bran', position: 'prefix'},
+                        {value: 'wen', position: 'suffix'},
+                        {value: 'gwyn', position: 'any'},
+                        {value: 'conn', position: 'prefix'},
+                        {value: 'fin', position: 'prefix'}
+                    );
+                    break;
+            }
+        } else {
+            // Für Nachnamen
+            morphemes = [...baseLastNameMorphemes];
+            
+            // Kulturspezifische Morpheme für Nachnamen
+            switch (culture) {
+                case 'germanic':
+                    morphemes.push(
+                        {value: 'schmidt', position: 'any'},
+                        {value: 'meyer', position: 'any'},
+                        {value: 'hoff', position: 'prefix'},
+                        {value: 'stein', position: 'suffix'},
+                        {value: 'wald', position: 'suffix'}
+                    );
+                    break;
+                case 'romance':
+                    morphemes.push(
+                        {value: 'mont', position: 'prefix'},
+                        {value: 'bell', position: 'prefix'},
+                        {value: 'etti', position: 'suffix'},
+                        {value: 'ini', position: 'suffix'},
+                        {value: 'ez', position: 'suffix'}
+                    );
+                    break;
+                case 'slavic':
+                    morphemes.push(
+                        {value: 'ov', position: 'suffix'},
+                        {value: 'ski', position: 'suffix'},
+                        {value: 'sky', position: 'suffix'},
+                        {value: 'enko', position: 'suffix'},
+                        {value: 'ich', position: 'suffix'}
+                    );
+                    break;
+                case 'nordic':
+                    morphemes.push(
+                        {value: 'son', position: 'suffix'},
+                        {value: 'sen', position: 'suffix'},
+                        {value: 'gaard', position: 'suffix'},
+                        {value: 'holm', position: 'suffix'},
+                        {value: 'fjeld', position: 'suffix'}
+                    );
+                    break;
+                case 'celtic':
+                    morphemes.push(
+                        {value: 'mac', position: 'prefix'},
+                        {value: 'mc', position: 'prefix'},
+                        {value: "o'", position: 'prefix'},
+                        {value: 'ach', position: 'suffix'},
+                        {value: 'lynn', position: 'suffix'}
+                    );
+                    break;
+            }
+        }
+        
+        return morphemes;
+    }
+
+    /**
+     * Bestimmt die maximale Länge für einen Vornamen je nach Kultur
+     * @param {string} culture - Kultureller Stil
+     * @returns {number} Maximale Namenslänge
+     */
+    function getMaxFirstNameLength(culture) {
+        switch (culture) {
+            case 'germanic':
+                return 9;
+            case 'romance':
+                return 10;
+            case 'slavic':
+                return 12;
+            case 'nordic':
+                return 8;
+            case 'celtic':
+                return 10;
+            default:
+                return 10;
+        }
+    }
+
+
+    /**
+     * Generiert eine verbesserte Silbe mit höherer Klangqualität
      * @param {boolean} isFirstSyllable - Gibt an, ob es sich um die erste Silbe eines Namens handelt
      * @param {string} culture - Kultureller Stil des Namens
      * @param {string} dominantVowelGroup - Die dominante Vokalgruppe für Vokalharmonie
      * @param {string} previousSyllable - Die vorherige Silbe für bessere Übergänge
-     * @returns {string} Eine zufällig generierte Silbe
+     * @param {boolean} isStressed - Gibt an, ob es sich um eine betonte Silbe handelt
+     * @param {boolean} isLastSyllable - Gibt an, ob es sich um die letzte Silbe handelt
+     * @returns {string} Eine wohlklingende Silbe
      */
-    function generateSyllable(isFirstSyllable = false, culture = 'mixed', dominantVowelGroup = 'neutral', previousSyllable = '') {
+    function generateImprovedSyllable(
+        isFirstSyllable = false, 
+        culture = 'mixed', 
+        dominantVowelGroup = 'neutral', 
+        previousSyllable = '',
+        isStressed = true,
+        isLastSyllable = false
+    ) {
         // Silbenmuster definieren, abhängig davon, ob es die erste Silbe ist
         let patterns;
         let patternWeights;
         
         if (isFirstSyllable) {
-            // Für die erste Silbe: maximal einen Konsonanten am Anfang
+            // Für die erste Silbe: klar und leicht auszusprechen
             patterns = [
                 'KV',    // Konsonant-Vokal (am häufigsten)
-                'V',     // Vokal
                 'KVK',   // Konsonant-Vokal-Konsonant
+                'V',     // Vokal 
                 'VK',    // Vokal-Konsonant
             ];
-            patternWeights = [5, 2, 3, 2];
+            patternWeights = [6, 3, 1, 2]; // KV bevorzugen für den Anfang
+        } else if (isLastSyllable) {
+            // Für die letzte Silbe: mehr geschlossene Muster
+            patterns = [
+                'KV',    // Konsonant-Vokal
+                'KVK',   // Konsonant-Vokal-Konsonant (häufiger für Endsilben)
+                'VK',    // Vokal-Konsonant
+                'V',     // Vokal (selten allein)
+            ];
+            patternWeights = [3, 5, 3, 1]; // KVK für Endsilben bevorzugen
         } else {
-            // Für andere Silben: ausgewogenere Muster
+            // Für Silben in der Mitte: ausgewogene Muster
             patterns = [
                 'KV',    // Konsonant-Vokal (am häufigsten)
                 'KVK',   // Konsonant-Vokal-Konsonant
@@ -1299,11 +2060,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 'VK',    // Vokal-Konsonant
                 'KKV',   // Konsonant-Konsonant-Vokal (nur für nicht-erste Silben)
             ];
-            patternWeights = [5, 4, 1, 2, 2];
+            patternWeights = [5, 3, 1, 2, 2];
         }
         
         // Kulturabhängige Anpassung der Muster-Wahrscheinlichkeiten
-        adjustPatternWeightsByCulture(patternWeights, culture);
+        adjustPatternWeightsByCulture(patternWeights, culture, isLastSyllable);
+        
+        // Für betonte Silben andere Muster bevorzugen
+        if (isStressed) {
+            // Betonte Silben haben häufiger einen klaren Konsonant-Vokal-Anfang
+            for (let i = 0; i < patterns.length; i++) {
+                if (patterns[i].startsWith('K')) {
+                    patternWeights[i] += 2;
+                }
+            }
+        }
         
         // Zufälliges Muster auswählen
         const patternIndex = getWeightedRandomIndex(
@@ -1313,25 +2084,26 @@ document.addEventListener('DOMContentLoaded', function() {
         const pattern = patterns[patternIndex];
         
         // Konsonanten und Vokale passend zur Kultur auswählen
-        const { consonants, vowels, initialConsonants, finalConsonants } = getCharactersByLanguage(culture);
+        const { consonants, vowels, initialConsonants, finalConsonants } = getImprovedCharactersByLanguage(culture);
         
         // Spezielle Konsonanten für die erste Silbe
-        const firstSyllableSpecialConsonants = ['sh', 'ch', 'sch'];
+        const firstSyllableSpecialConsonants = getSpecialConsonantsByCulture(culture);
         
         // Konsonantengruppen für reguläre Silben (kulturspezifisch filtern)
-        const doubleConsonants = getDoubleConsonantsByLanguage(culture);
+        const doubleConsonants = getImprovedDoubleConsonantsByLanguage(culture);
         
         // Vokalgruppen basierend auf dominanter Vokalgruppe
         const vowelGroups = getVowelGroupsByDominantGroup(dominantVowelGroup);
         
-        // Vorangehender Konsonant für bessere Silbenübergänge
-        let precedingConsonant = '';
+        // Letztes Zeichen der vorherigen Silbe für bessere Übergänge
+        let precedingChar = '';
         if (previousSyllable && previousSyllable.length > 0) {
-            const lastChar = previousSyllable.charAt(previousSyllable.length - 1);
-            if (!isVowel(lastChar)) {
-                precedingConsonant = lastChar;
-            }
+            precedingChar = previousSyllable.charAt(previousSyllable.length - 1);
         }
+        
+        // Verbesserte Übergänge sicherstellen
+        const compatibleInitialConsonants = getCompatibleInitialConsonants(initialConsonants, precedingChar);
+        const compatibleDoubleConsonants = getCompatibleDoubleConsonants(doubleConsonants, precedingChar);
         
         let syllable = '';
         let patternIndex2 = 0;
@@ -1341,12 +2113,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Behandlung für die erste Silbe mit speziellen Regeln
                 if (isFirstSyllable && syllable === '' && pattern.startsWith('K')) {
                     // Bei der ersten Silbe und am Anfang, spezielle Regeln anwenden
-                    // 15% Chance für spezielle Konsonanten wie "sh", "ch", "sch"
                     if (Math.random() < 0.15) {
+                        // 15% Chance für spezielle Konsonanten (kulturspezifisch)
                         syllable += firstSyllableSpecialConsonants[getRandomInt(0, firstSyllableSpecialConsonants.length - 1)];
                     } else {
                         // Sonst einen einzelnen initialen Konsonanten (kulturspezifisch)
-                        syllable += initialConsonants[getRandomInt(0, initialConsonants.length - 1)];
+                        syllable += compatibleInitialConsonants[getRandomInt(0, compatibleInitialConsonants.length - 1)];
                     }
                     patternIndex2++; // Einen Buchstaben im Pattern überspringen
                 }
@@ -1354,8 +2126,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 else if (!isFirstSyllable || syllable !== '') {
                     // Wenn der nächste Buchstabe ebenfalls 'K' ist, verwende eine Konsonantengruppe
                     if (patternIndex2 + 1 < pattern.length && pattern[patternIndex2 + 1] === 'K') {
-                        // Wähle eine Konsonantengruppe, die gut mit vorherigem Konsonanten harmoniert
-                        const compatibleDoubleConsonants = getCompatibleDoubleConsonants(doubleConsonants, precedingConsonant);
                         syllable += compatibleDoubleConsonants[getRandomInt(0, compatibleDoubleConsonants.length - 1)];
                         patternIndex2 += 2; // Überspringe beide 'K's
                     }
@@ -1367,7 +2137,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     // Sonst verwende einen einzelnen Konsonanten
                     else {
-                        syllable += consonants[getRandomInt(0, consonants.length - 1)];
+                        syllable += getHarmonizedConsonant(consonants, syllable);
                         patternIndex2++;
                     }
                 }
@@ -1380,156 +2150,38 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 // Sonst verwende einen einzelnen Vokal
                 else {
-                    const harmonizedVowels = getHarmonizedVowels(vowels, dominantVowelGroup);
+                    // Vokalauswahl basierend auf betonter oder unbetonter Silbe
+                    const harmonizedVowels = getHarmonizedVowels(vowels, dominantVowelGroup, isStressed);
                     syllable += harmonizedVowels[getRandomInt(0, harmonizedVowels.length - 1)];
                     patternIndex2++;
                 }
             }
         }
         
+        // Silbenlänge kontrollieren (2-4 Zeichen ideal)
+        if (syllable.length > 4) {
+            // Bei zu langer Silbe: verkürzen oder erneut generieren
+            if (syllable.length === 5 && !isFirstSyllable) {
+                // Bei 5 Zeichen: letztes Zeichen entfernen, wenn es kein Vokal ist
+                const lastChar = syllable.charAt(syllable.length - 1);
+                if (!isVowel(lastChar)) {
+                    syllable = syllable.substring(0, syllable.length - 1);
+                }
+            } else {
+                // Bei mehr als 5 Zeichen: erneut generieren
+                return generateImprovedSyllable(
+                    isFirstSyllable, 
+                    culture, 
+                    dominantVowelGroup, 
+                    previousSyllable,
+                    isStressed,
+                    isLastSyllable
+                );
+            }
+        }
+        
         // Überprüfe und verbessere die Aussprechbarkeit der Silbe
-        return improvePronounciation(syllable);
-    }
-
-    /**
-     * Wählt eine dominante Vokalgruppe für die Vokalharmonie aus
-     * @returns {string} Eine der Vokalgruppen: 'front', 'back', 'neutral'
-     */
-    function selectDominantVowelGroup() {
-        const groups = ['front', 'back', 'neutral'];
-        const weights = [4, 4, 2]; // Front und Back sind häufiger
-        
-        const groupIndex = getWeightedRandomIndex(
-            Array.from({ length: groups.length }, (_, i) => i),
-            weights
-        );
-        
-        return groups[groupIndex];
-    }
-
-    /**
-     * Passt die Muster-Gewichtungen basierend auf der Kultur an
-     * @param {Array} weights - Array mit Mustergewichtungen
-     * @param {string} culture - Kulturtyp
-     */
-    function adjustPatternWeightsByCulture(weights, culture) {
-        switch (culture) {
-            case 'germanic':
-                // Germanische Sprachen: mehr Konsonanten am Ende
-                weights[1] += 2; // KVK erhöhen
-                weights[3] += 1; // VK erhöhen
-                break;
-            case 'romance':
-                // Romanische Sprachen: eher offene Silben
-                weights[0] += 2; // KV erhöhen
-                weights[2] += 1; // V erhöhen
-                break;
-            case 'slavic':
-                // Slawische Sprachen: mehr Konsonantengruppen
-                if (weights.length > 4) weights[4] += 2; // KKV erhöhen
-                break;
-            case 'nordic':
-                // Nordische Sprachen: mehr geschlossene Silben
-                weights[1] += 1; // KVK erhöhen
-                weights[3] += 1; // VK erhöhen
-                break;
-            case 'celtic':
-                // Keltische Sprachen: mehr Konsonanten, weniger Vokale allein
-                weights[0] += 1; // KV erhöhen
-                weights[2] -= 1; // V verringern (min. 0)
-                if (weights[2] < 0) weights[2] = 0;
-                break;
-        }
-    }
-
-    /**
-     * Liefert Zeichen basierend auf der Kultur zurück
-     * @param {string} culture - Kulturtyp
-     * @returns {Object} Objekt mit verschiedenen Zeichensätzen
-     */
-    function getCharactersByLanguage(culture) {
-        // Basis-Zeichensätze
-        const baseConsonants = 'bcdfghjklmnpqrstvwxz';
-        const baseVowels = 'aeiouy';
-        
-        // Standard Endkonsonanten
-        const baseFinalConsonants = ['m', 'n', 'l', 'r', 's', 't', 'ch', 'th', 'nd'];
-        
-        // Kulturspezifische Anpassungen
-        switch (culture) {
-            case 'germanic':
-                return {
-                    consonants: 'bcdfghjklmnpqrstvwz',
-                    vowels: 'aeiouy',
-                    initialConsonants: 'bdfghjklmnprstvw'.split(''),
-                    finalConsonants: [...baseFinalConsonants, 'ck', 'ff', 'ss', 'tz']
-                };
-            case 'romance':
-                return {
-                    consonants: 'bcdfghjlmnpqrstvz',
-                    vowels: 'aeiou',
-                    initialConsonants: 'bcdfglmnprst'.split(''),
-                    finalConsonants: [...baseFinalConsonants, 'nt', 'll', 'nn']
-                };
-            case 'slavic':
-                return {
-                    consonants: 'bcdfghjklmnprstvz',
-                    vowels: 'aeiouy',
-                    initialConsonants: 'bdfgklmnprstz'.split(''),
-                    finalConsonants: [...baseFinalConsonants, 'ch', 'ski', 'sky', 'v']
-                };
-            case 'nordic':
-                return {
-                    consonants: 'bdfghjklmnprstvø',
-                    vowels: 'aeiouyø',
-                    initialConsonants: 'bdfghjklmnprst'.split(''),
-                    finalConsonants: [...baseFinalConsonants, 'rd', 'sen', 'son', 'rk']
-                };
-            case 'celtic':
-                return {
-                    consonants: 'bcdfghjlmnprstvw',
-                    vowels: 'aeiouy',
-                    initialConsonants: 'bcdfgklmnprstw'.split(''),
-                    finalConsonants: [...baseFinalConsonants, 'nn', 'dd', 'gh', 'th']
-                };
-            case 'mixed':
-            default:
-                return {
-                    consonants: baseConsonants,
-                    vowels: baseVowels,
-                    initialConsonants: baseConsonants.split(''),
-                    finalConsonants: baseFinalConsonants
-                };
-        }
-    }
-
-    /**
-     * Liefert Doppelkonsonanten basierend auf der Kultur
-     * @param {string} culture - Kultureller Stil
-     * @returns {Array} Liste mit erlaubten Doppelkonsonanten
-     */
-    function getDoubleConsonantsByLanguage(culture) {
-        // Basisset von Doppelkonsonanten (in den meisten Sprachen üblich)
-        const baseDoubleConsonants = ['bl', 'br', 'ch', 'cl', 'cr', 'dr', 'fl', 'fr', 'gl', 'gr', 
-                                    'kl', 'kr', 'ph', 'pl', 'pr', 'qu', 'sc', 'sh', 'sk', 'sl', 
-                                    'sp', 'st', 'tr'];
-        
-        // Kulturspezifische Anpassungen
-        switch (culture) {
-            case 'germanic':
-                return [...baseDoubleConsonants, 'sch', 'pf', 'tz', 'zw'];
-            case 'romance':
-                return [...baseDoubleConsonants, 'll', 'gn', 'cc', 'rrh'];
-            case 'slavic':
-                return [...baseDoubleConsonants, 'cz', 'sz', 'zk', 'vl', 'zh'];
-            case 'nordic':
-                return [...baseDoubleConsonants, 'bj', 'fj', 'kj', 'sj', 'tj'];
-            case 'celtic':
-                return [...baseDoubleConsonants, 'mh', 'bh', 'dh', 'gh', 'th'];
-            case 'mixed':
-            default:
-                return baseDoubleConsonants;
-        }
+        return improvePronounciation(syllable, culture);
     }
 
     /**
@@ -1556,27 +2208,324 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /**
-     * Gibt harmonisierte Vokale basierend auf der dominanten Gruppe zurück
+     * Liefert spezielle Konsonantenkombinationen für erste Silben je nach Kultur
+     * @param {string} culture - Kultureller Stil
+     * @returns {Array} Liste mit speziellen Konsonanten für erste Silben
+     */
+    function getSpecialConsonantsByCulture(culture) {
+        // Basis-Konsonanten für Silbenanfänge
+        const baseSpecialConsonants = ['sh', 'ch', 'th'];
+        
+        // Kulturspezifische Anpassungen
+        switch (culture) {
+            case 'germanic':
+                return [...baseSpecialConsonants, 'sch', 'kn', 'ph'];
+            case 'romance':
+                return [...baseSpecialConsonants, 'qu', 'gi', 'ci'];
+            case 'slavic':
+                return [...baseSpecialConsonants, 'cz', 'sz', 'zh'];
+            case 'nordic':
+                return [...baseSpecialConsonants, 'hj', 'bj', 'fj'];
+            case 'celtic':
+                return [...baseSpecialConsonants, 'rh', 'gw', 'pw'];
+            default:
+                return baseSpecialConsonants;
+        }
+    }
+
+    /**
+     * Wählt eine dominante Vokalgruppe für die Vokalharmonie aus
+     * @returns {string} Eine der Vokalgruppen: 'front', 'back', 'neutral'
+     */
+    function selectDominantVowelGroup() {
+        const groups = ['front', 'back', 'neutral'];
+        const weights = [4, 4, 2]; // Front und Back sind häufiger
+        
+        const groupIndex = getWeightedRandomIndex(
+            Array.from({ length: groups.length }, (_, i) => i),
+            weights
+        );
+        
+        return groups[groupIndex];
+    }
+
+    /**
+     * Passt die Muster-Gewichtungen basierend auf der Kultur an
+     * @param {Array} weights - Array mit Mustergewichtungen
+     * @param {string} culture - Kulturtyp
+     */
+    function adjustPatternWeightsByCulture(weights, culture, isLastSyllable = false) {
+        switch (culture) {
+            case 'germanic':
+                // Germanische Sprachen: mehr Konsonanten am Ende
+                weights[1] += 2; // KVK erhöhen
+                if (isLastSyllable) {
+                    weights[3] += 2; // VK für Endsilben erhöhen
+                }
+                break;
+            case 'romance':
+                // Romanische Sprachen: eher offene Silben
+                weights[0] += 2; // KV erhöhen
+                if (!isLastSyllable) {
+                    weights[2] += 1; // V erhöhen für nicht-letzte Silben
+                }
+                break;
+            case 'slavic':
+                // Slawische Sprachen: mehr Konsonantengruppen
+                if (weights.length > 4) weights[4] += 2; // KKV erhöhen
+                weights[1] += 1; // KVK erhöhen
+                break;
+            case 'nordic':
+                // Nordische Sprachen: mehr geschlossene Silben
+                weights[1] += 1; // KVK erhöhen
+                if (isLastSyllable) {
+                    weights[3] += 2; // VK für Endsilben erhöhen
+                }
+                break;
+            case 'celtic':
+                // Keltische Sprachen: mehr Konsonanten, weniger Vokale allein
+                weights[0] += 1; // KV erhöhen
+                weights[2] -= 1; // V verringern (min. 0)
+                if (weights[2] < 0) weights[2] = 0;
+                break;
+        }
+    }
+
+    /**
+     * Liefert verbesserte Zeichen basierend auf der Kultur zurück
+     * @param {string} culture - Kulturtyp
+     * @returns {Object} Objekt mit verschiedenen Zeichensätzen
+     */
+    function getImprovedCharactersByLanguage(culture) {
+        // Basis-Zeichensätze
+        const baseVowels = 'aeiouy';
+        
+        // Standard Endkonsonanten
+        const baseFinalConsonants = ['m', 'n', 'l', 'r', 's', 't', 'ch', 'th', 'nd'];
+        
+        // Kulturspezifische Anpassungen
+        switch (culture) {
+            case 'germanic':
+                return {
+                    consonants: 'bcdfghjklmnprstvwz'.split(''),
+                    vowels: 'aeiouy'.split(''),
+                    initialConsonants: 'bdfghjklmnprstvw'.split(''),
+                    finalConsonants: [...baseFinalConsonants, 'ck', 'ff', 'ss', 'tz', 'ng', 'd', 'g', 'b']
+                };
+            case 'romance':
+                return {
+                    consonants: 'bcdfghjlmnpqrstvz'.split(''),
+                    vowels: 'aeiou'.split(''),
+                    initialConsonants: 'bcdfglmnprst'.split(''),
+                    finalConsonants: [...baseFinalConsonants, 'nt', 'll', 'nn', 'o', 'e', 'a', 'i']
+                };
+            case 'slavic':
+                return {
+                    consonants: 'bcdfghjklmnprstvz'.split(''),
+                    vowels: 'aeiouy'.split(''),
+                    initialConsonants: 'bdfgklmnprstz'.split(''),
+                    finalConsonants: [...baseFinalConsonants, 'ch', 'ski', 'sky', 'v', 'k', 'j', 'c', 'z']
+                };
+            case 'nordic':
+                return {
+                    consonants: 'bdfghjklmnprstvø'.split(''),
+                    vowels: 'aeiouyø'.split(''),
+                    initialConsonants: 'bdfghjklmnprst'.split(''),
+                    finalConsonants: [...baseFinalConsonants, 'rd', 'sen', 'son', 'rk', 'k', 'g', 'r', 't']
+                };
+            case 'celtic':
+                return {
+                    consonants: 'bcdfghjlmnprstvw'.split(''),
+                    vowels: 'aeiouy'.split(''),
+                    initialConsonants: 'bcdfgklmnprstw'.split(''),
+                    finalConsonants: [...baseFinalConsonants, 'nn', 'dd', 'gh', 'th', 'ch', 'n', 'c', 'h']
+                };
+            case 'mixed':
+            default:
+                return {
+                    consonants: 'bcdfghjklmnpqrstvwxz'.split(''),
+                    vowels: baseVowels.split(''),
+                    initialConsonants: 'bcdfghjklmnprstvw'.split(''),
+                    finalConsonants: baseFinalConsonants
+                };
+        }
+    }
+
+    /**
+     * Liefert verbesserte Doppelkonsonanten basierend auf der Kultur
+     * @param {string} culture - Kultureller Stil
+     * @returns {Array} Liste mit erlaubten Doppelkonsonanten
+     */
+    function getImprovedDoubleConsonantsByLanguage(culture) {
+        // Basisset von Doppelkonsonanten (in den meisten Sprachen üblich)
+        const baseDoubleConsonants = ['bl', 'br', 'ch', 'cl', 'cr', 'dr', 'fl', 'fr', 'gl', 'gr', 
+                                    'kl', 'kr', 'ph', 'pl', 'pr', 'sc', 'sh', 'sk', 'sl', 
+                                    'sp', 'st', 'tr'];
+        
+        // Kulturspezifische Anpassungen mit Vermeidung schwer aussprechbarer Kombinationen
+        switch (culture) {
+            case 'germanic':
+                return [...baseDoubleConsonants, 'sch', 'pf', 'zw', 'kn', 'gn'];
+            case 'romance':
+                return [...baseDoubleConsonants, 'll', 'gn', 'cc', 'nn', 'mm', 'tt'];
+            case 'slavic':
+                return [...baseDoubleConsonants, 'cz', 'sz', 'zh', 'vl', 'kr', 'pr', 'gr', 'br'];
+            case 'nordic':
+                return [...baseDoubleConsonants, 'bj', 'fj', 'kj', 'sj', 'tj', 'sk', 'ld', 'nd'];
+            case 'celtic':
+                return [...baseDoubleConsonants, 'mh', 'bh', 'dh', 'gh', 'th', 'rh', 'wh', 'wr'];
+            case 'mixed':
+            default:
+                return baseDoubleConsonants;
+        }
+    }
+
+    /**
+     * Gibt Vokalgruppen basierend auf der dominanten Vokalgruppe zurück
+     * @param {string} dominantGroup - Dominante Vokalgruppe ('front', 'back', 'neutral')
+     * @returns {Array} Liste mit passenden Vokalgruppen
+     */
+    function getVowelsForCulture(culture) {
+        switch (culture) {
+            case 'germanic':
+                return ['a', 'e', 'i', 'o', 'u', 'e'];
+            case 'romance':
+                return ['a', 'e', 'i', 'o', 'u', 'a', 'e'];
+            case 'slavic':
+                return ['a', 'e', 'i', 'o', 'u', 'y', 'e'];
+            case 'nordic':
+                return ['a', 'e', 'i', 'o', 'u', 'ø', 'a', 'e'];
+            case 'celtic':
+                return ['a', 'e', 'i', 'o', 'u', 'y', 'a', 'e'];
+            default:
+                return ['a', 'e', 'i', 'o', 'u', 'e'];
+        }
+    }
+
+    /**
+     * Liefert harmonisierte Vokale basierend auf der dominanten Gruppe zurück
      * @param {string} vowels - Verfügbare Vokale
      * @param {string} dominantGroup - Dominante Vokalgruppe
+     * @param {boolean} isStressed - Ob die Silbe betont ist
      * @returns {Array} Harmonisierte Vokale
      */
-    function getHarmonizedVowels(vowels, dominantGroup) {
+    function getHarmonizedVowels(vowels, dominantGroup, isStressed = true) {
         const frontVowels = ['e', 'i', 'y'];
         const backVowels = ['a', 'o', 'u'];
         
+        // Stelle sicher, dass vowels ein Array ist
+        const allVowels = Array.isArray(vowels) ? vowels : vowels.split('');
+        
+        // Bei betonter Silbe klare Vokale bevorzugen
+        let preferredVowels;
+        
+        if (isStressed) {
+            // Klare Vokale für betonte Silben
+            preferredVowels = ['a', 'e', 'i', 'o', 'u'];
+        } else {
+            // Für unbetonte Silben neutralere Vokale
+            preferredVowels = ['e', 'a', 'i'];
+        }
+        
+        // Dominante Gruppe berücksichtigen
         switch (dominantGroup) {
             case 'front':
                 // Höhere Wahrscheinlichkeit für vordere Vokale
-                return [...frontVowels, ...backVowels.slice(0, 1)];
+                return preferredVowels.filter(v => frontVowels.includes(v) || Math.random() < 0.3);
             case 'back':
                 // Höhere Wahrscheinlichkeit für hintere Vokale
-                return [...backVowels, ...frontVowels.slice(0, 1)];
+                return preferredVowels.filter(v => backVowels.includes(v) || Math.random() < 0.3);
             case 'neutral':
             default:
-                // Alle Vokale gleich wahrscheinlich
-                return vowels.split('');
+                // Bei neutraler Gruppe eine ausgewogene Mischung
+                return preferredVowels.length > 0 ? preferredVowels : allVowels;
         }
+    }
+
+    /**
+     * Wählt einen Konsonanten, der gut zum bisherigen Silbeninhalt passt
+     * @param {Array} consonants - Verfügbare Konsonanten
+     * @param {string} currentSyllable - Aktueller Inhalt der Silbe
+     * @returns {string} Ein harmonisierter Konsonant
+     */
+    function getHarmonizedConsonant(consonants, currentSyllable) {
+        // Prüfen, ob die Silbe bereits einen harten oder weichen Konsonanten enthält
+        const hardConsonants = ['k', 't', 'p', 'g', 'd', 'b'];
+        const softConsonants = ['l', 'm', 'n', 'r', 'w'];
+        
+        let hasHardConsonant = false;
+        let hasSoftConsonant = false;
+        
+        for (const char of currentSyllable) {
+            if (hardConsonants.includes(char.toLowerCase())) {
+                hasHardConsonant = true;
+            } else if (softConsonants.includes(char.toLowerCase())) {
+                hasSoftConsonant = true;
+            }
+        }
+        
+        // Bevorzugte Konsonanten basierend auf dem Silbeninhalt
+        let preferredConsonants;
+        
+        if (hasHardConsonant && !hasSoftConsonant) {
+            // Nach hartem Konsonant bevorzugt einen weichen
+            preferredConsonants = consonants.filter(c => softConsonants.includes(c.toLowerCase()));
+        } else if (!hasHardConsonant && hasSoftConsonant) {
+            // Nach weichem Konsonant bevorzugt einen harten
+            preferredConsonants = consonants.filter(c => hardConsonants.includes(c.toLowerCase()));
+        } else {
+            // Keine Präferenz
+            preferredConsonants = consonants;
+        }
+        
+        // Falls keine passenden Konsonanten gefunden wurden, verwende alle
+        if (preferredConsonants.length === 0) {
+            preferredConsonants = consonants;
+        }
+        
+        return preferredConsonants[getRandomInt(0, preferredConsonants.length - 1)];
+    }
+
+    /**
+     * Wählt kompatible Anlautkonsonanten basierend auf dem vorherigen Zeichen
+     * @param {Array} initialConsonants - Verfügbare Anlautkonsonanten
+     * @param {string} precedingChar - Vorheriges Zeichen
+     * @returns {Array} Gefilterte Anlautkonsonanten
+     */
+    function getCompatibleInitialConsonants(initialConsonants, precedingChar) {
+        if (!precedingChar) {
+            return initialConsonants;
+        }
+        
+        // Wenn das vorherige Zeichen ein Vokal ist, sind alle Konsonanten kompatibel
+        if (isVowel(precedingChar)) {
+            return initialConsonants;
+        }
+        
+        // Definiere problematische Übergänge
+        const hardTransitions = {
+            'k': ['g', 'q', 'c', 'k'],
+            'g': ['k', 'q', 'c', 'g'],
+            't': ['d', 't'],
+            'd': ['t', 'd'],
+            'p': ['b', 'p'],
+            'b': ['p', 'b'],
+            's': ['z', 's', 'c'],
+            'z': ['s', 'z'],
+            'r': ['l', 'r'],
+            'l': ['r', 'l'],
+            'n': ['m', 'n'],
+            'm': ['n', 'm']
+        };
+        
+        // Liste der zu vermeidenden Konsonanten für den aktuellen Übergang
+        const avoidConsonants = hardTransitions[precedingChar.toLowerCase()] || [];
+        
+        // Filtere kompatible Konsonanten
+        return initialConsonants.filter(consonant => {
+            const firstChar = consonant.charAt(0).toLowerCase();
+            return !avoidConsonants.includes(firstChar);
+        });
     }
 
     /**
@@ -1585,53 +2534,135 @@ document.addEventListener('DOMContentLoaded', function() {
      * @param {string} previousConsonant - Vorheriger Konsonant
      * @returns {Array} Gefilterte Doppelkonsonanten
      */
-    function getCompatibleDoubleConsonants(doubleConsonants, previousConsonant) {
-        if (!previousConsonant) {
+    function getCompatibleDoubleConsonants(doubleConsonants, precedingChar) {
+        if (!precedingChar) {
             return doubleConsonants;
         }
         
-        // Filtere Doppelkonsonanten, die gut an den vorherigen anschließen
+        // Wenn das vorherige Zeichen ein Vokal ist, sind alle Kombinationen erlaubt
+        if (isVowel(precedingChar)) {
+            return doubleConsonants;
+        }
+        
+        // Liste schwieriger Übergänge zwischen Konsonanten
+        const hardCombinations = [
+            'kp', 'gb', 'tp', 'dt', 'lr', 'rl', 'nm', 'mn', 'kx', 'xs', 'zp',
+            'bp', 'pb', 'td', 'dt', 'kg', 'gk', 'cs', 'sc', 'jj', 'qk', 'kq',
+            'vf', 'fv', 'vw', 'wv', 'mx', 'xm', 'zs', 'sz', 'pc', 'cp'
+        ];
+        
+        // Vermeidung ähnlicher Konsonanten in Folge
         return doubleConsonants.filter(dc => {
-            // Vermeide schwierige Übergänge
-            const badCombos = [
-                previousConsonant + dc.charAt(0), // z.B. wenn vorheriger 'k' und dc beginnt mit 'p' -> 'kp'
-            ];
-            
-            // Liste von schwierigen Übergängen
-            const hardCombinations = ['kp', 'gb', 'tp', 'dt', 'lr', 'rl', 'nm', 'mn', 'kx', 'xs', 'zp'];
-            
-            // Prüfe, ob der Übergang schwierig ist
-            return !hardCombinations.includes(badCombos[0]);
+            const combination = precedingChar.toLowerCase() + dc.charAt(0).toLowerCase();
+            return !hardCombinations.includes(combination);
         });
     }
 
     /**
-     * Prüft, ob ein Zeichen ein Vokal ist
-     * @param {string} char - Zu prüfendes Zeichen
-     * @returns {boolean} True, wenn es ein Vokal ist
-     */
-    function isVowel(char) {
-        return 'aeiouyøæ'.includes(char.toLowerCase());
-    }
-
-    /**
-     * Verbessert die Aussprache einer Silbe
+     * Verbessert die Aussprache einer Silbe unter Berücksichtigung der Kultur
      * @param {string} syllable - Die zu verbessernde Silbe
+     * @param {string} culture - Kultureller Stil
      * @returns {string} Verbesserte Silbe
      */
-    function improvePronounciation(syllable) {
+    function improvePronounciation(syllable, culture) {
         // Vermeide drei gleiche Buchstaben in Folge
         syllable = reduceTripleLetters(syllable);
         
         // Stelle sicher, dass die Silbe einen Vokal enthält
         if (!hasVowel(syllable)) {
-            // Füge einen zufälligen Vokal in der Mitte ein
-            const vowel = 'aeiou'.charAt(getRandomInt(0, 4));
+            // Füge einen passenden Vokal in der Mitte ein
+            const vowelsForCulture = getVowelsForCulture(culture);
+            const vowel = vowelsForCulture[getRandomInt(0, vowelsForCulture.length - 1)];
             const middle = Math.floor(syllable.length / 2);
             syllable = syllable.substring(0, middle) + vowel + syllable.substring(middle);
         }
         
+        // Vermeidung schwer auszusprechender Konsonantengruppen
+        const hardConsonantGroups = getHardConsonantGroups();
+        
+        for (const group of hardConsonantGroups) {
+            if (syllable.includes(group)) {
+                // Ersetze durch eine besser aussprechbare Alternative
+                const replacements = getConsonantGroupReplacements(group, culture);
+                const replacement = replacements[getRandomInt(0, replacements.length - 1)];
+                syllable = syllable.replace(group, replacement);
+            }
+        }
+        
         return syllable;
+    }
+
+    /**
+     * Liefert Ersetzungen für schwierige Konsonantengruppen
+     * @param {string} group - Schwierige Konsonantengruppe
+     * @param {string} culture - Kultureller Stil
+     * @returns {Array} Mögliche Ersetzungen
+     */
+    function getConsonantGroupReplacements(group, culture) {
+        // Basis-Ersetzungen
+        const baseReplacements = {
+            'tl': ['t', 'tr', 'tl'],
+            'kp': ['k', 'kl', 'p'],
+            'gb': ['g', 'b'],
+            'tp': ['t', 'p'],
+            'dt': ['t', 'd'],
+            'lr': ['l', 'r'],
+            'rl': ['r', 'l'],
+            'nm': ['n', 'm'],
+            'mn': ['m', 'n'],
+            'kx': ['k', 'x'],
+            'xs': ['s', 'x'],
+            'zp': ['z', 'p'],
+            'bp': ['b', 'p'],
+            'pb': ['p', 'b'],
+            'td': ['t', 'd'],
+            'dt': ['d', 't'],
+            'kg': ['k', 'g'],
+            'gk': ['g', 'k'],
+            'cs': ['c', 's'],
+            'qk': ['k', 'qu'],
+            'kq': ['k', 'q'],
+            'vf': ['v', 'f'],
+            'fv': ['f', 'v'],
+            'jj': ['j']
+        };
+        
+        // Fallback
+        if (!baseReplacements[group]) {
+            return [group.charAt(0)];
+        }
+        
+        // Kulturspezifische Anpassungen hinzufügen
+        let replacements = [...baseReplacements[group]];
+        
+        switch (culture) {
+            case 'germanic':
+                // In germanischen Sprachen bestimmte Kombinationen bevorzugen
+                if (group === 'kp') replacements.push('kf');
+                if (group === 'dt') replacements.push('tt');
+                break;
+            case 'romance':
+                // In romanischen Sprachen andere Konsonanten bevorzugen
+                if (group === 'cs') replacements.push('cc');
+                if (group === 'lr') replacements.push('ll');
+                break;
+            case 'slavic':
+                // In slawischen Sprachen bestimmte Kombinationen erlauben
+                if (group === 'kp') replacements.push('kp');
+                if (group === 'zp') replacements.push('zp');
+                break;
+        }
+        
+        return replacements;
+    }
+
+    /**
+     * Liefert schwer auszusprechende Konsonantengruppen
+     * @returns {Array} Schwierige Konsonantengruppen
+     */
+    function getHardConsonantGroups() {
+        return ['tl', 'kp', 'gb', 'tp', 'dt', 'lr', 'rl', 'nm', 'mn', 'kx', 'xs', 'zp',
+                'bp', 'pb', 'td', 'dt', 'kg', 'gk', 'cs', 'qk', 'kq', 'vf', 'fv', 'jj'];
     }
 
     /**
@@ -1654,7 +2685,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /**
-     * Fügt eine geschlechtsspezifische Endung an den Namen an, falls notwendig
+     * Wendet eine geschlechtsspezifische Endung auf einen Namen an (verbessert)
      * @param {string} name - Der Name
      * @param {string} genderType - Geschlechtstyp
      * @param {string} culture - Kultureller Stil
@@ -1662,94 +2693,181 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     function applyGenderEnding(name, genderType, culture) {
         // Prüfen, ob der Name bereits eine passende Endung hat
-        if (hasGenderSpecificEnding(name, genderType)) {
+        if (hasGenderSpecificEnding(name, genderType, culture)) {
             return name;
         }
         
         // Geschlechtsspezifische Endungen nach Kultur
         const endings = getCultureSpecificGenderEndings(culture, genderType);
         
+        // Keine Endungen verfügbar oder neutrales Geschlecht
+        if (endings.length === 0 || genderType === 'neutral') {
+            return name;
+        }
+        
         // Zufällige Endung auswählen
         const ending = endings[getRandomInt(0, endings.length - 1)];
         
-        // Wenn der Name mit Konsonant endet und die Endung mit Konsonant beginnt,
-        // füge einen Vokal dazwischen ein
-        if (!isVowel(name.charAt(name.length - 1)) && ending.length > 0 && !isVowel(ending.charAt(0))) {
-            const connectingVowel = 'aeiou'.charAt(getRandomInt(0, 4));
-            return name + connectingVowel + ending;
+        // Entfernen problematischer Endungen, die die Aussprache erschweren würden
+        let baseName = name;
+        const problematicEndChars = 2; // Anzahl der zu prüfenden Endzeichen
+        
+        if (name.length > problematicEndChars) {
+            const nameEnd = name.slice(-problematicEndChars);
+            
+            // Prüfen auf Endungen, die mit der neuen Endung Konflikte erzeugen würden
+            const problematicEndings = getProblematicEndingsForCulture(culture, ending);
+            
+            for (const problematicEnd of problematicEndings) {
+                if (nameEnd.endsWith(problematicEnd)) {
+                    // Endung entfernen, die Konflikte erzeugen würde
+                    baseName = name.slice(0, -problematicEnd.length);
+                    break;
+                }
+            }
         }
         
-        return name + ending;
+        // Verbindungsvokal bei Bedarf hinzufügen
+        if (baseName.length > 0 && 
+            !isVowel(baseName.charAt(baseName.length - 1)) && 
+            ending.length > 0 && !isVowel(ending.charAt(0))) {
+            // Füge einen Vokal ein, der zur Kultur passt
+            const connectingVowels = getVowelsForCulture(culture);
+            const connectingVowel = connectingVowels[getRandomInt(0, connectingVowels.length - 1)];
+            baseName += connectingVowel;
+        }
+        
+        return baseName + ending;
     }
 
     /**
-     * Prüft, ob ein Name bereits eine geschlechtsspezifische Endung hat
+     * Liefert problematische Endungen, die mit einer neuen Endung Konflikte erzeugen würden
+     * @param {string} culture - Kultureller Stil
+     * @param {string} newEnding - Neue Endung, die hinzugefügt werden soll
+     * @returns {Array} Liste problematischer Endungen
+     */
+    function getProblematicEndingsForCulture(culture, newEnding) {
+        // Allgemeine problematische Endungen
+        const baseProblematicEndings = ['a', 'e', 'i', 'o', 'u'];
+        
+        // Wenn die neue Endung mit einem Vokal beginnt, sind Endkonsonanten weniger problematisch
+        if (newEnding.length > 0 && isVowel(newEnding[0])) {
+            return baseProblematicEndings;
+        }
+        
+        // Kulturspezifische Anpassungen
+        switch (culture) {
+            case 'germanic':
+                return [...baseProblematicEndings, 'er', 'en', 'el', 'in'];
+            case 'romance':
+                return [...baseProblematicEndings, 'o', 'i', 'e', 'a'];
+            case 'slavic':
+                return [...baseProblematicEndings, 'ov', 'ev', 'in', 'na'];
+            case 'nordic':
+                return [...baseProblematicEndings, 'son', 'sen', 'dottir'];
+            case 'celtic':
+                return [...baseProblematicEndings, 'an', 'on', 'yn', 'en'];
+            default:
+                return baseProblematicEndings;
+        }
+    }
+
+    /**
+     * Prüft, ob ein Zeichen ein Vokal ist (verbessert)
+     * @param {string} char - Zu prüfendes Zeichen
+     * @returns {boolean} True, wenn es ein Vokal ist
+     */
+    function isVowel(char) {
+        return /[aeiouyøæäöüåèéêëìíîïòóôõùúûüÿ]/i.test(char);
+    }
+
+    /**
+     * Prüft, ob ein Name bereits eine geschlechtstypische Endung hat
      * @param {string} name - Der zu prüfende Name
      * @param {string} genderType - Geschlechtstyp
+     * @param {string} culture - Kultureller Stil
      * @returns {boolean} True, wenn bereits eine passende Endung vorhanden
      */
-    function hasGenderSpecificEnding(name, genderType) {
-        if (genderType === 'feminine') {
-            return /[ae]$|(ne|ia|ine|elle|ette|lyn|anne|ina)$/i.test(name);
-        } else if (genderType === 'masculine') {
-            return /(er|us|o|an|en|in|ard|bert|mund|ik|on|ey|ian|rick)$/i.test(name);
+    function hasGenderSpecificEnding(name, genderType, culture) {
+        if (name.length < 2) return false;
+        
+        // Kulturspezifische Endungsüberprüfung
+        const endings = getCultureSpecificGenderEndings(culture, genderType);
+        
+        // Prüfen, ob der Name bereits mit einer der Endungen endet
+        for (const ending of endings) {
+            if (ending.length > 0 && name.toLowerCase().endsWith(ending.toLowerCase())) {
+                return true;
+            }
         }
+        
+        // Allgemeine Endungsprüfung
+        if (genderType === 'feminine') {
+            return /[ae]$|(ne|ia|ine|elle|ette|lyn|anne|ina|ita|ella)$/i.test(name);
+        } else if (genderType === 'masculine') {
+            return /(er|us|o|an|en|in|ard|bert|mund|ik|on|ey|ian|rick|io|or)$/i.test(name);
+        }
+        
         return true; // Neutrale Namen brauchen keine spezifische Endung
     }
 
     /**
-     * Gibt kulturspezifische geschlechtsspezifische Endungen zurück
+     * Gibt kulturspezifische geschlechtsspezifische Endungen zurück (erweitert)
      * @param {string} culture - Kultureller Stil
      * @param {string} genderType - Geschlechtstyp
      * @returns {Array} Liste von passenden Endungen
      */
     function getCultureSpecificGenderEndings(culture, genderType) {
+        // Für neutrale Namen keine spezifischen Endungen
+        if (genderType === 'neutral') {
+            return [];
+        }
+        
         // Basis-Endungen
-        const baseFeminineEndings = ['a', 'ia', 'ne', 'ine', 'elle', 'ette', 'ie', 'ah', 'lyn'];
-        const baseMasculineEndings = ['er', 'us', 'o', 'an', 'en', 'in', 'ard', 'ik', 'on'];
-        const baseNeutralEndings = ['ley', 'son', 'ten', 'er', 'on'];
+        const baseFeminineEndings = ['a', 'ia', 'ina', 'elle'];
+        const baseMasculineEndings = ['o', 'us', 'an', 'in', 'er'];
         
         // Kulturspezifische Anpassungen
         switch (culture) {
             case 'germanic':
                 if (genderType === 'feminine') {
-                    return [...baseFeminineEndings, 'e', 'ilde', 'ina'];
+                    return [...baseFeminineEndings, 'e', 'ilde', 'ina', 'hild', 'traud', 'gard'];
                 } else if (genderType === 'masculine') {
-                    return [...baseMasculineEndings, 'bert', 'wald', 'rich', 'mund'];
+                    return [...baseMasculineEndings, 'bert', 'wald', 'rich', 'mund', 'helm', 'mar', 'win'];
                 }
-                return baseNeutralEndings;
+                break;
                 
             case 'romance':
                 if (genderType === 'feminine') {
-                    return [...baseFeminineEndings, 'etta', 'ella', 'ina', 'ita'];
+                    return [...baseFeminineEndings, 'etta', 'ella', 'ina', 'ita', 'ice', 'ette', 'iana'];
                 } else if (genderType === 'masculine') {
-                    return [...baseMasculineEndings, 'io', 'ino', 'ero', 'ico'];
+                    return [...baseMasculineEndings, 'io', 'ino', 'ero', 'ico', 'iano', 'etto', 'ando'];
                 }
-                return baseNeutralEndings;
+                break;
                 
             case 'slavic':
                 if (genderType === 'feminine') {
-                    return [...baseFeminineEndings, 'ya', 'ova', 'ka', 'ina'];
+                    return [...baseFeminineEndings, 'ya', 'ova', 'ka', 'ina', 'ana', 'aya', 'eva'];
                 } else if (genderType === 'masculine') {
-                    return [...baseMasculineEndings, 'sky', 'ski', 'vich', 'mir'];
+                    return [...baseMasculineEndings, 'ov', 'sky', 'ski', 'vich', 'mir', 'slav', 'ko'];
                 }
-                return baseNeutralEndings;
+                break;
                 
             case 'nordic':
                 if (genderType === 'feminine') {
-                    return [...baseFeminineEndings, 'dottir', 'borg', 'lind', 'hild'];
+                    return [...baseFeminineEndings, 'dottir', 'borg', 'lind', 'hild', 'veig', 'frid', 'gerd'];
                 } else if (genderType === 'masculine') {
-                    return [...baseMasculineEndings, 'son', 'sen', 'heim', 'thor'];
+                    return [...baseMasculineEndings, 'son', 'sen', 'heim', 'thor', 'ulf', 'sten', 'bjorn'];
                 }
-                return baseNeutralEndings;
+                break;
                 
             case 'celtic':
                 if (genderType === 'feminine') {
-                    return [...baseFeminineEndings, 'wen', 'wyn', 'eth', 'ona'];
+                    return [...baseFeminineEndings, 'wen', 'wyn', 'eth', 'ona', 'een', 'iona', 'anna'];
                 } else if (genderType === 'masculine') {
-                    return [...baseMasculineEndings, 'wyn', 'ach', 'bran', 'dor'];
+                    return [...baseMasculineEndings, 'wyn', 'ach', 'bran', 'dor', 'gan', 'lan', 'dyn'];
                 }
-                return baseNeutralEndings;
+                break;
                 
             default:
                 if (genderType === 'feminine') {
@@ -1757,12 +2875,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else if (genderType === 'masculine') {
                     return baseMasculineEndings;
                 }
-                return baseNeutralEndings;
+                break;
         }
+        
+        return [];
     }
 
     /**
-     * Gibt einen kulturellen Modifikator für Nachnamen zurück
+     * Gibt einen kulturellen Modifikator für Nachnamen zurück (verbessert)
      * @param {string} culture - Kultureller Stil
      * @returns {Object|null} Präfix und Suffix oder null
      */
@@ -1775,28 +2895,34 @@ document.addEventListener('DOMContentLoaded', function() {
                     {prefix: '', suffix: 'berg'},
                     {prefix: '', suffix: 'stein'},
                     {prefix: '', suffix: 'wald'},
-                    {prefix: '', suffix: 'feld'}
+                    {prefix: '', suffix: 'feld'},
+                    {prefix: '', suffix: 'bach'},
+                    {prefix: '', suffix: 'hoff'}
                 ];
                 return germanicModifiers[getRandomInt(0, germanicModifiers.length - 1)];
                 
             case 'romance':
                 const romanceModifiers = [
+                    {prefix: 'de ', suffix: ''},
+                    {prefix: 'di ', suffix: ''},
                     {prefix: '', suffix: 'ez'},
                     {prefix: '', suffix: 'elli'},
-                    {prefix: 'di', suffix: ''},
                     {prefix: '', suffix: 'ini'},
-                    {prefix: 'de ', suffix: ''},
-                    {prefix: '', suffix: 'ola'}
+                    {prefix: '', suffix: 'ola'},
+                    {prefix: '', suffix: 'ino'},
+                    {prefix: '', suffix: 'etti'}
                 ];
                 return romanceModifiers[getRandomInt(0, romanceModifiers.length - 1)];
                 
             case 'slavic':
                 const slavicModifiers = [
                     {prefix: '', suffix: 'ov'},
+                    {prefix: '', suffix: 'ev'},
                     {prefix: '', suffix: 'ski'},
+                    {prefix: '', suffix: 'sky'},
                     {prefix: '', suffix: 'ich'},
                     {prefix: '', suffix: 'enko'},
-                    {prefix: '', suffix: 'insky'},
+                    {prefix: '', suffix: 'in'},
                     {prefix: '', suffix: 'ko'}
                 ];
                 return slavicModifiers[getRandomInt(0, slavicModifiers.length - 1)];
@@ -1804,39 +2930,34 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'nordic':
                 const nordicModifiers = [
                     {prefix: '', suffix: 'son'},
-                    {prefix: '', suffix: 'dottir'},
                     {prefix: '', suffix: 'sen'},
-                    {prefix: '', suffix: 'heim'},
+                    {prefix: '', suffix: 'dottir'},
+                    {prefix: '', suffix: 'gaard'},
+                    {prefix: '', suffix: 'holm'},
                     {prefix: '', suffix: 'dal'},
-                    {prefix: '', suffix: 'borg'}
+                    {prefix: '', suffix: 'lund'},
+                    {prefix: '', suffix: 'fjord'}
                 ];
                 return nordicModifiers[getRandomInt(0, nordicModifiers.length - 1)];
                 
             case 'celtic':
                 const celticModifiers = [
                     {prefix: 'Mc', suffix: ''},
-                    {prefix: 'O\'', suffix: ''},
-                    {prefix: 'Ap', suffix: ''},
-                    {prefix: '', suffix: 'ach'},
                     {prefix: 'Mac', suffix: ''},
-                    {prefix: '', suffix: 'bane'}
+                    {prefix: 'O\'', suffix: ''},
+                    {prefix: 'Ap ', suffix: ''},
+                    {prefix: '', suffix: 'ach'},
+                    {prefix: '', suffix: 'ley'},
+                    {prefix: '', suffix: 'an'},
+                    {prefix: '', suffix: 'ey'}
                 ];
                 return celticModifiers[getRandomInt(0, celticModifiers.length - 1)];
                 
             case 'mixed':
                 // Bei gemischter Kultur eine zufällige aus allen Kulturen wählen
-                const allModifiers = [
-                    {prefix: 'von ', suffix: ''},
-                    {prefix: '', suffix: 'mann'},
-                    {prefix: '', suffix: 'ez'},
-                    {prefix: '', suffix: 'elli'},
-                    {prefix: '', suffix: 'ov'},
-                    {prefix: '', suffix: 'ski'},
-                    {prefix: '', suffix: 'son'},
-                    {prefix: 'Mc', suffix: ''},
-                    {prefix: 'O\'', suffix: ''}
-                ];
-                return allModifiers[getRandomInt(0, allModifiers.length - 1)];
+                const cultures = ['germanic', 'romance', 'slavic', 'nordic', 'celtic'];
+                const randomCulture = cultures[getRandomInt(0, cultures.length - 1)];
+                return getCulturalModifier(randomCulture);
                 
             default:
                 return null;
@@ -1844,7 +2965,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /**
-     * Gibt einen häufigen Vornamen basierend auf Geschlecht und Kultur zurück
+     * Gibt einen häufigen Vornamen basierend auf Geschlecht und Kultur zurück (erweitert)
      * @param {string} genderType - Geschlechtstyp
      * @param {string} culture - Kultureller Stil
      * @returns {string} Ein gebräuchlicher Vorname
@@ -1853,34 +2974,176 @@ document.addEventListener('DOMContentLoaded', function() {
         // Gemeinsame Namen für jede Kultur
         const names = {
             'germanic': {
-                'masculine': ['Hans', 'Otto', 'Karl', 'Friedrich', 'Wilhelm', 'Heinrich', 'Ludwig', 'Walter', 'Max'],
-                'feminine': ['Anna', 'Helga', 'Gerda', 'Heidi', 'Ingrid', 'Frieda', 'Ursula', 'Greta', 'Maria'],
-                'neutral': ['Kim', 'Alex', 'Kai', 'Robin', 'Mika']
+                'masculine': ['Hans', 'Otto', 'Karl', 'Friedrich', 'Wilhelm', 'Heinrich', 'Ludwig', 'Walter', 'Max', 
+                            'Kurt', 'Dieter', 'Thomas', 'Wolfgang', 'Markus', 'Stefan', 'Klaus', 'Peter', 'Johann',
+                            'Albert', 'August', 'Axel', 'Bernd', 'Bernhard', 'Bruno', 'Christian', 'Christoph', 'Conrad',
+                            'David', 'Dennis', 'Dirk', 'Eberhard', 'Edmund', 'Eduard', 'Egon', 'Elias', 'Emil', 'Erhard',
+                            'Erik', 'Ernst', 'Erwin', 'Eugen', 'Fabian', 'Felix', 'Ferdinand', 'Florian', 'Frank',
+                            'Franz', 'Frederik', 'Georg', 'Gerald', 'Gerhard', 'Günter', 'Günther', 'Gustav', 'Hannes',
+                            'Harald', 'Hartmut', 'Heiko', 'Heinz', 'Helmut', 'Herbert', 'Herman', 'Holger', 'Horst',
+                            'Hubert', 'Hugo', 'Ingo', 'Jakob', 'Jan', 'Jens', 'Joachim', 'Jonas', 'Josef', 'Jörg',
+                            'Jürgen', 'Karsten', 'Kaspar', 'Kilian', 'Konrad', 'Konstantin', 'Leonhard', 'Lothar',
+                            'Lukas', 'Manfred', 'Marcel', 'Martin', 'Mathias', 'Matthias', 'Michael', 'Moritz',
+                            'Nico', 'Niklas', 'Nils', 'Norbert', 'Oliver', 'Oskar', 'Paul', 'Rainer', 'Ralf',
+                            'Reiner', 'Richard', 'Robert', 'Rolf', 'Rudolph', 'Rüdiger', 'Sebastian', 'Siegfried',
+                            'Simon', 'Theodor', 'Thorsten', 'Tobias', 'Ulrich', 'Uwe', 'Viktor', 'Werner', 'Winfried'],
+                'feminine': ['Anna', 'Helga', 'Gerda', 'Heidi', 'Ingrid', 'Frieda', 'Ursula', 'Greta', 'Maria',
+                            'Brigitte', 'Monika', 'Claudia', 'Sabine', 'Katharina', 'Elisabeth', 'Johanna', 'Emma',
+                            'Adelheid', 'Agnes', 'Alexandra', 'Amalia', 'Andrea', 'Angelika', 'Anita', 'Anke', 'Annegret',
+                            'Annelies', 'Annette', 'Antje', 'Barbara', 'Beate', 'Berta', 'Bertha', 'Bettina', 'Birgit',
+                            'Brunhilde', 'Caroline', 'Charlotte', 'Christa', 'Christina', 'Christine', 'Christiane', 'Clara',
+                            'Dagmar', 'Daniela', 'Dora', 'Dorothea', 'Edith', 'Eleonore', 'Elfriede', 'Elisa',
+                            'Elke', 'Ella', 'Ellen', 'Elsa', 'Emilie', 'Erika', 'Erna', 'Eva', 'Evelyn',
+                            'Franziska', 'Frederike', 'Gabriele', 'Gertrud', 'Gisela', 'Gudrun', 'Hannelore', 'Hedwig',
+                            'Helena', 'Helene', 'Henriette', 'Hermine', 'Herta', 'Hildegard', 'Ilse', 'Inge',
+                            'Irmgard', 'Jana', 'Jennifer', 'Julia', 'Juliane', 'Jutta', 'Karin', 'Karla', 'Karoline',
+                            'Katja', 'Klara', 'Kornelia', 'Kristina', 'Lena', 'Lieselotte', 'Lina', 'Lisa', 'Lore',
+                            'Lotte', 'Louise', 'Luise', 'Magda', 'Magdalena', 'Margarete', 'Margot', 'Marianne', 'Martha',
+                            'Martina', 'Mathilde', 'Mechthild', 'Minna', 'Miriam', 'Nadine', 'Nina', 'Olga', 'Paula', 'Ruth'],
+                'neutral': ['Kim', 'Alex', 'Kai', 'Robin', 'Mika', 'Luca', 'Sascha', 'Toni', 'Nikita', 'René',
+                           'Adrian', 'Alexis', 'Andy', 'Arin', 'Ashley', 'Benny', 'Björn', 'Charlie', 'Chris', 'Conny',
+                           'Dana', 'Deniz', 'Dominique', 'Eden', 'Eli', 'Elia', 'Emery', 'Emi', 'Flo', 'Fin',
+                           'Francis', 'Frankie', 'Gabriel', 'Glenn', 'Hadar', 'Hayden', 'Henni', 'Inge', 'Ilya',
+                           'Jamie', 'Jan', 'Jesse', 'Jo', 'Jody', 'Joey', 'Jules', 'Julian', 'Kaya', 'Kerry',
+                           'Kris', 'Lee', 'Leonie', 'Lenny', 'Leslie', 'Lian', 'Liv', 'Loki', 'Lou', 'Loup',
+                           'Lucky', 'Lynn', 'Mani', 'Marie', 'Marion', 'Marlow', 'Max', 'Mel', 'Melle', 'Merry',
+                           'Michele', 'Mio', 'Morgan', 'Nicki', 'Nico', 'Noel', 'Nour', 'Nuri', 'Odell', 'Ollie',
+                           'Pam', 'Parker', 'Pascal', 'Pat', 'Peace', 'Phoenix', 'Quinn', 'Rain', 'Raven', 'Ray',
+                           'Reese', 'Reggie', 'River', 'Rowan', 'Sage', 'Sam', 'Shay', 'Sidney', 'Sky', 'Skye',
+                           'Sunny', 'Sven', 'Tari', 'Taylor', 'Tilian', 'Timmy', 'Tobi', 'Tony', 'Vic', 'Wave']
             },
             'romance': {
-                'masculine': ['Marco', 'Giovanni', 'Antonio', 'Roberto', 'Miguel', 'Carlos', 'Pierre', 'Louis', 'Paulo'],
-                'feminine': ['Maria', 'Sofia', 'Isabella', 'Lucia', 'Carmen', 'Sophia', 'Elena', 'Juliette', 'Francesca'],
-                'neutral': ['Andrea', 'Simone', 'Dominique', 'Claude', 'Michele']
+                'masculine': ['Marco', 'Giovanni', 'Antonio', 'Roberto', 'Miguel', 'Carlos', 'Pierre', 'Louis', 'Paulo',
+                            'Francesco', 'Luigi', 'Matteo', 'Ricardo', 'Diego', 'Jean', 'Philippe', 'Emilio', 'Dominic',
+                            'Adriano', 'Alberto', 'Alejandro', 'Alessandro', 'Alfonso', 'Alfredo', 'Alonso', 'Amadeo', 'André',
+                            'Angelo', 'Armando', 'Arnaud', 'Arturo', 'Augusto', 'Baptiste', 'Benito', 'Bernardo', 'Bruno',
+                            'Carmine', 'César', 'Christian', 'Claudio', 'Cristiano', 'Damiano', 'Daniele', 'Dante', 'Dario',
+                            'David', 'Eduardo', 'Enrico', 'Enzo', 'Esteban', 'Fabio', 'Fabrizio', 'Federico', 'Felipe',
+                            'Felix', 'Fernando', 'Filippo', 'Flavio', 'Florence', 'Franco', 'Gabriel', 'Giacomo', 'Gianluigi',
+                            'Gilles', 'Giorgio', 'Giulio', 'Gonzalo', 'Gregorio', 'Guillermo', 'Gustavo', 'Henri', 'Hernando',
+                            'Hugo', 'Ignacio', 'Javier', 'Jorge', 'José', 'Jules', 'Julian', 'Laurent', 'Leonardo',
+                            'Lorenzo', 'Luca', 'Lucas', 'Luciano', 'Manuel', 'Marcello', 'Marcelo', 'Mario', 'Massimo',
+                            'Maurizio', 'Mauro', 'Maxime', 'Michel', 'Nicolás', 'Olivier', 'Pablo', 'Pascal', 'Pasquale',
+                            'Patricio', 'Rafael', 'Raúl', 'Rémy', 'Renato', 'Renzo', 'Riccardo', 'Rodrigo', 'Romano',
+                            'Rubén', 'Salvador', 'Santiago', 'Sergio', 'Silvio', 'Stefano', 'Théo', 'Tomás', 'Umberto', 'Vincenzo'],
+                'feminine': ['Maria', 'Sofia', 'Isabella', 'Lucia', 'Carmen', 'Sophia', 'Elena', 'Juliette', 'Francesca',
+                            'Valentina', 'Chiara', 'Carmela', 'Gabriella', 'Adriana', 'Alessia', 'Bianca', 'Nicole',
+                            'Adela', 'Agata', 'Agnès', 'Alba', 'Alicia', 'Alma', 'Amalia', 'Amélie', 'Ana', 'Angelica',
+                            'Antonia', 'Antonella', 'Aria', 'Arianna', 'Aurora', 'Beatrice', 'Béatrice', 'Benedetta',
+                            'Benita', 'Camila', 'Carla', 'Carolina', 'Catalina', 'Caterina', 'Cecilia', 'Celeste', 'Céline',
+                            'Clara', 'Claudia', 'Concetta', 'Constanza', 'Cristina', 'Daniela', 'Delphine', 'Diana', 'Dolores',
+                            'Donatella', 'Dulce', 'Eleonora', 'Elisa', 'Elisabetta', 'Emanuela', 'Emilia', 'Esmeralda', 'Estela',
+                            'Estelle', 'Eva', 'Fabiola', 'Federica', 'Felicia', 'Fernanda', 'Fiamma', 'Fiorella', 'Flavia',
+                            'Flora', 'Franca', 'Gemma', 'Gianna', 'Giovanna', 'Giulia', 'Gloria', 'Graciela', 'Greta',
+                            'Ida', 'Inés', 'Irene', 'Isabel', 'Josefina', 'Josephine', 'Laura', 'Liliana', 'Livia',
+                            'Lorena', 'Lourdes', 'Lucía', 'Luciana', 'Luisa', 'Luna', 'Manuela', 'Marcela', 'Margherita',
+                            'Margot', 'Mariana', 'Mariangela', 'Marie', 'Mariella', 'Marina', 'Marisol', 'Marta', 'Martina',
+                            'Mercedes', 'Michela', 'Milena', 'Monica', 'Natalia', 'Nina', 'Noemi', 'Paola', 'Patricia', 'Paula'],
+                'neutral': ['Andrea', 'Simone', 'Dominique', 'Claude', 'Michele', 'Noël', 'Alex', 'Lou', 'Camille',
+                           'Amour', 'Ariel', 'Alix', 'Bellamy', 'Benoît', 'Brice', 'Ciel', 'Clément', 'Coeur', 'Constant',
+                           'Corentin', 'Dale', 'Dani', 'Danièle', 'Eli', 'Elian', 'Elio', 'Ely', 'Enzo', 'Fidèle',
+                           'Fleur', 'France', 'Gabi', 'Gaël', 'Germain', 'Gianni', 'Gigi', 'Gino', 'Giulio', 'Grace',
+                           'Hélène', 'Innocent', 'Iry', 'Italo', 'Jackie', 'Jade', 'Jamie', 'Jamy', 'Joey', 'Jordi',
+                           'José', 'Jule', 'Julien', 'Kari', 'Kilian', 'Lael', 'Lenny', 'Leone', 'Lesley', 'Lian',
+                           'Lior', 'Loren', 'Lucien', 'Manon', 'Manu', 'Marcel', 'Marley', 'Marti', 'Matisse', 'Maxime',
+                           'Michel', 'Morgan', 'Neri', 'Nico', 'Nino', 'Nova', 'Océane', 'Oli', 'Olivie', 'Orso',
+                           'Pascal', 'Patrice', 'Phoenix', 'Pino', 'Quinn', 'René', 'Rio', 'Roan', 'Robin', 'Roma',
+                           'Romy', 'Rosario', 'Sam', 'Samy', 'Saša', 'Saul', 'Sidney', 'Sol', 'Tatum', 'Vanni',
+                           'Vidal', 'Vivien', 'Yan', 'Yuki', 'Yuri', 'Yves', 'Zen', 'Zeno', 'Zephyr', 'Zion']
             },
             'slavic': {
-                'masculine': ['Ivan', 'Dmitri', 'Sergei', 'Vladimir', 'Alexei', 'Mikhail', 'Nikolai', 'Boris', 'Yuri'],
-                'feminine': ['Olga', 'Tatiana', 'Svetlana', 'Natasha', 'Anya', 'Ekaterina', 'Irina', 'Anastasia', 'Yelena'],
-                'neutral': ['Sasha', 'Vanya', 'Valya', 'Zhenya', 'Misha']
+                'masculine': ['Ivan', 'Dmitri', 'Sergei', 'Vladimir', 'Alexei', 'Mikhail', 'Nikolai', 'Boris', 'Yuri',
+                            'Pavel', 'Oleg', 'Andrei', 'Igor', 'Vasily', 'Pyotr', 'Leonid', 'Stanislav', 'Grigori',
+                            'Adam', 'Anatoly', 'Anton', 'Arkady', 'Artem', 'Artur', 'Bogdan', 'Bronislav', 'Danil',
+                            'Denis', 'Eduard', 'Evgeny', 'Fedor', 'Filip', 'Gavril', 'Gleb', 'Goran', 'Ilya',
+                            'Innokenty', 'Ioann', 'Isidor', 'Jaroslav', 'Josef', 'Kazimir', 'Kirill', 'Kliment', 'Konstantin',
+                            'Kuzma', 'Lev', 'Lubor', 'Luka', 'Lubomir', 'Makar', 'Maksim', 'Matvei', 'Miloš',
+                            'Miroslav', 'Miron', 'Modest', 'Nestor', 'Nikifor', 'Nikita', 'Orest', 'Osip', 'Platon',
+                            'Radimir', 'Radoslav', 'Radomir', 'Ratimir', 'Rodion', 'Roman', 'Rostislav', 'Rudolf', 'Ruslan',
+                            'Savva', 'Semyon', 'Simeon', 'Spartak', 'Stepan', 'Svyatoslav', 'Taras', 'Teodor', 'Timofey',
+                            'Trofim', 'Vadim', 'Valentin', 'Valery', 'Veniamin', 'Victor', 'Vitaly', 'Vlad', 'Vladislav',
+                            'Vsevolod', 'Vyacheslav', 'Yan', 'Yaroslav', 'Yegor', 'Yefim', 'Yerofey', 'Zakhar', 'Zinovy',
+                            'Zoran', 'Bronisław', 'Casimir', 'Dariusz', 'Grzegorz', 'Jakub', 'Jerzy', 'Józef', 'Karol',
+                            'Leszek', 'Łukasz', 'Maciej', 'Marcin', 'Marek', 'Mariusz', 'Michał', 'Piotr', 'Radek', 'Tomasz'],
+                'feminine': ['Olga', 'Tatiana', 'Svetlana', 'Natasha', 'Anya', 'Ekaterina', 'Irina', 'Anastasia', 'Yelena',
+                            'Lyudmila', 'Oksana', 'Polina', 'Marina', 'Vera', 'Nadia', 'Galina', 'Ksenia', 'Daria',
+                            'Ada', 'Agafia', 'Agata', 'Agnessa', 'Albina', 'Aleksandra', 'Alina', 'Alla', 'Alona', 'Anzhela',
+                            'Antonina', 'Bronislava', 'Daryna', 'Diana', 'Dominika', 'Dorota', 'Dunja', 'Elizaveta', 'Eva',
+                            'Evdokia', 'Faina', 'Fedora', 'Feodosia', 'Halina', 'Helena', 'Inna', 'Iskra', 'Ivanna',
+                            'Izabela', 'Jana', 'Janina', 'Jaroslava', 'Jasna', 'Jelena', 'Joanna', 'Kalina', 'Kamila',
+                            'Karina', 'Karolina', 'Katarzyna', 'Kira', 'Klara', 'Klementina', 'Kristina', 'Lada', 'Lara',
+                            'Larisa', 'Lenka', 'Lilia', 'Lilja', 'Ljubov', 'Ludmila', 'Luiza', 'Magdalena', 'Malina',
+                            'Marfa', 'Margarita', 'Marija', 'Marta', 'Milana', 'Milena', 'Milica', 'Mira', 'Miroslava',
+                            'Natalija', 'Nika', 'Nina', 'Olivera', 'Petra', 'Radmila', 'Radomira', 'Raisa', 'Renata',
+                            'Rita', 'Rozalija', 'Ruslana', 'Sabina', 'Senta', 'Serafima', 'Slavica', 'Snezhana', 'Sofia',
+                            'Stanislava', 'Stefania', 'Tamara', 'Tanya', 'Taras', 'Ulyana', 'Valeriya', 'Varvara', 'Vesna',
+                            'Victoria', 'Vladimira', 'Vlasta', 'Yelizaveta', 'Yulia', 'Zara', 'Zarya', 'Zdenka', 'Zina',
+                            'Zinaida', 'Zlata', 'Zora', 'Zoya', 'Żaneta', 'Agnieszka', 'Beata', 'Ewa', 'Małgorzata', 'Wanda'],
+                'neutral': ['Sasha', 'Vanya', 'Valya', 'Zhenya', 'Misha', 'Nikita', 'Yasha', 'Slava', 'Zoya',
+                           'Alek', 'Aleks', 'Aljo', 'Anđelko', 'Ari', 'Arsenije', 'Avdey', 'Banja', 'Bodhan', 'Borya',
+                           'Branko', 'Dale', 'Danya', 'Dasha', 'Dimi', 'Dobry', 'Dragana', 'Drago', 'Duci', 'Dusya',
+                           'Fedya', 'Felka', 'Gabi', 'Gavra', 'Grisha', 'Grusha', 'Ilarija', 'Ily', 'Ira', 'Iskra',
+                           'Jagoda', 'Jasha', 'Katya', 'Kolya', 'Kostya', 'Krasimir', 'Kuzya', 'Lada', 'Lera', 'Lesya',
+                           'Ljuba', 'Luka', 'Lyova', 'Lyuba', 'Lyuda', 'Malina', 'Mirko', 'Misha', 'Mitya', 'Nadya',
+                           'Nastya', 'Nebojša', 'Nika', 'Niko', 'Olesya', 'Pahom', 'Pasha', 'Petya', 'Rada', 'Radka',
+                           'Raya', 'Rina', 'Roma', 'Rostya', 'Sanja', 'Sava', 'Senya', 'Shura', 'Sim', 'Slavka',
+                           'Sonya', 'Stepa', 'Sveta', 'Tolya', 'Valery', 'Vanja', 'Varya', 'Vasya', 'Venya', 'Vera',
+                           'Vida', 'Vitya', 'Vlada', 'Volya', 'Vonya', 'Yura', 'Zare', 'Zary', 'Zheka', 'Zina', 
+                           'Zlata', 'Zora', 'Zorya', 'Zosya', 'Zoya', 'Žarko', 'Żenja', 'Aljoša', 'Saša', 'Toša']
             },
             'nordic': {
-                'masculine': ['Erik', 'Lars', 'Sven', 'Bjorn', 'Thor', 'Olaf', 'Magnus', 'Leif', 'Harald'],
-                'feminine': ['Astrid', 'Ingrid', 'Frida', 'Freya', 'Sigrid', 'Helga', 'Solveig', 'Elin', 'Karin'],
-                'neutral': ['Kim', 'Mika', 'Kaj', 'Tove', 'Rune']
+                'masculine': ['Erik', 'Lars', 'Sven', 'Bjorn', 'Thor', 'Olaf', 'Magnus', 'Leif', 'Harald',
+                            'Axel', 'Gustav', 'Johan', 'Nils', 'Fredrik', 'Henrik', 'Anders', 'Mikkel', 'Jens',
+                            'Aksel', 'Alf', 'Alvar', 'Anker', 'Anton', 'Arne', 'Arvid', 'Asger', 'Asmund', 'Atle',
+                            'Baldur', 'Bard', 'Bengt', 'Birger', 'Bo', 'Brage', 'Brandt', 'Brynjar', 'Dag', 'Egil',
+                            'Einar', 'Elias', 'Erland', 'Erlend', 'Eskil', 'Espen', 'Finn', 'Flemming', 'Frode', 'Geir',
+                            'Gunnar', 'Haakon', 'Halvar', 'Hans', 'Helge', 'Hemming', 'Hjalmar', 'Holger', 'Ib', 'Ingmar',
+                            'Ingvar', 'Ivar', 'Jakob', 'Jannik', 'Jarle', 'Jesper', 'Joakim', 'Jon', 'Jorgen', 'Jorund',
+                            'Kalle', 'Keld', 'Kjell', 'Knut', 'Kristian', 'Kristoffer', 'Lasse', 'Lennart', 'Loke',
+                            'Ludvig', 'Mads', 'Magne', 'Malthe', 'Martin', 'Morten', 'Njal', 'Odd', 'Ole', 'Orvar',
+                            'Oskar', 'Otto', 'Ove', 'Peder', 'Per', 'Pontus', 'Preben', 'Ragnar', 'Rasmus', 'Reidar',
+                            'Rolf', 'Ruben', 'Rune', 'Sigurd', 'Simon', 'Sivert', 'Sixten', 'Snorre', 'Sten', 'Stian',
+                            'Stig', 'Sturla', 'Svante', 'Terje', 'Tobias', 'Torbjorn', 'Tord', 'Tore', 'Torsten', 'Trygve',
+                            'Ulf', 'Valdemar', 'Vemund', 'Viggo', 'Vilhelm', 'Yngve', 'Örjan', 'Östen', 'Øyvind', 'Åke'],
+                'feminine': ['Astrid', 'Ingrid', 'Frida', 'Freya', 'Sigrid', 'Helga', 'Solveig', 'Elin', 'Karin',
+                            'Linnea', 'Ida', 'Lina', 'Ebba', 'Annika', 'Freja', 'Maja', 'Signe', 'Greta',
+                            'Agda', 'Agnes', 'Agneta', 'Alma', 'Amalia', 'Amanda', 'Ane', 'Anette', 'Anja', 'Ann',
+                            'Anna', 'Anneli', 'Arnhild', 'Asta', 'Aud', 'Barbro', 'Beata', 'Benedicte', 'Berit', 'Birgit',
+                            'Birgitte', 'Birte', 'Bodil', 'Borghild', 'Britt', 'Camilla', 'Carina', 'Cecilia', 'Dagmar',
+                            'Dagny', 'Disa', 'Ditte', 'Dorte', 'Edle', 'Edna', 'Eir', 'Elinor', 'Elisabet', 'Ellinor',
+                            'Elsa', 'Elsie', 'Embla', 'Emma', 'Erika', 'Ester', 'Eva', 'Fjola', 'Gunilla', 'Gunvor',
+                            'Hanna', 'Hedda', 'Hedvig', 'Hege', 'Heidrun', 'Helle', 'Hertha', 'Hilde', 'Hildur', 'Hjördis',
+                            'Inga', 'Inger', 'Ingeborg', 'Johanne', 'Jonna', 'Jytte', 'Kaja', 'Karen', 'Karita', 'Karla',
+                            'Katja', 'Kirsten', 'Klara', 'Kristin', 'Laila', 'Lea', 'Lene', 'Lise', 'Liv', 'Lone',
+                            'Lotte', 'Louise', 'Lovisa', 'Lykke', 'Maiken', 'Malene', 'Margareta', 'Mari', 'Maria', 'Marianne',
+                            'Marit', 'Marlene', 'Mette', 'Nanna', 'Nora', 'Oda', 'Pernille', 'Ragna', 'Ragnhild', 'Ranveig',
+                            'Rebecka', 'Rigmor', 'Ronja', 'Runa', 'Sara', 'Selma', 'Sif', 'Sofia', 'Sonja', 'Svea', 
+                            'Sylvi', 'Thea', 'Thyra', 'Tilde', 'Tora', 'Tove', 'Trine', 'Tuva', 'Ulla', 'Unni'],
+                'neutral': ['Kim', 'Mika', 'Kaj', 'Tove', 'Rune', 'Vega', 'Lo', 'Eli', 'Saga', 'Viggo',
+                           'Aki', 'Alex', 'Alva', 'Amund', 'Are', 'Ariel', 'Arve', 'Ask', 'Aslak', 'Asle',
+                           'Atle', 'Bjørk', 'Bo', 'Charlie', 'Chris', 'Dana', 'Didrik', 'Eide', 'Elis', 'Elvin',
+                           'Embla', 'Emil', 'Erika', 'Frej', 'Frøy', 'Glenn', 'Gry', 'Guri', 'Hanne', 'Heike',
+                           'Helle', 'Henny',                            'Hilmar', 'Hylke', 'Indra', 'Inge', 'Ingvild', 'Iver', 'Jackie', 'Janne',
+                           'Jannik', 'Jari', 'Jerri', 'Joar', 'Jone', 'Jonne', 'Juni', 'Kai', 'Kelly', 'Kipp',
+                           'Lind', 'Loke', 'Lumi', 'Ly', 'Magne', 'Mani', 'Mardy', 'Marley', 'Mille', 'Mio',
+                           'Moa', 'Morten', 'My', 'Nemi', 'Nicky', 'Nikki', 'Nor', 'Oddny', 'Olve', 'Ove',
+                           'Pim', 'Py', 'Rikke', 'Rio', 'Ronja', 'Ronny', 'Rudy', 'Sofie', 'Sol', 'Sondre',
+                           'Søren', 'Storm', 'Sture', 'Sunna', 'Sven', 'Tage', 'Terje', 'Terry', 'Tiril', 'Tjelle',
+                           'Torin', 'Tove', 'Unn', 'Vidar', 'Vide', 'Vide', 'Ville', 'Vimme', 'Viol', 'Ylva']
             },
             'celtic': {
-                'masculine': ['Liam', 'Sean', 'Patrick', 'Connor', 'Aidan', 'Brennan', 'Declan', 'Cormac', 'Rowan'],
-                'feminine': ['Siobhan', 'Erin', 'Fiona', 'Bridget', 'Niamh', 'Maeve', 'Eileen', 'Roisin', 'Saoirse'],
-                'neutral': ['Kerry', 'Quinn', 'Riley', 'Casey', 'Morgan']
+                'masculine': ['Liam', 'Sean', 'Patrick', 'Connor', 'Aidan', 'Brennan', 'Declan', 'Cormac', 'Rowan',
+                            'Kieran', 'Finn', 'Eoin', 'Conall', 'Niall', 'Cian', 'Lorcan', 'Conan', 'Oisin'],
+                'feminine': ['Siobhan', 'Erin', 'Fiona', 'Bridget', 'Niamh', 'Maeve', 'Eileen', 'Roisin', 'Saoirse',
+                            'Aoife', 'Caoimhe', 'Orla', 'Ciara', 'Sinead', 'Clodagh', 'Grainne', 'Deirdre', 'Mairead'],
+                'neutral': ['Kerry', 'Quinn', 'Riley', 'Casey', 'Morgan', 'Finley', 'Teagan', 'Rory', 'Shannon', 'Reilly']
             },
             'mixed': {
-                'masculine': ['John', 'Michael', 'David', 'Robert', 'Thomas', 'Mark', 'Peter', 'James', 'William'],
-                'feminine': ['Mary', 'Emma', 'Sarah', 'Emily', 'Laura', 'Lisa', 'Julia', 'Sophie', 'Hannah'],
-                'neutral': ['Alex', 'Sam', 'Robin', 'Taylor', 'Jordan', 'Casey', 'Quinn', 'Morgan', 'Riley']
+                'masculine': ['John', 'Michael', 'David', 'Robert', 'Thomas', 'Mark', 'Peter', 'James', 'William',
+                            'Daniel', 'Alexander', 'Paul', 'Christian', 'Joseph', 'Andrew', 'Jonathan', 'George', 'Richard'],
+                'feminine': ['Mary', 'Emma', 'Sarah', 'Emily', 'Laura', 'Lisa', 'Julia', 'Sophie', 'Hannah',
+                            'Jennifer', 'Catherine', 'Christina', 'Rebecca', 'Jessica', 'Olivia', 'Grace', 'Anna', 'Elizabeth'],
+                'neutral': ['Alex', 'Sam', 'Robin', 'Taylor', 'Jordan', 'Casey', 'Quinn', 'Morgan', 'Riley', 'Avery']
             }
         };
         
@@ -1895,7 +3158,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /**
-     * Gibt einen häufigen Nachnamen basierend auf der Kultur zurück
+     * Gibt einen häufigen Nachnamen basierend auf der Kultur zurück (erweitert)
      * @param {string} culture - Kultureller Stil
      * @returns {string} Ein gebräuchlicher Nachname
      */
@@ -1904,27 +3167,33 @@ document.addEventListener('DOMContentLoaded', function() {
         const surnames = {
             'germanic': [
                 'Schmidt', 'Müller', 'Weber', 'Schneider', 'Fischer', 'Meyer', 'Wagner', 'Becker', 'Hoffmann', 
-                'Schulz', 'Koch', 'Bauer', 'Wolf', 'Schröder', 'Klein', 'Neumann', 'Schwarz', 'Zimmermann'
+                'Schulz', 'Koch', 'Bauer', 'Wolf', 'Schröder', 'Klein', 'Neumann', 'Schwarz', 'Zimmermann',
+                'Braun', 'Hofmann', 'Hartmann', 'Krause', 'Werner', 'Schmitz', 'Lange', 'Schmitt', 'Meier'
             ],
             'romance': [
                 'Rossi', 'Ferrari', 'Esposito', 'Bianchi', 'Romano', 'Garcia', 'Martinez', 'Rodriguez', 'Lopez',
-                'Fernandez', 'Moreau', 'Dubois', 'Bernard', 'Petit', 'Durand', 'Leroy', 'Simon', 'Martin'
+                'Fernandez', 'Moreau', 'Dubois', 'Bernard', 'Petit', 'Durand', 'Leroy', 'Simon', 'Martin',
+                'Ricci', 'Costa', 'Fontana', 'Santos', 'Pereira', 'Mancini', 'Russo', 'Lefebvre', 'Mercier'
             ],
             'slavic': [
                 'Ivanov', 'Smirnov', 'Kuznetsov', 'Popov', 'Sokolov', 'Lebedev', 'Kozlov', 'Novikov', 'Morozov',
-                'Petrov', 'Volkov', 'Solovyov', 'Vasilyev', 'Zaytsev', 'Pavlov', 'Semyonov', 'Golubev'
+                'Petrov', 'Volkov', 'Solovyov', 'Vasilyev', 'Zaytsev', 'Pavlov', 'Semyonov', 'Golubev', 'Vinogradov',
+                'Bogdanov', 'Vorobev', 'Fedorov', 'Mikhailov', 'Belyakov', 'Kovalev', 'Sobolev', 'Kiselev'
             ],
             'nordic': [
                 'Johansson', 'Andersson', 'Karlsson', 'Nilsson', 'Eriksson', 'Larsson', 'Olsson', 'Persson',
-                'Svensson', 'Gustafsson', 'Hansen', 'Nielsen', 'Jensen', 'Pedersen', 'Kristiansen'
+                'Svensson', 'Gustafsson', 'Hansen', 'Nielsen', 'Jensen', 'Pedersen', 'Kristiansen', 'Lindberg',
+                'Lund', 'Berg', 'Jakobsen', 'Holm', 'Bjørklund', 'Nygaard', 'Fjeld', 'Solberg', 'Bakke'
             ],
             'celtic': [
                 'Murphy', 'Kelly', 'O\'Sullivan', 'Walsh', 'O\'Brien', 'McCarthy', 'Ryan', 'O\'Connor', 'Doyle',
-                'McDonnell', 'McLaughlin', 'O\'Neill', 'Gallagher', 'Quinn', 'Lynch', 'Doherty', 'Kennedy'
+                'McDonnell', 'McLaughlin', 'O\'Neill', 'Gallagher', 'Quinn', 'Lynch', 'Doherty', 'Kennedy',
+                'Byrne', 'Brennan', 'Fitzgerald', 'McGuire', 'O\'Donnell', 'MacLeod', 'Campbell', 'MacKenzie'
             ],
             'mixed': [
                 'Smith', 'Johnson', 'Williams', 'Jones', 'Brown', 'Davis', 'Miller', 'Wilson', 'Taylor',
-                'Anderson', 'Thomas', 'Jackson', 'White', 'Harris', 'Martin', 'Thompson', 'Garcia', 'Lee'
+                'Anderson', 'Thomas', 'Jackson', 'White', 'Harris', 'Martin', 'Thompson', 'Garcia', 'Lee',
+                'Lewis', 'Walker', 'Hall', 'Allen', 'Young', 'King', 'Wright', 'Hill', 'Scott', 'Green'
             ]
         };
         

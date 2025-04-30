@@ -44,12 +44,14 @@ function exportToPDF() {
             const defaultOptions = {
                 align: 'left',
                 fontSize: 10,
-                fontStyle: 'normal'
+                fontStyle: 'normal',
+                textColor: [0, 0, 0] // Standardfarbe: Schwarz
             };
             const mergedOptions = {...defaultOptions, ...options};
             
             doc.setFontSize(mergedOptions.fontSize);
             doc.setFont('helvetica', mergedOptions.fontStyle);
+            doc.setTextColor(mergedOptions.textColor[0], mergedOptions.textColor[1], mergedOptions.textColor[2]);
             doc.text(text, x, y, { align: mergedOptions.align });
         };
         
@@ -100,21 +102,29 @@ function exportToPDF() {
         addText('Spieler:', margin + 70, y + 5, { fontStyle: 'bold' });
         addText(playerName, margin + 90, y + 5);
         
-        addText('Alter:', margin + 150, y + 5, { fontStyle: 'bold' });
-        addText(charAge, margin + 165, y + 5);
+        // Alter weiter links darstellen
+        addText('Alter:', margin + 140, y + 5, { fontStyle: 'bold' });
+        addText(charAge, margin + 155, y + 5);
         
         y += 12;
         
-        // Zweite Zeile: Klasse(n), Vorteil, Nachteil
+        // Zweite Zeile: Klasse(n) und Vorteil
         addRect(margin, y, contentWidth, 8, [230, 230, 230]);
         addText('Klasse:', margin + 2, y + 5, { fontStyle: 'bold' });
         addText(charClass + (secondClass ? ' / ' + secondClass : ''), margin + 25, y + 5);
         
-        addText('Vorteil:', margin + 100, y + 5, { fontStyle: 'bold' });
-        addText(advantage, margin + 125, y + 5);
+        // Vorteil weiter nach links
+        const advantageX = margin + 70;
+        addText('Vorteil:', advantageX, y + 5, { fontStyle: 'bold' });
+        addText(advantage, advantageX + 25, y + 5); 
         
-        addText('Nachteil:', margin + 150, y + 5, { fontStyle: 'bold' });
-        addText(disadvantage, margin + 180, y + 5);
+        y += 10; // Kleinerer Abstand für die nächste Zeile
+        
+        // Dritte Zeile: Nachteil (direkt unter dem Vorteil)
+        addRect(margin, y, contentWidth, 8, [230, 230, 230]);
+        // Nachteil an derselben X-Position wie Vorteil
+        addText('Nachteil:', advantageX, y + 5, { fontStyle: 'bold' });
+        addText(disadvantage, advantageX + 25, y + 5);
         
         y += 12;
         
@@ -134,15 +144,17 @@ function exportToPDF() {
                 const imgWidth = 40;  // Feste Breite für das Bild in mm
                 const imgHeight = 50; // Feste Höhe für das Bild in mm
                 
-                // Prüfen, ob Platz auf der aktuellen Seite ist
-                checkPageBreak(imgHeight + 5);
-                
-                // Bild mittig in einer Box einfügen
+                // Bild zentriert in einem eigenen Bereich platzieren
                 const imgX = pageWidth - margin - imgWidth - 5;
-                addRect(imgX - 2, y - 2, imgWidth + 4, imgHeight + 4, [250, 250, 250]);
-                doc.addImage(characterImage.src, 'JPEG', imgX, y, imgWidth, imgHeight, undefined, 'FAST');
+                const imgY = margin + 20; // Platzieren Sie das Bild unterhalb des Headers
                 
-                // y wird nicht erhöht, da das Bild rechts platziert wird und nicht im Textfluss steht
+                // Hintergrundfläche für das Bild
+                addRect(imgX - 2, imgY - 2, imgWidth + 4, imgHeight + 4, [250, 250, 250]);
+                
+                // Bild hinzufügen
+                doc.addImage(characterImage.src, 'JPEG', imgX, imgY, imgWidth, imgHeight, undefined, 'FAST');
+                
+                // y wird nicht erhöht, weil der vertikale Fluss beim nächsten Element weitergeht
             } catch (e) {
                 console.warn('Bild konnte nicht in PDF eingefügt werden:', e);
             }
@@ -167,7 +179,7 @@ function exportToPDF() {
         const combatStatsTable = [
             ['GENA', gena, 'PA', pa, 'KP', kp],
             ['MP', mp, 'ZK', zk, 'INIT', init],
-            ['BW', bw, 'Glücks-Tokens', luckTokens, '', '']
+            ['BW', bw, 'Glücks-Tokens', luckTokens, '', ''] // Doppelpunkt entfernt
         ];
         
         const cellWidth = contentWidth / 6;
@@ -177,7 +189,7 @@ function exportToPDF() {
             for (let i = 0; i < row.length; i += 2) {
                 const x = margin + (i/2) * cellWidth * 2;
                 addRect(x, y, cellWidth * 2, cellHeight, [240, 245, 240]);
-                addText(row[i] + ':', x + 2, y + 5, { fontStyle: 'bold' });
+                addText(row[i] + (row[i] === 'Glücks-Tokens' ? '' : ':'), x + 2, y + 5, { fontStyle: 'bold' }); // Doppelpunkt nur hinzufügen, wenn es nicht "Glücks-Tokens" ist
                 addText(row[i+1], x + cellWidth, y + 5);
             }
             y += cellHeight + 1;
@@ -204,7 +216,8 @@ function exportToPDF() {
             addRect(x, y, woundCellWidth, woundCellHeight, fillColor);
             
             doc.setTextColor(textColor);
-            addText(i === 9 ? '☠' : (i + 1).toString(), x + woundCellWidth/2, y + 5, { align: 'center' });
+            // Für die letzte Wunde (10) eine Zahl statt & verwenden
+            addText(i === 9 ? '10' : (i + 1).toString(), x + woundCellWidth/2, y + 5, { align: 'center' });
             doc.setTextColor(0); // Zurück zu schwarz für den restlichen Text
         }
         
@@ -358,41 +371,44 @@ function exportToPDF() {
             y += 10;
             
             // Zauberheader
-            addRect(margin, y, contentWidth * 0.5, 7, [220, 220, 240]);
+            addRect(margin, y, contentWidth * 0.65, 7, [220, 220, 240]); // Erhöht von 0.5 für breitere Beschreibung
             addText('Zauber', margin + 2, y + 5, { fontStyle: 'bold' });
             
-            addRect(margin + contentWidth * 0.5, y, contentWidth * 0.15, 7, [220, 220, 240]);
-            addText('MP', margin + contentWidth * 0.5 + 2, y + 5, { fontStyle: 'bold' });
+            addRect(margin + contentWidth * 0.65, y, contentWidth * 0.1, 7, [220, 220, 240]); // Reduziert von 0.15
+            addText('MP', margin + contentWidth * 0.65 + 2, y + 5, { fontStyle: 'bold' });
             
-            addRect(margin + contentWidth * 0.65, y, contentWidth * 0.2, 7, [220, 220, 240]);
-            addText('Schule', margin + contentWidth * 0.65 + 2, y + 5, { fontStyle: 'bold' });
+            addRect(margin + contentWidth * 0.75, y, contentWidth * 0.15, 7, [220, 220, 240]); // Reduziert von 0.2
+            addText('Schule', margin + contentWidth * 0.75 + 2, y + 5, { fontStyle: 'bold' });
             
-            addRect(margin + contentWidth * 0.85, y, contentWidth * 0.15, 7, [220, 220, 240]);
-            addText('Level', margin + contentWidth * 0.85 + 2, y + 5, { fontStyle: 'bold' });
+            addRect(margin + contentWidth * 0.9, y, contentWidth * 0.1, 7, [220, 220, 240]); // Reduziert von 0.15
+            addText('Level', margin + contentWidth * 0.9 + 2, y + 5, { fontStyle: 'bold' });
             
             y += 8;
             
             // Zauber auflisten
             spells.forEach((spell, index) => {
+                // Größere Zeile für die Zauber (mehr Platz für die Beschreibung)
+                const rowHeight = 30; // Erhöht von 15 auf 30
+                
                 // Prüfe auf Seitenumbruch
-                if (checkPageBreak(30)) {
+                if (checkPageBreak(rowHeight + 5)) {
                     // Wenn Seitenumbruch, Header auf neuer Seite wiederholen
                     addRect(margin, y, contentWidth, 8, [200, 200, 240]);
                     addText('ZAUBERBUCH (Fortsetzung)', margin + contentWidth/2, y + 5, { align: 'center', fontStyle: 'bold' });
                     y += 10;
                     
                     // Zauberheader wiederholen
-                    addRect(margin, y, contentWidth * 0.5, 7, [220, 220, 240]);
+                    addRect(margin, y, contentWidth * 0.65, 7, [220, 220, 240]); // Angepasst für breitere Beschreibungen
                     addText('Zauber', margin + 2, y + 5, { fontStyle: 'bold' });
                     
-                    addRect(margin + contentWidth * 0.5, y, contentWidth * 0.15, 7, [220, 220, 240]);
-                    addText('MP', margin + contentWidth * 0.5 + 2, y + 5, { fontStyle: 'bold' });
+                    addRect(margin + contentWidth * 0.65, y, contentWidth * 0.1, 7, [220, 220, 240]);
+                    addText('MP', margin + contentWidth * 0.65 + 2, y + 5, { fontStyle: 'bold' });
                     
-                    addRect(margin + contentWidth * 0.65, y, contentWidth * 0.2, 7, [220, 220, 240]);
-                    addText('Schule', margin + contentWidth * 0.65 + 2, y + 5, { fontStyle: 'bold' });
+                    addRect(margin + contentWidth * 0.75, y, contentWidth * 0.15, 7, [220, 220, 240]);
+                    addText('Schule', margin + contentWidth * 0.75 + 2, y + 5, { fontStyle: 'bold' });
                     
-                    addRect(margin + contentWidth * 0.85, y, contentWidth * 0.15, 7, [220, 220, 240]);
-                    addText('Level', margin + contentWidth * 0.85 + 2, y + 5, { fontStyle: 'bold' });
+                    addRect(margin + contentWidth * 0.9, y, contentWidth * 0.1, 7, [220, 220, 240]);
+                    addText('Level', margin + contentWidth * 0.9 + 2, y + 5, { fontStyle: 'bold' });
                     
                     y += 8;
                 }
@@ -400,31 +416,32 @@ function exportToPDF() {
                 const rowColor = index % 2 === 0 ? [248, 248, 248] : [240, 240, 240];
                 
                 // Zauberdetails
-                const rowHeight = 15;
                 addRect(margin, y, contentWidth, rowHeight, rowColor);
                 
                 // Name und Beschreibung
                 addText(spell.name, margin + 2, y + 4, { fontStyle: 'bold' });
+                
+                // Mehr Platz für die Beschreibung und bis zu 4 Zeilen
                 const descriptionY = y + 10;
                 
-                // Beschreibung in maximal 2 Zeilen einpassen
-                const maxWidth = contentWidth * 0.48; // Etwas weniger als die Spaltenbreite
+                // Beschreibung in maximal 4 Zeilen einpassen - mit noch breiterer Darstellung
+                const maxWidth = contentWidth * 0.85; // Erhöht von 0.48 - fast die gesamte Breite für Beschreibungen
                 const description = doc.splitTextToSize(spell.description || '', maxWidth);
-                if (description.length > 0) {
-                    addText(description[0], margin + 4, descriptionY, { fontSize: 7 });
-                }
-                if (description.length > 1) {
-                    addText(description[1], margin + 4, descriptionY + 4, { fontSize: 7 });
+                for (let i = 0; i < Math.min(description.length, 4); i++) {
+                    addText(description[i], margin + 4, descriptionY + i * 4, { fontSize: 7 });
                 }
                 
-                // MP-Kosten
-                addText(spell.mp, margin + contentWidth * 0.5 + 2, y + 9);
+                // MP-Kosten - mit Farbunterscheidung
+                // Verwende die im collectSpells berechnete isMatchingSchool-Eigenschaft
+                const mpTextColor = spell.isMatchingSchool ? [46, 125, 50] : [0, 0, 0]; // Grün für übereinstimmende Schulen
+                
+                addText(spell.mp, margin + contentWidth * 0.65 + 2, y + 9, { textColor: mpTextColor });
                 
                 // Magieschule
-                addText(spell.school, margin + contentWidth * 0.65 + 2, y + 9);
+                addText(spell.school, margin + contentWidth * 0.75 + 2, y + 9);
                 
                 // Level
-                addText(spell.level, margin + contentWidth * 0.85 + 2, y + 9);
+                addText(spell.level, margin + contentWidth * 0.9 + 2, y + 9);
                 
                 y += rowHeight + 1;
             });
@@ -444,29 +461,32 @@ function exportToPDF() {
             y += 10;
             
             // Inventarheader
-            addRect(margin, y, contentWidth * 0.7, 7, [230, 210, 200]);
+            addRect(margin, y, contentWidth * 0.85, 7, [230, 210, 200]);
             addText('Gegenstand', margin + 2, y + 5, { fontStyle: 'bold' });
             
-            addRect(margin + contentWidth * 0.7, y, contentWidth * 0.3, 7, [230, 210, 200]);
-            addText('Anzahl', margin + contentWidth * 0.7 + 2, y + 5, { fontStyle: 'bold' });
+            addRect(margin + contentWidth * 0.85, y, contentWidth * 0.15, 7, [230, 210, 200]);
+            addText('Anzahl', margin + contentWidth * 0.85 + 2, y + 5, { fontStyle: 'bold' });
             
             y += 8;
             
             // Items auflisten
             items.forEach((item, index) => {
+                // Größere Zeile für die Items (mehr Platz für die Beschreibung)
+                const rowHeight = 30; // Erhöht von 15 auf 30
+                
                 // Prüfe auf Seitenumbruch
-                if (checkPageBreak(30)) {
+                if (checkPageBreak(rowHeight + 5)) {
                     // Wenn Seitenumbruch, Header auf neuer Seite wiederholen
                     addRect(margin, y, contentWidth, 8, [220, 200, 190]);
                     addText('INVENTAR (Fortsetzung)', margin + contentWidth/2, y + 5, { align: 'center', fontStyle: 'bold' });
                     y += 10;
                     
                     // Inventarheader wiederholen
-                    addRect(margin, y, contentWidth * 0.7, 7, [230, 210, 200]);
+                    addRect(margin, y, contentWidth * 0.85, 7, [230, 210, 200]);
                     addText('Gegenstand', margin + 2, y + 5, { fontStyle: 'bold' });
                     
-                    addRect(margin + contentWidth * 0.7, y, contentWidth * 0.3, 7, [230, 210, 200]);
-                    addText('Anzahl', margin + contentWidth * 0.7 + 2, y + 5, { fontStyle: 'bold' });
+                    addRect(margin + contentWidth * 0.85, y, contentWidth * 0.15, 7, [230, 210, 200]);
+                    addText('Anzahl', margin + contentWidth * 0.85 + 2, y + 5, { fontStyle: 'bold' });
                     
                     y += 8;
                 }
@@ -474,25 +494,23 @@ function exportToPDF() {
                 const rowColor = index % 2 === 0 ? [255, 252, 245] : [250, 247, 240];
                 
                 // Itemdetails
-                const rowHeight = 15;
                 addRect(margin, y, contentWidth, rowHeight, rowColor);
                 
                 // Name und Beschreibung
                 addText(item.name, margin + 2, y + 4, { fontStyle: 'bold' });
+                
+                // Mehr Platz für die Beschreibung und bis zu 4 Zeilen
                 const descriptionY = y + 10;
                 
-                // Beschreibung in maximal 2 Zeilen einpassen
-                const maxWidth = contentWidth * 0.68; // Etwas weniger als die Spaltenbreite
+                // Beschreibung in maximal 4 Zeilen einpassen - mit noch breiterer Darstellung für Items
+                const maxWidth = contentWidth * 0.85; // Erhöht von 0.8 für maximale Breite
                 const description = doc.splitTextToSize(item.description || '', maxWidth);
-                if (description.length > 0) {
-                    addText(description[0], margin + 4, descriptionY, { fontSize: 7 });
-                }
-                if (description.length > 1) {
-                    addText(description[1], margin + 4, descriptionY + 4, { fontSize: 7 });
+                for (let i = 0; i < Math.min(description.length, 4); i++) {
+                    addText(description[i], margin + 4, descriptionY + i * 4, { fontSize: 7 });
                 }
                 
-                // Anzahl
-                addText(item.quantity, margin + contentWidth * 0.7 + contentWidth * 0.15, y + 9, { align: 'center' });
+                // Anzahl - nach rechts verschoben wegen der breiteren Beschreibung
+                addText(item.quantity, margin + contentWidth * 0.9, y + 9, { align: 'center' });
                 
                 y += rowHeight + 1;
             });
