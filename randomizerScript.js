@@ -528,15 +528,15 @@ document.addEventListener('DOMContentLoaded', function() {
                                                     
                                                     // Erfolgsmeldung anzeigen
                                                     showNotification('Charakter erfolgreich zufällig erstellt!', true);
-                                                }, 10);
-                                            }, 10);
-                                        }, 10);
-                                    }, 10);
-                                }, 10);
-                            }, 10);
-                        }, 10);
-                    }, 10);
-                }, 10);
+                                                }, 50);
+                                            }, 50);
+                                        }, 50);
+                                    }, 50);
+                                }, 50);
+                            }, 50);
+                        }, 50);
+                    }, 50);
+                }, 50);
             } catch (error) {
                 console.error('Fehler bei der Zufallsgenerierung:', error);
                 
@@ -983,8 +983,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // VERBESSERTE LOGIK: Sicherstellen, dass alle Slots gefüllt werden
-        
         // 1. Mindestens die Hälfte der Slots (aufgerundet) mit Zaubern der bevorzugten Schulen füllen
         const minPreferredSlots = Math.ceil(totalAvailableSlots / 2);
         const preferredSlotsToFill = Math.min(minPreferredSlots, preferredSchoolSpells.length);
@@ -1001,64 +999,83 @@ document.addEventListener('DOMContentLoaded', function() {
             );
         }
         
-        // 4. Wenn immer noch nicht genug Zauber verfügbar sind, Zauber wiederverwenden
-        const totalSpellsNeeded = totalAvailableSlots;
-        const totalSpellsAvailable = preferredSchoolSpells.length + otherSpells.length;
-        const needDuplicates = totalSpellsNeeded > totalSpellsAvailable;
-        
         // Erstelle einen Pool mit allen verfügbaren Zaubern
         let spellPool = [];
         
         // Zuerst bevorzugte Zauber hinzufügen (so viele wie benötigt)
         const totalPreferredNeeded = preferredSlotsToFill + additionalPreferredSlots;
+        
         if (preferredSchoolSpells.length > 0) {
-            // Wenn Duplikate benötigt werden, fülle den Pool mehrfach
-            if (needDuplicates && totalPreferredNeeded > preferredSchoolSpells.length) {
-                // Füge alle bevorzugten Zauber so oft hinzu, wie nötig
+            // Bevorzugte Zauber mischen und hinzufügen
+            const shuffledPreferred = shuffle([...preferredSchoolSpells]);
+            // Alle verfügbaren hinzufügen bis zum benötigten Limit
+            for (let i = 0; i < Math.min(totalPreferredNeeded, shuffledPreferred.length); i++) {
+                spellPool.push(shuffledPreferred[i]);
+            }
+            
+            // Falls nicht genug eindeutige bevorzugte Zauber, dupliziere sie
+            if (totalPreferredNeeded > shuffledPreferred.length && shuffledPreferred.length > 0) {
+                let index = 0;
                 while (spellPool.length < totalPreferredNeeded) {
-                    spellPool = spellPool.concat([...preferredSchoolSpells]);
+                    spellPool.push(shuffledPreferred[index % shuffledPreferred.length]);
+                    index++;
                 }
-                // Auf die exakte Anzahl trimmen
-                spellPool = spellPool.slice(0, totalPreferredNeeded);
-            } else {
-                // Einfach zufällige bevorzugte Zauber ohne Duplikate wählen
-                spellPool = shuffle(preferredSchoolSpells).slice(0, totalPreferredNeeded);
             }
         }
         
-        // Dann andere Zauber hinzufügen, bis der Pool vollständig ist
+        // Dann andere Zauber hinzufügen (bis wir genug haben)
         const otherSlotsNeeded = totalAvailableSlots - spellPool.length;
-        if (otherSlotsNeeded > 0 && (otherSpells.length > 0 || needDuplicates)) {
-            if (needDuplicates && otherSlotsNeeded > otherSpells.length) {
-                // Füge alle anderen Zauber so oft hinzu, wie nötig
-                let otherSpellPool = [];
-                while (otherSpellPool.length < otherSlotsNeeded) {
-                    otherSpellPool = otherSpellPool.concat([...otherSpells]);
+        
+        if (otherSlotsNeeded > 0 && otherSpells.length > 0) {
+            // Andere Zauber mischen
+            const shuffledOther = shuffle([...otherSpells]);
+            
+            // Alle verfügbaren hinzufügen bis zum benötigten Limit
+            for (let i = 0; i < Math.min(otherSlotsNeeded, shuffledOther.length); i++) {
+                spellPool.push(shuffledOther[i]);
+            }
+            
+            // Falls nicht genug eindeutige andere Zauber, dupliziere sie
+            if (otherSlotsNeeded > shuffledOther.length && shuffledOther.length > 0) {
+                let index = 0;
+                while (spellPool.length < totalAvailableSlots) {
+                    spellPool.push(shuffledOther[index % shuffledOther.length]);
+                    index++;
                 }
-                // Auf die exakte Anzahl trimmen
-                otherSpellPool = otherSpellPool.slice(0, otherSlotsNeeded);
-                // Zum Haupt-Pool hinzufügen
-                spellPool = spellPool.concat(otherSpellPool);
-            } else {
-                // Einfach zufällige andere Zauber ohne Duplikate wählen
-                const selectedOtherSpells = shuffle(otherSpells).slice(0, otherSlotsNeeded);
-                spellPool = spellPool.concat(selectedOtherSpells);
             }
         }
         
-        // Wenn der Pool immer noch kleiner ist als benötigt, fülle ihn mit allen verfügbaren Zaubern auf
+        // Falls der Pool immer noch zu klein ist, alle verfügbaren Zauber wiederholt hinzufügen
         if (spellPool.length < totalAvailableSlots) {
-            // Alle Zauber für den absoluten Notfall
-            const allAvailableSpells = [...availableSpells];
-            while (spellPool.length < totalAvailableSlots) {
-                // Mische alle Zauber und füge sie hinzu, bis genug da sind
-                spellPool = spellPool.concat(shuffle(allAvailableSpells));
+            // Alle verfügbaren Zauber für den Notfall
+            const allAvailableSpellsCopy = [...availableSpells];
+            
+            // Wenn überhaupt keine Zauber verfügbar sind, abbrechen
+            if (allAvailableSpellsCopy.length === 0) {
+                console.warn('Keine Zauber verfügbar, die den Kriterien entsprechen');
+                return;
             }
-            // Auf die exakte Anzahl trimmen
-            spellPool = spellPool.slice(0, totalAvailableSlots);
+            
+            // Sonst wiederholt hinzufügen, bis genug da sind
+            let shuffledAll = shuffle(allAvailableSpellsCopy);
+            let index = 0;
+            
+            while (spellPool.length < totalAvailableSlots) {
+                // Wenn wir am Ende der Liste sind, neu mischen und von vorne beginnen
+                if (index >= shuffledAll.length) {
+                    shuffledAll = shuffle([...allAvailableSpellsCopy]);
+                    index = 0;
+                }
+                
+                spellPool.push(shuffledAll[index]);
+                index++;
+            }
         }
         
-        // Mische den finalen Pool nochmal
+        // Sicherstellen, dass wir genau die richtige Anzahl haben
+        spellPool = spellPool.slice(0, totalAvailableSlots);
+        
+        // Final den Pool nochmal mischen
         spellPool = shuffle(spellPool);
         
         // Setze die Zauber in die Slots
@@ -1069,7 +1086,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        console.log('Zufällige Zauber ausgewählt und alle Slots gefüllt');
+        console.log('Zufällige Zauber ausgewählt und alle Slots gefüllt:', spellPool.length);
     }
 
     /**
